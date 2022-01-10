@@ -9,8 +9,24 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("blockchain bois")
-            .padding()
+        List {
+            NavigationLink(
+                destination: RecipeListView(),
+                label: {
+                    Text("Vegan")
+                })
+            NavigationLink(
+                destination: RecipeListView(),
+                label: {
+                    Text("Vegetarian")
+                })
+            NavigationLink(
+                destination: RecipeListView(),
+                label: {
+                    Text("Gluten Free")
+                })
+        }
+        
     }
 }
 
