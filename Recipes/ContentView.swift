@@ -9,22 +9,24 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        List {
-            NavigationLink(
-                destination: RecipeListView(),
-                label: {
-                    Text("Vegan")
-                })
-            NavigationLink(
-                destination: RecipeListView(),
-                label: {
-                    Text("Vegetarian")
-                })
-            NavigationLink(
-                destination: RecipeListView(),
-                label: {
-                    Text("Gluten Free")
-                })
+        NavigationView {
+            List{
+                NavigationLink(
+                    destination: RecipeListView(recipeMode: Mode.vegan),
+                    label: {
+                        Text("Vegan")
+                    })
+                NavigationLink(
+                    destination: RecipeListView(recipeMode: Mode.vegetarian),
+                    label: {
+                        Text("Vegetarian")
+                    })
+                NavigationLink(
+                    destination: RecipeListView(recipeMode: Mode.glutenFree),
+                    label: {
+                        Text("Gluten Free")
+                    })
+            }
         }
         
     }
