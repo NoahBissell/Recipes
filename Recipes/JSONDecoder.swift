@@ -10,7 +10,7 @@ import Foundation
 class FetchData: ObservableObject {
     @Published var responses = Response()
     init(){
-        guard let url = URL(string:"https://newsapi.org/v2/everything?q=bitcoin&language=fr&apiKey=98731d197e294c8a8ba9ceebcb251401") else {return}
+        guard let url = URL(string:"https://api.spoonacular.com/recipes/complexSearch?apiKey=dc7b6320294946cc8ef2be70d8e98db3") else {return}
         
         URLSession.shared.dataTask(with: url) { (data, response, errors) in
             guard let data = data else {return}
@@ -32,24 +32,23 @@ class FetchData: ObservableObject {
 }
 
 struct Response: Codable{
-    var totalResults: Int = 0
-    var articles : [Article] = [Article]()
+    var results : [Result] = [Result]()
 }
 
-struct Article : Codable{
+struct Result : Codable{
     var title : String?
-    var url : URL?
-    var urlToImage : URL?
+    var id : Int?
+    var image : URL?
 }
-extension Article: Identifiable{
-    var id: String {return title!}
-}
+//extension Article: Identifiable{
+//    var id: String {return title!}
+//}
 
 
 class FetchRecipe: ObservableObject {
     @Published var recipes = Recipe()
     init(){
-        guard let url = URL(string:"https://newsapi.org/v2/everything?q=bitcoin&language=fr&apiKey=98731d197e294c8a8ba9ceebcb251401") else {return}
+        guard let url = URL(string:"https://api.spoonacular.com/recipes/716429/information?apiKey=b216ab7db3b144f6af3d732e19080f8a&includeNutrition=true") else {return}
         
         URLSession.shared.dataTask(with: url) { (data, recipe, errors) in
             guard let data = data else {return}
@@ -71,6 +70,16 @@ class FetchRecipe: ObservableObject {
 }
 
 struct Recipe: Codable{
-    var totalResults: Int = 0
+    var extendedIngredients: [Ingredient] = [Ingredient]()
+    var id: Int?
+    var title: String?
+    var readyInMinutes: Int?
+    var servings: Int?
+    var image: URL?
+    var summary: String?
+    var instructions: String?
+}
+struct Ingredient: Codable{
+    var name: String?
 }
 
