@@ -44,3 +44,33 @@ struct Article : Codable{
 extension Article: Identifiable{
     var id: String {return title!}
 }
+
+
+class FetchRecipe: ObservableObject {
+    @Published var recipes = Recipe()
+    init(){
+        guard let url = URL(string:"https://newsapi.org/v2/everything?q=bitcoin&language=fr&apiKey=98731d197e294c8a8ba9ceebcb251401") else {return}
+        
+        URLSession.shared.dataTask(with: url) { (data, recipe, errors) in
+            guard let data = data else {return}
+            
+            //guard let dataAsString = String(data: data, encoding: .utf8) else {return}
+           // print(dataAsString)
+            let decoder = JSONDecoder()
+            if let recipe = try? decoder.decode(Recipe.self, from: data) {
+                DispatchQueue.main.async {
+                    self.recipes = recipe
+                }
+            }
+            
+            
+            
+        }.resume()
+    }
+    
+}
+
+struct Recipe: Codable{
+    var totalResults: Int = 0
+}
+
