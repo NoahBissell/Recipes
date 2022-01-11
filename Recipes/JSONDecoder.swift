@@ -78,6 +78,7 @@ struct Recipe: Codable{
     var image: URL?
     var summary: String?
     var instructions: String?
+    var sourceUrl: URL?
 }
 struct Ingredient: Codable{
     var name: String?
