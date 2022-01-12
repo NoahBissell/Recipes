@@ -9,17 +9,17 @@ import SwiftUI
 import struct Kingfisher.KFImage
 
 struct RecipeDetail: View {
-    var recipe : Recipe
+    var recipe : Result
     var body: some View {
-        HStack{
+        VStack{
             KFImage(recipe.image)
-            Text(recipe.title)
+            Text(recipe.title ?? "Error loading this recipe")
         }
     }
 }
 
 struct RecipeDetail_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeDetail(recipe: Recipe())
+        RecipeDetail(recipe: Result(id: 123))
     }
 }

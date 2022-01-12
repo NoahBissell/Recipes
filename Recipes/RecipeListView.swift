@@ -10,18 +10,18 @@ import SwiftUI
 struct RecipeListView: View {
     // list of recipes, have a variable that determines whether you're requesting vegan, gluten free, etc.
     var recipeMode : Mode
-    var fetchRecipes = FetchData()
+    @StateObject var fetchRecipes = FetchData()
     
     var body: some View {
-        //List
-        if(recipeMode == Mode.vegan){
-            Text("vegan")
-        }
-        else if(recipeMode == Mode.vegetarian){
-            Text("vegetarian")
-        }
-        else{
-            Text("gluten free")
+        NavigationView{
+            List(fetchRecipes.responses.results){ result in
+                NavigationLink(
+                    destination:
+                        IndividualRecipeView(recipe: result),
+                    label: {
+                        RecipeDetail(recipe: result)
+                    })
+            }
         }
     }
 }

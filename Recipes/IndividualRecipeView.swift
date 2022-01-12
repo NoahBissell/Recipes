@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct IndividualRecipeView: View {
-    var recipe : Recipe
+    var recipe : Result
     var body: some View {
-        Text(recipe.title)
+        Text("Placeholder")
     }
 }
 
 struct IndividualRecipeView_Previews: PreviewProvider {
     static var previews: some View {
-        IndividualRecipeView(recipe: Recipe())
+        IndividualRecipeView(recipe: Result(id: 123))
     }
 }
