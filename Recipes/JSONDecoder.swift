@@ -35,11 +35,13 @@ struct Response: Codable{
     var results : [Result] = [Result]()
 }
 
-struct Result : Codable{
+struct Result : Codable, Identifiable{
     var title : String?
-    var id : Int?
     var image : URL?
+    var id: Int
 }
+
+
 //extension Article: Identifiable{
 //    var id: String {return title!}
 //}
@@ -50,7 +52,7 @@ class FetchRecipe: ObservableObject {
     init(){
         guard let url = URL(string:"https://api.spoonacular.com/recipes/716429/information?apiKey=b216ab7db3b144f6af3d732e19080f8a&includeNutrition=true") else {return}
         
-        URLSession.shared.dataTask(with: url) { (data, recipe, errors) in
+        URLSession.shared.dataTask(with: url) { (data, response, errors) in
             guard let data = data else {return}
             
             //guard let dataAsString = String(data: data, encoding: .utf8) else {return}
