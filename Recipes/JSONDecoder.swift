@@ -9,8 +9,12 @@ import Foundation
 
 class FetchData: ObservableObject {
     @Published var responses = Response()
-    init(diet : String = "vegan"){
-        guard let url = URL(string:"https://api.spoonacular.com/recipes/complexSearch?apiKey=dc7b6320294946cc8ef2be70d8e98db3&diet=\(diet)") else {return}
+    
+    init(){
+        
+    }
+    func fetchRecipes(diet : String = "vegan") -> Response{
+        guard let url = URL(string:"https://api.spoonacular.com/recipes/complexSearch?apiKey=dc7b6320294946cc8ef2be70d8e98db3&diet=\(diet)") else {return Response()}
         
         // https://api.spoonacular.com/recipes/complexSearch?apiKey=dc7b6320294946cc8ef2be70d8e98db3&diet=vegan
         
@@ -29,6 +33,7 @@ class FetchData: ObservableObject {
             
             
         }.resume()
+        return responses
     }
     
 }

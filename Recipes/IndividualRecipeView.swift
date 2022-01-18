@@ -9,6 +9,7 @@ import SwiftUI
 
 struct IndividualRecipeView: View {
     var recipe : Result
+    
     var body: some View {
         Text("Placeholder")
     }

@@ -13,17 +13,17 @@ struct ContentView: View {
         NavigationView {
             List{
                 NavigationLink(
-                    destination: RecipeListView(recipeMode: Mode.vegan),
+                    destination: RecipeListView(recipeMode: "vegan"),
                     label: {
                         Text("Vegan")
                     })
                 NavigationLink(
-                    destination: RecipeListView(recipeMode: Mode.vegetarian),
+                    destination: RecipeListView(recipeMode: "vegetarian"),
                     label: {
                         Text("Vegetarian")
                     })
                 NavigationLink(
-                    destination: RecipeListView(recipeMode: Mode.glutenFree),
+                    destination: RecipeListView(recipeMode: "glutenFree"),
                     label: {
                         Text("Gluten Free")
                     })
