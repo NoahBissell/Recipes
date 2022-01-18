@@ -10,7 +10,8 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack{
-            Text("Available Recipes")
+            Spacer(minLength: 75)
+            Text("Recipes")
         NavigationView {
             List{
                 NavigationLink(
