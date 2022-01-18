@@ -10,9 +10,9 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack{
+            Text("Recipes")
         NavigationView {
             List{
-                Text("")
                 NavigationLink(
                     destination: RecipeListView(recipeMode: Mode.vegan),
                     label: {
