@@ -12,6 +12,7 @@ struct ContentView: View {
         VStack{
         NavigationView {
             List{
+                Text("")
                 NavigationLink(
                     destination: RecipeListView(recipeMode: Mode.vegan),
                     label: {
