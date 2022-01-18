@@ -9,8 +9,8 @@ import Foundation
 
 class FetchData: ObservableObject {
     @Published var responses = Response()
-    init(){
-        guard let url = URL(string:"https://api.spoonacular.com/recipes/complexSearch?apiKey=dc7b6320294946cc8ef2be70d8e98db3") else {return}
+    init(diet : String = "vegan"){
+        guard let url = URL(string:"https://api.spoonacular.com/recipes/complexSearch?apiKey=dc7b6320294946cc8ef2be70d8e98db3&diet=\(diet)") else {return}
         
         // https://api.spoonacular.com/recipes/complexSearch?apiKey=dc7b6320294946cc8ef2be70d8e98db3&diet=vegan
         
