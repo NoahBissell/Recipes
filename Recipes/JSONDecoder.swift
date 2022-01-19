@@ -51,7 +51,7 @@ struct Result : Codable, Identifiable{
 
 //initially written on 1/10. Modified on 1/18 to allow initializer to be passed a value and to modify the URL to match that value
 class FetchRecipe: ObservableObject {
-    @Published var recipes = Recipe()
+    @Published var recipe = Recipe()
     init(name : Int = 716429){
         guard let url = URL(string:"https://api.spoonacular.com/recipes/\(name)/information?apiKey=be19bc5826a04fed982556734c3056b7&includeNutrition=true") else {return}
         
