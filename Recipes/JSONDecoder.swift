@@ -63,7 +63,7 @@ class FetchRecipe: ObservableObject {
             let decoder = JSONDecoder()
             if let recipe = try? decoder.decode(Recipe.self, from: data) {
                 DispatchQueue.main.async {
-                    self.recipes = recipe
+                    self.recipe = recipe
                 }
             }
             
