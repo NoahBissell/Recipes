@@ -15,7 +15,7 @@ class FetchData: ObservableObject {
     }
     func fetchRecipes(diet : String = "vegan") -> Response{
         guard let url = URL(string:"https://api.spoonacular.com/recipes/complexSearch?apiKey=b216ab7db3b144f6af3d732e19080f8a&diet=\(diet)&intolerances=\(diet)") else {return Response()}
-        
+            print("https://api.spoonacular.com/recipes/complexSearch?apiKey=b216ab7db3b144f6af3d732e19080f8a&diet=\(diet)&intolerances=\(diet)")
         // https://api.spoonacular.com/recipes/complexSearch?apiKey=dc7b6320294946cc8ef2be70d8e98db3&diet=vegan
         
         URLSession.shared.dataTask(with: url) { (data, response, errors) in
