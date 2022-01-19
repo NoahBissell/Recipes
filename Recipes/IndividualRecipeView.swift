@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct IndividualRecipeView: View {
-    var recipe : Result
+    var recipe : FetchRecipe
     
     var body: some View {
         Text("Placeholder")
@@ -17,6 +17,6 @@ struct IndividualRecipeView: View {
 
 struct IndividualRecipeView_Previews: PreviewProvider {
     static var previews: some View {
-        IndividualRecipeView(recipe: Result(id: 123))
+        IndividualRecipeView(recipe: FetchRecipe(name: 716426))
     }
 }
