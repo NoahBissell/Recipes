@@ -15,17 +15,17 @@ struct ContentView: View {
         NavigationView {
             List{
                 NavigationLink(
-                    destination: RecipeListView(recipeMode: "vegan"),
+                    destination: RecipeListView(fetchRecipes: FetchData(diet : "vegan")),
                     label: {
                         Text("Vegan")
                     })
                 NavigationLink(
-                    destination: RecipeListView(recipeMode: "vegetarian"),
+                    destination: RecipeListView(fetchRecipes: FetchData(diet : "vegetarian")),
                     label: {
                         Text("Vegetarian")
                     })
                 NavigationLink(
-                    destination: RecipeListView(recipeMode: "gluten"),
+                    destination: RecipeListView(fetchRecipes: FetchData(diet : "gluten")),
                     label: {
                         Text("Gluten Free")
                     })

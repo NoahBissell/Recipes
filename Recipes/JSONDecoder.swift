@@ -10,13 +10,11 @@ import Foundation
 class FetchData: ObservableObject {
     @Published var responses = Response()
     
-    init(){
-        
-    }
-    func fetchRecipes(diet : String = "vegan") -> Response{
-        guard let url = URL(string: (diet == "gluten" ? "https://api.spoonacular.com/recipes/complexSearch?apiKey=b216ab7db3b144f6af3d732e19080f8a&diet=\(diet)":"https://api.spoonacular.com/recipes/complexSearch?apiKey=b216ab7db3b144f6af3d732e19080f8a&intolerances=\(diet)")) else {return Response()}
+    init(diet : String = "vegan"){
+        guard let url = URL(string: (diet == "gluten" ? "https://api.spoonacular.com/recipes/complexSearch?apiKey=be19bc5826a04fed982556734c3056b7&intolerances=\(diet)":"https://api.spoonacular.com/recipes/complexSearch?apiKey=be19bc5826a04fed982556734c3056b7&diet=\(diet)")) else {return}
         // https://api.spoonacular.com/recipes/complexSearch?apiKey=dc7b6320294946cc8ef2be70d8e98db3&diet=vegan
-        
+        //be19bc5826a04fed982556734c3056b7
+        //b216ab7db3b144f6af3d732e19080f8a
         URLSession.shared.dataTask(with: url) { (data, response, errors) in
             guard let data = data else {return}
             
@@ -32,9 +30,8 @@ class FetchData: ObservableObject {
             
             
         }.resume()
-        return responses
     }
-    
+   
 }
 
 struct Response: Codable{
@@ -56,7 +53,7 @@ struct Result : Codable, Identifiable{
 class FetchRecipe: ObservableObject {
     @Published var recipes = Recipe()
     init(name : Int = 716429){
-        guard let url = URL(string:"https://api.spoonacular.com/recipes/\(name)/information?apiKey=b216ab7db3b144f6af3d732e19080f8a&includeNutrition=true") else {return}
+        guard let url = URL(string:"https://api.spoonacular.com/recipes/\(name)/information?apiKey=be19bc5826a04fed982556734c3056b7&includeNutrition=true") else {return}
         
         URLSession.shared.dataTask(with: url) { (data, response, errors) in
             guard let data = data else {return}

@@ -9,13 +9,12 @@ import SwiftUI
 
 struct RecipeListView: View {
     // list of recipes, have a variable that determines whether you're requesting vegan, gluten free, etc.
-    var recipeMode : String
-    
+
     @StateObject var fetchRecipes = FetchData()
     
     var body: some View {
         NavigationView{
-            List(fetchRecipes.fetchRecipes(diet: recipeMode).results){ result in
+            List(fetchRecipes.responses.results){ result in
                 NavigationLink(
                     destination:
                         IndividualRecipeView(recipe: result),
@@ -29,6 +28,6 @@ struct RecipeListView: View {
 
 struct RecipeListView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeListView(recipeMode: "vegan")
+        RecipeListView(fetchRecipes: FetchData(diet : "Vegan"))
     }
 }
