@@ -29,6 +29,16 @@ struct ContentView: View {
                     label: {
                         Text("Gluten Free")
                     })
+                NavigationLink(
+                    destination: RecipeListView(fetchRecipes: FetchData(diet : "paleo")),
+                    label: {
+                        Text("Paleo")
+                    })
+                NavigationLink(
+                    destination: RecipeListView(fetchRecipes: FetchData(diet : "pescetarian")),
+                    label: {
+                        Text("Pescetarian")
+                    })
             }
         }
         
