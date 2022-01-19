@@ -17,7 +17,7 @@ struct RecipeListView: View {
             List(fetchRecipes.responses.results){ result in
                 NavigationLink(
                     destination:
-                        IndividualRecipeView(recipe: FetchRecipe(name: 716426)),
+                        IndividualRecipeView(recipe: FetchRecipe(name: result.id)),
                     label: {
                         RecipeDetail(recipe: result)
                     })
