@@ -1,18 +1,17 @@
-//
 //  JSONDecoder.swift
 //  Recipes
-//
 //  Created by George Lauri (student LM) on 1/10/22.
-//
+//  No other contributors to this file
 
 import Foundation
 
 class FetchData: ObservableObject {
     @Published var responses = Response()
-    
+    //initially written on 1/10. Modified on 1/18 and 1/19 to allow initializer to be passed a value and so that the Url could be determined with a ternary operator
     init(diet : String = "vegan"){
         guard let url = URL(string: (diet == "gluten" ? "https://api.spoonacular.com/recipes/complexSearch?apiKey=be19bc5826a04fed982556734c3056b7&intolerances=\(diet)":"https://api.spoonacular.com/recipes/complexSearch?apiKey=be19bc5826a04fed982556734c3056b7&diet=\(diet)")) else {return}
-        // https://api.spoonacular.com/recipes/complexSearch?apiKey=dc7b6320294946cc8ef2be70d8e98db3&diet=vegan
+        //API keys for reference
+        //dc7b6320294946cc8ef2be70d8e98db3
         //be19bc5826a04fed982556734c3056b7
         //b216ab7db3b144f6af3d732e19080f8a
         URLSession.shared.dataTask(with: url) { (data, response, errors) in
@@ -33,11 +32,12 @@ class FetchData: ObservableObject {
     }
    
 }
-
+//Written on 1/10, 1/11, 1/12, not modified since
 struct Response: Codable{
     var results : [Result] = [Result]()
 }
-
+//Written on 1/10 and 1/11
+//Support for identifiable implemented on 1/12
 struct Result : Codable, Identifiable{
     var title : String?
     var image : URL?
@@ -49,7 +49,7 @@ struct Result : Codable, Identifiable{
 //    var id: String {return title!}
 //}
 
-
+//initially written on 1/10. Modified on 1/18 to allow initializer to be passed a value and to modify the URL to match that value
 class FetchRecipe: ObservableObject {
     @Published var recipes = Recipe()
     init(name : Int = 716429){
@@ -73,7 +73,7 @@ class FetchRecipe: ObservableObject {
     }
     
 }
-
+//Created on 1/11, modified on 1/12 and 1/13
 struct Recipe: Codable{
     var extendedIngredients: [Ingredient] = [Ingredient]()
     var id: Int?
@@ -89,6 +89,7 @@ struct Recipe: Codable{
     var glutenFree: Bool?
     
 }
+//Created on 1/11, not modified since
 struct Ingredient: Codable{
     var name: String?
 }
