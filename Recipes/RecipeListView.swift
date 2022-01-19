@@ -15,7 +15,7 @@ struct RecipeListView: View {
     
     var body: some View {
         NavigationView{
-            List(fetchRecipes.fetchRecipes().results){ result in
+            List(fetchRecipes.fetchRecipes(diet: recipeMode).results){ result in
                 NavigationLink(
                     destination:
                         IndividualRecipeView(recipe: result),

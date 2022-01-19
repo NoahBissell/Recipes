@@ -25,7 +25,7 @@ struct ContentView: View {
                         Text("Vegetarian")
                     })
                 NavigationLink(
-                    destination: RecipeListView(recipeMode: "glutenFree"),
+                    destination: RecipeListView(recipeMode: "glutenfree"),
                     label: {
                         Text("Gluten Free")
                     })
