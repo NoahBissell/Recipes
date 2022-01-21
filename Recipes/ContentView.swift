@@ -12,39 +12,39 @@ var pescetarian = FetchData(diet : "pescetarian")
 struct ImageOverlay: View{
     var body: some View{
         VStack{
-        ZStack{
-            NavigationView {
-                List{
-                    Spacer(minLength: 200)
-                    NavigationLink(
-                        destination: RecipeListView(fetchRecipes: vegan),
-                        label: {
-                            Text("Vegan")
-                        })
-                    NavigationLink(
-                        destination: RecipeListView(fetchRecipes: vegetarian),
-                        label: {
-                            Text("Vegetarian")
-                        })
-                    NavigationLink(
-                        destination: RecipeListView(fetchRecipes: gluten),
-                        label: {
-                            Text("Gluten Free")
-                        })
-                    NavigationLink(
-                        destination: RecipeListView(fetchRecipes: paleo),
-                        label: {
-                            Text("Paleo")
-                        })
-                    NavigationLink(
-                        destination: RecipeListView(fetchRecipes: pescetarian),
-                        label: {
-                            Text("Pescetarian")
-                        })
-                }
-            }//End of NavigationView
-        }.background(Color.black)
-        .opacity(0.5)
+            Spacer(minLength: 150)
+            ZStack{
+                NavigationView {
+                    List{
+                        NavigationLink(
+                            destination: RecipeListView(fetchRecipes: vegan),
+                            label: {
+                                Text("Vegan")
+                            })
+                        NavigationLink(
+                            destination: RecipeListView(fetchRecipes: vegetarian),
+                            label: {
+                                Text("Vegetarian")
+                            })
+                        NavigationLink(
+                            destination: RecipeListView(fetchRecipes: gluten),
+                            label: {
+                                Text("Gluten Free")
+                            })
+                        NavigationLink(
+                            destination: RecipeListView(fetchRecipes: paleo),
+                            label: {
+                                Text("Paleo")
+                            })
+                        NavigationLink(
+                            destination: RecipeListView(fetchRecipes: pescetarian),
+                            label: {
+                                Text("Pescetarian")
+                            })
+                    }
+                }//End of NavigationView
+            }.background(Color.black)
+            .opacity(0.5)
         }
     }
 }
