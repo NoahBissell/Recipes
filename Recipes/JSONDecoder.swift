@@ -9,7 +9,7 @@ class FetchData: ObservableObject {
     @Published var responses = Response()
     //initially written on 1/10. Modified on 1/18 and 1/19 to allow initializer to be passed a value and so that the Url could be determined with a ternary operator
     init(diet : String = "vegan"){
-        guard let url = URL(string: (diet == "gluten" ? "https://api.spoonacular.com/recipes/complexSearch?apiKey=b216ab7db3b144f6af3d732e19080f8a&intolerances=\(diet)":"https://api.spoonacular.com/recipes/complexSearch?apiKey=b216ab7db3b144f6af3d732e19080f8a&diet=\(diet)")) else {return}
+        guard let url = URL(string: (diet == "gluten" ? "https://api.spoonacular.com/recipes/complexSearch?apiKey=dc7b6320294946cc8ef2be70d8e98db3&intolerances=\(diet)":"https://api.spoonacular.com/recipes/complexSearch?apiKey=dc7b6320294946cc8ef2be70d8e98db3&diet=\(diet)")) else {return}
         //API keys for reference
         //dc7b6320294946cc8ef2be70d8e98db3
         //be19bc5826a04fed982556734c3056b7
