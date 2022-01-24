@@ -52,7 +52,7 @@ struct ImageOverlay: View{
                                 Text("Pescetarian")
                             })
                         Spacer(minLength: 100)
-                        Text("***********************************************")
+                        Text("**********************************************")
                     }
                 }.padding(0)
                 .background(Color.clear)//End of NavigationView
