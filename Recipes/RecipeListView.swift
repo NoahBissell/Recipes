@@ -20,6 +20,7 @@ struct RecipeListView: View {
                     IndividualRecipeView(recipe: FetchRecipe(name: result.id)),
                 label: {
                     RecipeDetail(recipe: result)
+                        .frame(minWidth: UIScreen.main.bounds.width*0.9, idealWidth: UIScreen.main.bounds.width*0.9, maxWidth: UIScreen.main.bounds.width*0.9, minHeight: 100, idealHeight: 300, maxHeight: 500, alignment:.center)
                 })
         }
         

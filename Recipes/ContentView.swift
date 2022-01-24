@@ -9,22 +9,21 @@ var vegetarian = FetchData(diet : "vegetarian")
 var gluten = FetchData(diet : "gluten")
 var paleo = FetchData(diet : "paleo")
 var pescetarian = FetchData(diet : "pescetarian")
+
 struct ImageOverlay: View{
     var body: some View{
         VStack{
-            Spacer(minLength: 80)
+            //Spacer(minLength: 80)
             ZStack{
                 Rectangle()
                     .fill(Color.white)
-                    .frame(width: 400, height: 100)
-                    .offset(x:0, y:-485)
-                    .opacity(0.65)
+                    //.frame(width: 400, height: 100)
+                    //.offset(x:0, y:-485)
+                    .opacity(0.75)
                 NavigationView {
                     List{
-                        Text("             Dietary Eatery")
+                        Text("Dietary Eatery")
                             .font(.title)
-                        Text("***********************************************")
-                        Spacer(minLength: 100)
                         NavigationLink(
                             destination: RecipeListView(fetchRecipes: vegan),
                             label: {
@@ -51,30 +50,31 @@ struct ImageOverlay: View{
                             label: {
                                 Text("Pescetarian")
                             })
-                        Spacer(minLength: 100)
-                        Text("**********************************************")
                     }
-                }.padding(0)
-                .background(Color.clear)//End of NavigationView
-                .opacity(0.65)
+                }//.padding()
+                .background(Color.clear)
+                .opacity(0.75)
+                //End of NavigationView
+                //.frame(width: UIScreen.main.bounds.width-16, alignment:   )
             }
-            
         }
     }
 }
 
+
+
 struct ContentView: View {
     var body: some View {
         VStack{
-            Spacer(minLength: 80)
+            //Spacer(minLength: 80)
             HStack(){
-                Spacer(minLength: 5)
+                //Spacer(minLength: 5)
                 Image("Homebackground")
                     .resizable()
-                    .frame(width: 400, height: 950)
+                    //.frame(width: 400, height: 950)
                     .overlay(ImageOverlay(), alignment: .bottomTrailing)
-                Spacer()
-                Divider()
+                //Spacer()
+                //Divider()
             }
         }
     }

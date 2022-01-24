@@ -13,6 +13,7 @@ struct RecipeDetail: View {
     var body: some View {
         VStack{
             KFImage(recipe.image)
+                .resizable()
             Text(recipe.title ?? "Error loading this recipe")
         }
     }
