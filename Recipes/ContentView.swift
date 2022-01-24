@@ -12,14 +12,19 @@ var pescetarian = FetchData(diet : "pescetarian")
 struct ImageOverlay: View{
     var body: some View{
         VStack{
-            Spacer(minLength: 105)
+            Spacer(minLength: 80)
             ZStack{
                 Rectangle()
                     .fill(Color.white)
                     .frame(width: 400, height: 100)
-                    .offset(x: 0, y: -367.5)
+                    .offset(x:0, y:-485)
+                    .opacity(0.65)
                 NavigationView {
                     List{
+                        Text("             Dietary Eatery")
+                            .font(.title)
+                        Text("***********************************************")
+                        Spacer(minLength: 100)
                         NavigationLink(
                             destination: RecipeListView(fetchRecipes: vegan),
                             label: {
@@ -46,24 +51,27 @@ struct ImageOverlay: View{
                             label: {
                                 Text("Pescetarian")
                             })
+                        Spacer(minLength: 100)
+                        Text("**********************************************")
                     }
-                }.padding(30)//End of NavigationView
+                }.padding(0)
+                .background(Color.clear)//End of NavigationView
+                .opacity(0.65)
             }
-            .background(Color.clear)
-            .opacity(0.60)
+            
         }
-        
     }
 }
 
 struct ContentView: View {
     var body: some View {
         VStack{
+            Spacer(minLength: 80)
             HStack(){
                 Spacer(minLength: 5)
                 Image("Homebackground")
                     .resizable()
-                    .frame(width: 400, height: 800)
+                    .frame(width: 400, height: 950)
                     .overlay(ImageOverlay(), alignment: .bottomTrailing)
                 Spacer()
                 Divider()
@@ -79,6 +87,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
-
-
