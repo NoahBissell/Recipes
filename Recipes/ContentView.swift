@@ -12,10 +12,18 @@ var pescetarian = FetchData(diet : "pescetarian")
 struct ImageOverlay: View{
     var body: some View{
         VStack{
-            Spacer(minLength: 50)
+            Spacer(minLength: 80)
             ZStack{
+                Rectangle()
+                    .fill(Color.white)
+                    .frame(width: 400, height: 100)
+                    .offset(x:0, y:-485)
+                    .opacity(0.65)
                 NavigationView {
                     List{
+                        Text("             Dietary Eatery")
+                            .font(.title)
+                        Text("***********************************************")
                         Spacer(minLength: 100)
                         NavigationLink(
                             destination: RecipeListView(fetchRecipes: vegan),
@@ -43,11 +51,14 @@ struct ImageOverlay: View{
                             label: {
                                 Text("Pescetarian")
                             })
+                        Spacer(minLength: 100)
+                        Text("**********************************************")
                     }
-                }.padding(20)//End of NavigationView
+                }.padding(0)
+                .background(Color.clear)//End of NavigationView
+                .opacity(0.65)
             }
-            .background(Color.clear)
-            .opacity(0.5)
+            
         }
     }
 }
