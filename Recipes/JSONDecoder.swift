@@ -55,7 +55,7 @@ struct Result : Codable, Identifiable{
 class FetchRecipe: ObservableObject {
     @Published var recipe = Recipe()
     init(name : Int = 716429){
-        guard let url = URL(string:"https://api.spoonacular.com/recipes/\(name)/information?apiKey=b216ab7db3b144f6af3d732e19080f8a&includeNutrition=true") else {return}
+        guard let url = URL(string:"https://api.spoonacular.com/recipes/\(name)/information?apiKey=dc7b6320294946cc8ef2be70d8e98db3&includeNutrition=true") else {return}
         
         URLSession.shared.dataTask(with: url) { (data, response, errors) in
             guard let data = data else {return}

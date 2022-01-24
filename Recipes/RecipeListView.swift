@@ -9,20 +9,20 @@ import SwiftUI
 
 struct RecipeListView: View {
     // list of recipes, have a variable that determines whether you're requesting vegan, gluten free, etc.
-
+    
     @StateObject var fetchRecipes : FetchData
     
     var body: some View {
-        NavigationView{
-            List(fetchRecipes.responses.results){ result in
-                NavigationLink(
-                    destination:
-                        IndividualRecipeView(recipe: FetchRecipe(name: result.id)),
-                    label: {
-                        RecipeDetail(recipe: result)
-                    })
-            }
+        
+        List(fetchRecipes.responses.results){ result in
+            NavigationLink(
+                destination:
+                    IndividualRecipeView(recipe: FetchRecipe(name: result.id)),
+                label: {
+                    RecipeDetail(recipe: result)
+                })
         }
+        
     }
 }
 
