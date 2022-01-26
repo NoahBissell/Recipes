@@ -13,13 +13,7 @@ var pescetarian = FetchData(diet : "pescetarian")
 struct ImageOverlay: View{
     var body: some View{
         VStack{
-            //Spacer(minLength: 80)
             ZStack{
-                Rectangle()
-                    .fill(Color.white)
-                    //.frame(width: 400, height: 100)
-                    //.offset(x:0, y:-485)
-                    .opacity(0.75)
                 NavigationView {
                     List{
                         Text("Dietary Eatery")
@@ -51,11 +45,10 @@ struct ImageOverlay: View{
                                 Text("Pescetarian")
                             })
                     }
-                }//.padding()
+                }
                 .background(Color.clear)
-                .opacity(0.75)
+                .opacity(0.85)
                 //End of NavigationView
-                //.frame(width: UIScreen.main.bounds.width-16, alignment:   )
             }
         }
     }
@@ -66,15 +59,11 @@ struct ImageOverlay: View{
 struct ContentView: View {
     var body: some View {
         VStack{
-            //Spacer(minLength: 80)
             HStack(){
-                //Spacer(minLength: 5)
                 Image("Homebackground")
                     .resizable()
                     //.frame(width: 400, height: 950)
                     .overlay(ImageOverlay(), alignment: .bottomTrailing)
-                //Spacer()
-                //Divider()
             }
         }
     }
