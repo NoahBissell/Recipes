@@ -55,7 +55,7 @@ struct Result : Codable, Identifiable{
 
 //initially written on 1/10. Modified on 1/18 to allow initializer to be passed a value and to modify the URL to match that value
 class FetchRecipe: ObservableObject {
-    @Published var recipe = Recipe()
+	@Published var recipe = Recipe()
     init(name : Int = 716429){
         guard let url = URL(string:"https://api.spoonacular.com/recipes/\(name)/information?apiKey=be19bc5826a04fed982556734c3056b7&includeNutrition=true") else {return}
         
@@ -70,15 +70,28 @@ class FetchRecipe: ObservableObject {
                     self.recipe = recipe
                 }
             }
-
-
-            
-            
-            
         }.resume()
     }
-    
 }
+
+struct Nutrient: Codable{
+	var name: String?
+	var title: String?
+	var amount: Double?
+	var unit: String?
+	var percentofdailyneeds: Double?
+}
+
+struct Nutrition: Codable{
+	//var id: Int?
+	var nutrients: [Nutrient] = [Nutrient]()
+	struct wps: Codable{
+		var amount: Int?
+		var unit: String?
+	}
+	var weightPerServing: wps?
+}
+
 //Created on 1/11, modified on 1/12 and 1/13
 struct Recipe: Codable{
     var extendedIngredients: [Ingredient] = [Ingredient]()
@@ -93,10 +106,12 @@ struct Recipe: Codable{
     var vegetarian: Bool?
     var vegan: Bool?
     var glutenFree: Bool?
-    
+	var nutrition: Nutrition?
 }
 //Created on 1/11, not modified since
 struct Ingredient: Codable{
     var name: String?
+	//var amount: Double?
+	//var unit: String?
 }
 
