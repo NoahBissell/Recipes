@@ -19,7 +19,7 @@ struct RecipeListView: View {
             //navigates to IndividualRecipeView
             NavigationLink(
                 destination:
-                    IndividualRecipeView(recipe: FetchRecipe(name: result.id)),
+                    RecipeSummaryView(recipe: FetchRecipe(name: result.id)),
                 label: {
                     //Diplays the Recipe detail needed to navigate to Individual Recipe view, provides a label to choose a recipe to view in detail
                     RecipeDetail(recipe: result)

@@ -8,13 +8,22 @@
 import SwiftUI
 
 struct RecipeSummaryView: View {
+	var recipe : FetchRecipe
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+		VStack{
+			recipe.recipe.nutrition?.ElementAsText("Calories")
+			if let calories = recipe.recipe.nutrition?.nutrients.first(where: {$0.name == "Calories"}){
+				Text("Calories: \(String(calories.amount ?? 0)) \(calories.unit ?? "")")
+			}
+			else{
+				Text("Calories: unknown")
+			}
+		}
     }
 }
 
 struct RecipeSummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeSummaryView()
+        RecipeSummaryView(recipe: FetchRecipe(name: 716426))
     }
 }

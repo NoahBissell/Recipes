@@ -6,6 +6,7 @@
 //  No other contributors to this file
 //  decodes JSON such that it can be fed into views
 import Foundation
+import SwiftUI
 
 class FetchData: ObservableObject {
     @Published var responses = Response()
@@ -90,6 +91,17 @@ struct Nutrition: Codable{
 		var unit: String?
 	}
 	var weightPerServing: wps?
+	func ElementAsText(_ name: String) -> Text {
+		if let element = nutrients.first(where: {$0.name == name}){
+			guard let amnt = element.amount else{
+				return Text("\(name): unknown")
+			}
+			return Text("\(name): \(amnt) \(element.unit ?? "")")
+		}
+		else{
+			return Text("\(name): unknown")
+		}
+	}
 }
 
 //Created on 1/11, modified on 1/12 and 1/13
