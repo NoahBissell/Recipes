@@ -22,6 +22,7 @@
 		6F37A239278CA124008E3F95 /* RecipeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F37A238278CA124008E3F95 /* RecipeListView.swift */; };
 		C3B6C2F227C6B29E00E5481E /* RecipeSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B6C2F127C6B29E00E5481E /* RecipeSummaryView.swift */; };
 		C3B6C2F427CE981900E5481E /* NutritionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B6C2F327CE981900E5481E /* NutritionView.swift */; };
+		C3B6C2F627CE9D7D00E5481E /* Kitchen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B6C2F527CE9D7D00E5481E /* Kitchen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		8D7D12C2C08D7336AC1938F7 /* Pods-Recipes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipes.debug.xcconfig"; path = "Target Support Files/Pods-Recipes/Pods-Recipes.debug.xcconfig"; sourceTree = "<group>"; };
 		C3B6C2F127C6B29E00E5481E /* RecipeSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeSummaryView.swift; sourceTree = "<group>"; };
 		C3B6C2F327CE981900E5481E /* NutritionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionView.swift; sourceTree = "<group>"; };
+		C3B6C2F527CE9D7D00E5481E /* Kitchen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kitchen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,7 @@
 				61AAE6CC278CA3BB006792C1 /* JSONDecoder.swift */,
 				6F125E3227CE9CCB00F223B6 /* Api.swift */,
 				129706EA278DFD2400CA579C /* Mode.swift */,
+				C3B6C2F527CE9D7D00E5481E /* Kitchen.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F125E3327CE9CCB00F223B6 /* Api.swift in Sources */,
+				C3B6C2F627CE9D7D00E5481E /* Kitchen.swift in Sources */,
 				61AAE6CD278CA3BB006792C1 /* JSONDecoder.swift in Sources */,
 				129706F5278F63F400CA579C /* RecipeDetail.swift in Sources */,
 				129706F3278F63E800CA579C /* IndividualRecipeView.swift in Sources */,

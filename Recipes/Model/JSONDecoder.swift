@@ -8,6 +8,31 @@
 import Foundation
 import SwiftUI
 
+//extension Article: Identifiable{
+//    var id: String {return title!}
+//}
+
+//initially written on 1/10. Modified on 1/18 to allow initializer to be passed a value and to modify the URL to match that value
+class FetchRecipe: ObservableObject {
+	@Published var recipe = Recipe()
+	init(name : Int = 716429){
+		guard let url = URL(string:"https://api.spoonacular.com/recipes/\(name)/information?apiKey=be19bc5826a04fed982556734c3056b7&includeNutrition=true") else {return}
+		
+		URLSession.shared.dataTask(with: url) { (data, response, errors) in
+			guard let data = data else {return}
+			
+			//guard let dataAsString = String(data: data, encoding: .utf8) else {return}
+		   // print(dataAsString)
+			let decoder = JSONDecoder()
+			if let recipe = try? decoder.decode(Recipe.self, from: data) {
+				DispatchQueue.main.async {
+					self.recipe = recipe
+				}
+			}
+		}.resume()
+	}
+}
+
 class FetchData: ObservableObject {
     @Published var responses = Response()
     //initially written on 1/10. Modified on 1/18 and 1/19 to allow initializer to be passed a value and so that the Url could be determined with a ternary operator
@@ -46,83 +71,3 @@ struct Result : Codable, Identifiable{
     var image : URL?
     var id: Int
 }
-
-
-//extension Article: Identifiable{
-//    var id: String {return title!}
-//}
-
-//initially written on 1/10. Modified on 1/18 to allow initializer to be passed a value and to modify the URL to match that value
-class FetchRecipe: ObservableObject {
-	@Published var recipe = Recipe()
-    init(name : Int = 716429){
-        guard let url = URL(string:"https://api.spoonacular.com/recipes/\(name)/information?apiKey=be19bc5826a04fed982556734c3056b7&includeNutrition=true") else {return}
-        
-        URLSession.shared.dataTask(with: url) { (data, response, errors) in
-            guard let data = data else {return}
-            
-            //guard let dataAsString = String(data: data, encoding: .utf8) else {return}
-           // print(dataAsString)
-            let decoder = JSONDecoder()
-            if let recipe = try? decoder.decode(Recipe.self, from: data) {
-                DispatchQueue.main.async {
-                    self.recipe = recipe
-                }
-            }
-        }.resume()
-    }
-}
-
-struct Nutrient: Codable{
-	var name: String?
-	var title: String?
-	var amount: Double?
-	var unit: String?
-	var percentofdailyneeds: Double?
-}
-
-struct Nutrition: Codable{
-	//var id: Int?
-	var nutrients: [Nutrient] = [Nutrient]()
-	struct wps: Codable{
-		var amount: Int?
-		var unit: String?
-	}
-	var weightPerServing: wps?
-	func ElementAsText(_ name: String) -> Text {
-		if let element = nutrients.first(where: {$0.name == name}){
-			guard let amnt = element.amount else{
-				return Text("\(name): unknown")
-			}
-			return Text("\(name): \(Int(amnt)) \(element.unit ?? "")")
-		}
-		else{
-			return Text("\(name): unknown")
-		}
-	}
-}
-
-//Created on 1/11, modified on 1/12 and 1/13
-struct Recipe: Codable{
-    var extendedIngredients: [Ingredient] = [Ingredient]()
-    var id: Int?
-    var title: String?
-    var readyInMinutes: Int?
-    var servings: Int?
-    var image: URL?
-    var summary: String?
-    var instructions: String?
-    var sourceUrl: URL?
-    var vegetarian: Bool?
-    var vegan: Bool?
-    var glutenFree: Bool?
-	var nutrition: Nutrition?
-}
-
-//Created on 1/11, not modified since
-struct Ingredient: Codable{
-    var name: String?
-	//var amount: Double?
-	//var unit: String?
-}
-

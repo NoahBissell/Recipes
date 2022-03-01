@@ -5,6 +5,7 @@
 //  Created by Noah Bissell on 1/9/22.
 //
 import Foundation
+import SwiftUI
 
 class Api : ObservableObject {
     
@@ -249,7 +250,6 @@ struct StringObject : Codable {
     var title : String
 }
 
-
 // RECIPE STUFF
 struct RecipeResult : Codable, Identifiable {
     var title : String?
@@ -262,15 +262,51 @@ struct RecipeResponse : Codable {
 struct RandomRecipeResponse : Codable {
     var recipes : [RecipeResult] = [RecipeResult]()
 }
-struct Recipe : Codable, Identifiable {
-    var title : String?
-    var id : Int = 0
-    var image : URL?
-    var summary : String?
-    var readyInMinutes : Int?
-    var instructions : String?
-    var extendedIngredients : [ExtendedIngredient] = [ExtendedIngredient]()
+
+struct Nutrient: Codable{
+	var name: String?
+	var title: String?
+	var amount: Double?
+	var unit: String?
+	var percentofdailyneeds: Double?
 }
+
+struct Nutrition: Codable{
+	//var id: Int?
+	var nutrients: [Nutrient] = [Nutrient]()
+	struct wps: Codable{
+		var amount: Int?
+		var unit: String?
+	}
+	var weightPerServing: wps?
+	func ElementAsText(_ name: String) -> Text{
+		if let element = nutrients.first(where: {$0.name == name}){
+			guard let amnt = element.amount else{
+				return Text("\(name): unknown")
+			}
+			return Text("\(name): \(Int(amnt)) \(element.unit ?? "")")
+		}
+		else{
+			return Text("\(name): unknown")
+		}
+	}
+}
+struct Recipe: Codable{
+	var extendedIngredients : [ExtendedIngredient] = [ExtendedIngredient]()
+	var id: Int?
+	var title: String?
+	var readyInMinutes: Int?
+	var servings: Int?
+	var image: URL?
+	var summary: String?
+	var instructions: String?
+	var sourceUrl: URL?
+	var vegetarian: Bool?
+	var vegan: Bool?
+	var glutenFree: Bool?
+	var nutrition: Nutrition?
+}
+
 // for loading ingredients in a recipe
 struct ExtendedIngredient : Codable, Identifiable {
     var id : Int = 0
@@ -278,8 +314,6 @@ struct ExtendedIngredient : Codable, Identifiable {
     var image : String?
     var amount : Float = 1
     var unit : String = ""
-   
-    
     // accessor for name to make sure it's capitalized
     func getName() -> String {
         return name.capitalized
@@ -291,9 +325,7 @@ struct ExtendedIngredient : Codable, Identifiable {
         }
         return URL(string: url)
     }
-    
 }
-
 
 // PRODUCT STUFF
 struct ProductResult : Codable, Identifiable {
@@ -380,56 +412,6 @@ struct IngredientConversion : Codable {
     var targetUnit : String
 }
 
-
-class Kitchen : ObservableObject {
-    
-    @Published var products : [Product]
-    @Published var ingredients : [Ingredient]
-    @Published var recipes : [Recipe]
-    
-    init(products : [Product] = [Product](), recipes : [Recipe] = [Recipe](), ingredients : [Ingredient] = [Ingredient]()){
-        self.products = products
-        self.recipes = recipes
-        self.ingredients = ingredients
-    }
-    
-    // Use this function when initializing a new product in order to make sure storedQuantity is always 1
-    func createProduct(product : Product) -> Product {
-        var returnProduct = product
-        returnProduct.storedQuantity = 1
-        return returnProduct
-    }
-    func addProduct(product : Product){
-        products.append(product)
-    }
-    func removeProduct(at offsets: IndexSet){
-        products.remove(atOffsets: offsets)
-    }
-    
-    func addIngredient(ingredient : Ingredient){
-        ingredients.append(ingredient)
-    }
-    func removeIngredient(at offsets: IndexSet){
-        ingredients.remove(atOffsets: offsets)
-    }
-    
-    func addRecipe(recipe : Recipe){
-        recipes.append(recipe)
-    }
-    func removeRecipe(at offsets: IndexSet){
-        recipes.remove(atOffsets: offsets)
-    }
-        
-    //    func addProducts(product: Product, quantity : Int){
-    //        if let num = products[product]{
-    //            products.updateValue(num + 1, forKey: product)
-    //        }
-    //        else{
-    //            products[product] = 0
-    //        }
-    //    }
-}
-
 extension String {
     func titleCase() -> String {
         return self
@@ -456,10 +438,3 @@ extension String {
     }
     
 }
-
-//extension String: Identifiable {
-//    public typealias ID = Int
-//    public var id: Int {
-//        return hash
-//    }
-//}
