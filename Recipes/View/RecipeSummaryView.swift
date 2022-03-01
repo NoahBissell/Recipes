@@ -12,12 +12,7 @@ struct RecipeSummaryView: View {
     var body: some View {
 		VStack{
 			recipe.recipe.nutrition?.ElementAsText("Calories")
-			if let calories = recipe.recipe.nutrition?.nutrients.first(where: {$0.name == "Calories"}){
-				Text("Calories: \(String(calories.amount ?? 0)) \(calories.unit ?? "")")
-			}
-			else{
-				Text("Calories: unknown")
-			}
+			recipe.recipe.nutrition?.ElementAsText("Sodium")
 		}
     }
 }

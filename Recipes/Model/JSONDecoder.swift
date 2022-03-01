@@ -31,8 +31,6 @@ class FetchData: ObservableObject {
                 }
             }
             
-            
-            
         }.resume()
     }
    
@@ -96,7 +94,7 @@ struct Nutrition: Codable{
 			guard let amnt = element.amount else{
 				return Text("\(name): unknown")
 			}
-			return Text("\(name): \(amnt) \(element.unit ?? "")")
+			return Text("\(name): \(Int(amnt)) \(element.unit ?? "")")
 		}
 		else{
 			return Text("\(name): unknown")
@@ -120,6 +118,7 @@ struct Recipe: Codable{
     var glutenFree: Bool?
 	var nutrition: Nutrition?
 }
+
 //Created on 1/11, not modified since
 struct Ingredient: Codable{
     var name: String?
