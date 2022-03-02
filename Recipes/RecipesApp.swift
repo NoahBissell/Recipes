@@ -7,9 +7,10 @@ import SwiftUI
 
 @main
 struct RecipesApp: App {
+    @StateObject var kitchen = Kitchen()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environmentObject(kitchen)
         }
     }
 }

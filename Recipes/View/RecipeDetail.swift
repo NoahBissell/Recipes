@@ -11,7 +11,7 @@ import struct Kingfisher.KFImage
 
 struct RecipeDetail: View {
     //takes input of Result from which it draws the image and title seen later
-    var recipe : Result
+    var recipe : DataResult
     var body: some View {
         VStack{
             //displays image and makes it resizeable
@@ -26,6 +26,6 @@ struct RecipeDetail: View {
 struct RecipeDetail_Previews: PreviewProvider {
     static var previews: some View {
         //displays preview
-        RecipeDetail(recipe: Result(id: 123))
+        RecipeDetail(recipe: DataResult(id: 123))
     }
 }

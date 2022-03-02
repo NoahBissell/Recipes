@@ -62,11 +62,11 @@ class FetchData: ObservableObject {
 }
 //Written on 1/10, 1/11, 1/12, not modified since
 struct Response: Codable{
-    var results : [Result] = [Result]()
+    var results : [DataResult] = [DataResult]()
 }
 //Written on 1/10 and 1/11
 //Support for identifiable implemented on 1/12
-struct Result : Codable, Identifiable{
+struct DataResult : Codable, Identifiable{
     var title : String?
     var image : URL?
     var id: Int
