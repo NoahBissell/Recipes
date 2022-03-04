@@ -1,8 +1,8 @@
 //
 //  LoginView.swift
-//  SoftwareDevelopmentProject
+//  Recipes
 //
-//  Created by Noah Bissell (student LM) on 2/28/22.
+//  Created by Noah Bissell (student LM) on 3/2/22.
 //
 
 import SwiftUI

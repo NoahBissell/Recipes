@@ -44,7 +44,7 @@ struct AddRecipeView: View {
                 }
             }
             .onAppear {
-                FetchData().getRecipeFromId(id: recipeResult.id) { recipe in
+                Api().getRecipeFromId(id: recipeResult.id) { recipe in
                     self.recipe = recipe
                     
                     isSaved = kitchen.recipes.contains(where: { recipe in

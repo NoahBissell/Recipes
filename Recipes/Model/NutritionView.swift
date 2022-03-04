@@ -12,14 +12,15 @@ struct NutritionView: View {
 	var nutlist : [Nutrient]
 	var VitaminList: [String] = [""]
     var body: some View {
-		List(nutlist){
-			recipe.recipe.nutrition?.ElementAsText($0)
-		}
+//		List(nutlist){
+//			recipe.recipe.nutrition?.ElementAsText($0)
+//		}
+        Text("placeholder")
     }
 }
 
 struct NutritionView_Previews: PreviewProvider {
     static var previews: some View {
-		NutritionView(recipe: FetchRecipe(name: 716426)
+        NutritionView(recipe: FetchRecipe(name: 716426), nutlist: [Nutrient]())
     }
 }

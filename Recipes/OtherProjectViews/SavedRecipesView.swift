@@ -23,20 +23,22 @@ struct SavedRecipesView: View {
     
     var body: some View {
         ScrollView {
-        VStack {
-            ForEach(kitchen.recipes){ recipe in
-                NavigationLink (destination:
-                    RecipeView(recipe: recipe)
-                                , label: {
-                    CardView(image: "", kfImage: recipe.image, title: recipe.title!, description: "")
-//                    limitDescription(input: recipe.summary)
-                })
-
+            VStack {
+                ForEach(kitchen.recipes){ recipe in
+                    NavigationLink (destination:
+                                        RecipeView(recipe: recipe)
+                                        .id(UUID())
+                                    , label: {
+                                        CardView(image: "", kfImage: recipe.image, title: recipe.title!, description: "")
+                                        //                    limitDescription(input: recipe.summary)
+                                    })
+                        
+                }
             }
+            .navigationTitle("My Cookbook")
         }
-        .navigationTitle("My Cookbook")
     }
-    }
+    
 }
 
 struct SavedRecipesView_Previews: PreviewProvider {

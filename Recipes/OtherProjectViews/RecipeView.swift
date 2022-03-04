@@ -135,7 +135,7 @@ struct RecipeView: View {
                         isPresentingMakeRecipe = true
                     }
                     .sheet(isPresented: $isPresentingMakeRecipe){
-                        //makeRecipeSheet
+                        MakeRecipeSheet(canMakeRecipe: $canMakeRecipe, recipe: recipe)
                     }
 
                 }
@@ -150,34 +150,51 @@ struct RecipeView_Previews: PreviewProvider {
     }
 }
 
-//struct MakeRecipeSheet : View {
-//    @Binding var canMakeRecipe : Bool
-//
-//
-//    var body : some View {
-//        VStack{
-//            if (!canMakeRecipe){
-//                Text("It looks like you don't have enough ingredients logged in your kitchen to make this recipe.")
-//            }
-//            else if(canMakeRecipe){
-//                Text("You have enough ingredients to make this recipe.")
-//                Button("Subtract ingredients"){
-//                    for extendedIngredient in recipe.extendedIngredients {
-//                        if let index = kitchen.ingredients.firstIndex(where: { ingredient in
-//                            ingredient.id == extendedIngredient.id
-//                        }){
-//                            kitchen.ingredients[index].amount = kitchen.ingredients[index].amount - extendedIngredient.amount
-//                            if(kitchen.ingredients[index].amount < 0){
-//                                kitchen.ingredients.remove(at: index)
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//
-//        }
-//        .onAppear(){
-//            print(canMakeRecipe)
-//        }
-//    }
-//}
+struct MakeRecipeSheet : View {
+    @Binding var canMakeRecipe : Bool
+    @EnvironmentObject var kitchen : Kitchen
+    var recipe : Recipe
+    @State var isPresentingAlert : Bool = false
+    func cancel () -> (){}
+    func subtractIngredients() -> (){
+        for extendedIngredient in recipe.extendedIngredients {
+            if let index = kitchen.ingredients.firstIndex(where: { ingredient in
+                ingredient.id == extendedIngredient.id
+            }){
+                kitchen.ingredients[index].amount = kitchen.ingredients[index].amount - extendedIngredient.amount
+                if(kitchen.ingredients[index].amount < 0){
+                    kitchen.ingredients.remove(at: index)
+                }
+            }
+        }
+    }
+    
+    var body : some View {
+        VStack{
+            if (!canMakeRecipe){
+                Text("It looks like you don't have enough ingredients logged in your kitchen to make this recipe.")
+            }
+            else if(canMakeRecipe){
+                Text("You have enough ingredients to make this recipe.")
+                
+            }
+            Button("Subtract ingredients"){
+                if(!canMakeRecipe){
+                    isPresentingAlert = true
+                }
+                else{
+                    subtractIngredients()
+                }
+            }
+            .alert(isPresented: $isPresentingAlert){
+                Alert(title: Text("Are you sure you would like to make this recipe?") , message: Text("You don't have enough in ingredients in your kitchen to make it."),
+                      primaryButton: Alert.Button.default(
+                        Text("Yes"),
+                        action: subtractIngredients),
+                      secondaryButton: Alert.Button.destructive(
+                      Text("Cancel"),
+                        action: cancel))
+            }
+        }
+    }
+}

@@ -291,7 +291,7 @@ struct Nutrition: Codable{
 		}
 	}
 }
-struct Recipe: Codable{
+struct Recipe: Codable, Identifiable{
 	var extendedIngredients : [ExtendedIngredient] = [ExtendedIngredient]()
 	var id: Int?
 	var title: String?

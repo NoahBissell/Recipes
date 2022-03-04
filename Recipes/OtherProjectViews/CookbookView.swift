@@ -22,7 +22,7 @@ struct CookbookView: View {
                     })
                 }
             }
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
