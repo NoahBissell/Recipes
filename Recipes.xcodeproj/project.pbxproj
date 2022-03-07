@@ -43,7 +43,8 @@
 		6F125EB727CFFA3000F223B6 /* RichText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F125EB227CFFA3000F223B6 /* RichText.swift */; };
 		6F125EB927CFFE5A00F223B6 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F125EB827CFFE5A00F223B6 /* UserInfo.swift */; };
 		6F125EBB27CFFEB000F223B6 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F125EBA27CFFEB000F223B6 /* MainView.swift */; };
-		6F125EBD27D04E2200F223B6 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F125EBC27D04E2200F223B6 /* LoginView.swift */; };
+		6F125EBF27D2D8BC00F223B6 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F125EBE27D2D8BC00F223B6 /* LoginView.swift */; };
+		6F125EC127D2D90200F223B6 /* FirebaseFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F125EC027D2D90100F223B6 /* FirebaseFunctions.swift */; };
 		6F37A239278CA124008E3F95 /* RecipeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F37A238278CA124008E3F95 /* RecipeListView.swift */; };
 		C3B6C2F227C6B29E00E5481E /* RecipeSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B6C2F127C6B29E00E5481E /* RecipeSummaryView.swift */; };
 		C3B6C2F427CE981900E5481E /* NutritionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B6C2F327CE981900E5481E /* NutritionView.swift */; };
@@ -111,7 +112,8 @@
 		6F125EB227CFFA3000F223B6 /* RichText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RichText.swift; sourceTree = "<group>"; };
 		6F125EB827CFFE5A00F223B6 /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		6F125EBA27CFFEB000F223B6 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		6F125EBC27D04E2200F223B6 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginView.swift; path = ../View/LoginView.swift; sourceTree = "<group>"; };
+		6F125EBE27D2D8BC00F223B6 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		6F125EC027D2D90100F223B6 /* FirebaseFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseFunctions.swift; sourceTree = "<group>"; };
 		6F37A238278CA124008E3F95 /* RecipeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeListView.swift; sourceTree = "<group>"; };
 		8D7D12C2C08D7336AC1938F7 /* Pods-Recipes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipes.debug.xcconfig"; path = "Target Support Files/Pods-Recipes/Pods-Recipes.debug.xcconfig"; sourceTree = "<group>"; };
 		C3B6C2F127C6B29E00E5481E /* RecipeSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeSummaryView.swift; sourceTree = "<group>"; };
@@ -228,13 +230,13 @@
 				6F125E8927CFF9A700F223B6 /* CookRecipeView.swift */,
 				6F125E9327CFF9A900F223B6 /* IngredientView.swift */,
 				6F125E8827CFF9A700F223B6 /* KitchenView.swift */,
-				6F125EBC27D04E2200F223B6 /* LoginView.swift */,
 				6F125E8D27CFF9A800F223B6 /* ProductDetail.swift */,
 				6F125E8527CFF9A600F223B6 /* ProductView.swift */,
 				6F125E8B27CFF9A700F223B6 /* RecipeView.swift */,
 				6F125E8627CFF9A600F223B6 /* SavedRecipesView.swift */,
 				6F125E8E27CFF9A800F223B6 /* SettingsView.swift */,
 				6F125EBA27CFFEB000F223B6 /* MainView.swift */,
+				6F125EBE27D2D8BC00F223B6 /* LoginView.swift */,
 			);
 			path = OtherProjectViews;
 			sourceTree = "<group>";
@@ -300,6 +302,7 @@
 				129706EA278DFD2400CA579C /* Mode.swift */,
 				C3B6C2F527CE9D7D00E5481E /* Kitchen.swift */,
 				6F125EB827CFFE5A00F223B6 /* UserInfo.swift */,
+				6F125EC027D2D90100F223B6 /* FirebaseFunctions.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -490,7 +493,7 @@
 				6F125EA127CFF9A900F223B6 /* BrowseRecipesView.swift in Sources */,
 				6F125EB527CFFA3000F223B6 /* RichTextEnums.swift in Sources */,
 				6F125EAB27CFFA2600F223B6 /* ScannerViewController.swift in Sources */,
-				6F125EBD27D04E2200F223B6 /* LoginView.swift in Sources */,
+				6F125EBF27D2D8BC00F223B6 /* LoginView.swift in Sources */,
 				61AAE6CD278CA3BB006792C1 /* JSONDecoder.swift in Sources */,
 				6F125E9A27CFF9A900F223B6 /* CookbookView.swift in Sources */,
 				6F125E9727CFF9A900F223B6 /* AddIngredientView.swift in Sources */,
@@ -502,6 +505,7 @@
 				C3B6C2F227C6B29E00E5481E /* RecipeSummaryView.swift in Sources */,
 				6F125E9B27CFF9A900F223B6 /* RecipeView.swift in Sources */,
 				129706EB278DFD2400CA579C /* Mode.swift in Sources */,
+				6F125EC127D2D90200F223B6 /* FirebaseFunctions.swift in Sources */,
 				6F37A239278CA124008E3F95 /* RecipeListView.swift in Sources */,
 				C3B6C2F427CE981900E5481E /* NutritionView.swift in Sources */,
 				6F125EA327CFF9A900F223B6 /* IngredientView.swift in Sources */,

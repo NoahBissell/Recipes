@@ -68,23 +68,23 @@ struct ContentView: View {
     // Old project
     @EnvironmentObject var userInfo : UserInfo
     var body: some View {
-        VStack{
-            HStack(){
-                //displays background image and overlays ImageOverlay over it
-                Image("Homebackground")
-                    .resizable()
-                    .overlay(ImageOverlay(), alignment: .bottomTrailing)
-            }
-        }
+//        VStack{
+//            HStack(){
+//                //displays background image and overlays ImageOverlay over it
+//                Image("Homebackground")
+//                    .resizable()
+//                    .overlay(ImageOverlay(), alignment: .bottomTrailing)
+//            }
+//        }
         
-/*------------------------------------------*/
-// Uncomment to use other project
-//        if(userInfo.loggedIn){
-//            MainView()
-//        }
-//        else{
-//            LoginView()
-//        }
+        /*------------------------------------------*/
+        // Uncomment to use other project
+        if(userInfo.loggedIn){
+            MainView()
+        }
+        else{
+            LoginView()
+        }
         
     }
 }

@@ -11,7 +11,7 @@ class UserInfo : ObservableObject {
     var name : String
     var email : String
     var password : String
-    // @Published var image : UIImage = UIImage(named: "user.png")!
+    @Published var image : UIImage = UIImage(named: "user.png")!
     @Published var loggedIn : Bool
     
     init(name : String = "", email : String = "", password : String = "", loggedIn : Bool = false) {
@@ -20,6 +20,6 @@ class UserInfo : ObservableObject {
         self.password = password
         self.loggedIn = loggedIn
         
-        // FirebaseFunctions.getUserInfo(self)
+        FirebaseFunctions.getUserInfo(self)
     }
 }
