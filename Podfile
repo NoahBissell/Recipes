@@ -7,11 +7,11 @@ target 'Recipes' do
 
   # Pods for Recipes
    pod 'Kingfisher/SwiftUI'
-pod 'Firebase/Core'
-pod 'Firebase/Auth'
-pod 'Firebase/Database'
-pod 'Firebase/Storage'
-pod 'Firebase/Firestore'
+   pod 'Firebase/Core'
+   pod 'Firebase/Auth'
+   pod 'Firebase/Database'
+   pod 'Firebase/Storage'
+   pod 'Firebase/Firestore'
 	
 
 end
