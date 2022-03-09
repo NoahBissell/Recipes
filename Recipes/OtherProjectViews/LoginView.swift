@@ -13,7 +13,7 @@ struct LoginView: View {
     var body: some View {
         ZStack {
             Rectangle()
-//                .foregroundColor(Color.background)
+                .foregroundColor(Color.red)
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             VStack {
                 HStack {
