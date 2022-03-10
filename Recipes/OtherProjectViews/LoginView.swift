@@ -57,10 +57,19 @@ struct LoginView: View {
                 }
                 .frame(width: UIScreen.main.bounds.width - 100)
                 .padding()
-//                .background(Color.buttonBackground)
-//                .foregroundColor(Color.buttonText)
                 .cornerRadius(30)
-                
+                .padding()
+                Button("Auto-Log") {
+                    FirebaseFunctions.logina(userInfo)
+                    FirebaseFunctions.login(email: userInfo.email, password: userInfo.password) { success in
+                        if success {
+                            userInfo.loggedIn = true
+                        }
+                    }
+                }
+                .frame(width: UIScreen.main.bounds.width - 100)
+                .padding()
+                .cornerRadius(30)
                 .padding()
             }
         }
