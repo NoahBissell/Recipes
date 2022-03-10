@@ -43,6 +43,11 @@ struct FirebaseFunctions {
         userInfo.loggedIn = false
     }
     
+    static func logina(_ userInfo: UserInfo) {
+        userInfo.email = "s015915@students.lmsd.org"
+        userInfo.password = "00000000"
+    }
+    
     static func addUsername(username: String, completion: @escaping (Bool) -> ()){
         guard let uid = Auth.auth().currentUser?.uid else {
             completion(false)
