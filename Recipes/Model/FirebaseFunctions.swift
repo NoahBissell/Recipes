@@ -41,6 +41,7 @@ struct FirebaseFunctions {
     static func signOut(_ userInfo: UserInfo) {
         try? Auth.auth().signOut()
         userInfo.loggedIn = false
+        userInfo.password = ""
     }
     
     static func logina(_ userInfo: UserInfo) {
