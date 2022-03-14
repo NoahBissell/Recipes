@@ -4,8 +4,16 @@
 
 import Foundation
 
-enum Mode {
+enum Diet : CaseIterable {
+    case none
     case vegan
     case vegetarian
     case glutenFree
+    case ketogenic
+    case paleo
+    case pescetarian
 };
+
+extension Diet : Identifiable {
+    var id : Self{self}
+}
