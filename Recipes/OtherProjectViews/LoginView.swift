@@ -13,7 +13,7 @@ struct LoginView: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .foregroundColor(Color.red)
+                .foregroundColor(Color.white)
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             VStack {
                 HStack {
@@ -48,7 +48,7 @@ struct LoginView: View {
 //                .background(Color.buttonBackground)
 //                .foregroundColor(Color.buttonText)
                 .cornerRadius(30)
-                Button("sign in") {
+                Button("Sign In") {
                     FirebaseFunctions.login(email: userInfo.email, password: userInfo.password) { success in
                         if success {
                             userInfo.loggedIn = true
