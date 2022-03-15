@@ -10,7 +10,7 @@ enum Diet : CaseIterable {
     case vegetarian 
     case glutenFree
     case ketogenic
-    case paleo
+    case paleo 
     case pescetarian
 };
 
