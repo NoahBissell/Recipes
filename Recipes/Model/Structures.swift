@@ -7,7 +7,7 @@ import Foundation
 enum Diet : CaseIterable {
     case none
     case vegan
-    case vegetarian
+    case vegetarian 
     case glutenFree
     case ketogenic
     case paleo
