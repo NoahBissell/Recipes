@@ -13,13 +13,12 @@ struct BrowseRecipesView: View {
     @State var ingredientFilter = false;
     @State var query = ""
     @State var fetchedRecipeList = [RecipeResult]()
-    @State private var searchMode : SearchMode = .random
+    @State private var searchMode : SearchMode = .topRecipes
     
     private enum SearchMode : String, CaseIterable, Identifiable {
         case search
-        case random
-        case filterIngredients
-        
+        case topRecipes
+        case forYou
         var id : String { self.rawValue}
     }
     
@@ -42,7 +41,7 @@ struct BrowseRecipesView: View {
                     }
                     else{
                         Button("Generate Recipes"){
-                            if(searchMode == .random) {
+                            if(searchMode == .topRecipes) {
                                 Api().getRandomRecipes { recipeList in
                                     self.fetchedRecipeList = recipeList
                                 }
