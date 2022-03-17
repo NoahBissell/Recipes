@@ -57,17 +57,17 @@ struct BrowseRecipesView: View {
                 Section{
                     List(fetchedRecipeList){ recipeResult in
                         NavigationLink( destination:
-                            AddRecipeView(recipeResult: recipeResult)
-                        , label: {
-                            HStack {
-                                if(recipeResult.image != nil){
-                                    KFImage(recipeResult.image)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                }
-                                Text(recipeResult.title ?? "Error loading recipe")
-                            }
-                        })
+                                            AddRecipeView(recipeResult: recipeResult)
+                                        , label: {
+                                            HStack {
+                                                if(recipeResult.image != nil){
+                                                    KFImage(recipeResult.image)
+                                                        .resizable()
+                                                        .aspectRatio(contentMode: .fit)
+                                                }
+                                                Text(recipeResult.title ?? "Error loading recipe")
+                                            }
+                                        })
                     }
                 }
             }
@@ -78,13 +78,18 @@ struct BrowseRecipesView: View {
                 Picker(selection: $searchMode, label:
                         Text("Browsing mode")
                        , content: {
-                    ForEach(SearchMode.allCases){ mode in
-                        Text(mode.rawValue.titleCase())
-                            .tag(mode)
-                        
-                    }
-                })
+                        ForEach(SearchMode.allCases){ mode in
+                            Text(mode.rawValue.titleCase())
+                                .tag(mode)
+                            
+                        }
+                       })
                     .pickerStyle(SegmentedPickerStyle())
+            }
+            ToolbarItem(placement: .navigationBarTrailing){
+                Button("Filter") {
+                }
+                .padding()
             }
             //            ToolbarItem(placement: .navigationBarTrailing) {
             //                Toggle("Ingredient filter", isOn: $ingredientFilter)
