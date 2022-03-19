@@ -11,16 +11,18 @@ class Kitchen : ObservableObject {
 	
     var ownerId : UUID
     var memberIds : [UUID]
+    var name : String
     
 	@Published var products : [Product]
 	@Published var ingredients : [Ingredient]
 	@Published var recipes : [Recipe]
 	
-    init(products : [Product] = [Product](), recipes : [Recipe] = [Recipe](), ingredients : [Ingredient] = [Ingredient](), ownerId : UUID, memberIds : [UUID] = [UUID]()){
+    init(products : [Product] = [Product](), recipes : [Recipe] = [Recipe](), ingredients : [Ingredient] = [Ingredient](), name : String, ownerId : UUID, memberIds : [UUID] = [UUID]()){
 		self.products = products
 		self.recipes = recipes
 		self.ingredients = ingredients
         self.ownerId = ownerId
+        self.name = name
         self.memberIds = [ownerId]
         self.memberIds.append(contentsOf: memberIds)
 	}

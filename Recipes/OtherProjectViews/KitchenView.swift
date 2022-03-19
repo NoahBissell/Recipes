@@ -20,7 +20,6 @@ struct KitchenView: View {
     }
     
     var body : some View {
-        NavigationView{
             VStack{
                 Form{
                     Section(header: Text("All products")){
@@ -75,7 +74,7 @@ struct KitchenView: View {
                 
             }
             
-        }
+        
         
     }
 }

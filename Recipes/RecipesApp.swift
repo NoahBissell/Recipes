@@ -21,13 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 @main
 struct RecipesApp: App {
-    @StateObject var kitchens = Kitchen()
+    @StateObject var kitchens = Kitchens()
     @StateObject var userInfo = UserInfo()
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(kitchen)
+                .environmentObject(kitchens)
                 .environmentObject(userInfo)
         }
     }
