@@ -10,18 +10,19 @@ import SwiftUI
 struct KitchensView: View {
     
     @EnvironmentObject var kitchens : Kitchens
+    //@StateObject var kitchen : Kitchen = Kitchen()
     var body: some View {
         NavigationView{
             VStack{
                 ForEach(kitchens.kitchens.indices, id: \.self){ index in
                     NavigationLink(
-                        destination: KitchenView().environmentObject(kitchens.kitchens[index]),
+                        destination: KitchenView(kitchen: kitchens.kitchens[index]).environmentObject(kitchens.kitchens[index]),
                         label: {
                             Text(kitchens.kitchens[index].name)
                         })
                 }
             }
-        }
+        }.navigationViewStyle(DefaultNavigationViewStyle())
     }
 }
 

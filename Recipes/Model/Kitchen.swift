@@ -17,7 +17,7 @@ class Kitchen : ObservableObject {
 	@Published var ingredients : [Ingredient]
 	@Published var recipes : [Recipe]
 	
-    init(products : [Product] = [Product](), recipes : [Recipe] = [Recipe](), ingredients : [Ingredient] = [Ingredient](), name : String, ownerId : UUID, memberIds : [UUID] = [UUID]()){
+    init(products : [Product] = [Product](), recipes : [Recipe] = [Recipe](), ingredients : [Ingredient] = [Ingredient](), name : String = "Untitled", ownerId : UUID = UUID(), memberIds : [UUID] = [UUID]()){
 		self.products = products
 		self.recipes = recipes
 		self.ingredients = ingredients

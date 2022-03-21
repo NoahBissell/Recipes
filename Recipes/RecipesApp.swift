@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 @main
 struct RecipesApp: App {
-    @StateObject var kitchens = Kitchens()
+    @StateObject var kitchens = Kitchens(kitchens: [Kitchen()])
     @StateObject var userInfo = UserInfo()
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     var body: some Scene {

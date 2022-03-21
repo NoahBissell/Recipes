@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct KitchenView: View {
-    @EnvironmentObject var kitchen : Kitchen
+    @ObservedObject var kitchen : Kitchen
+    
     @State var isAddViewActive = false
     @State var navigateTo : AnyView?
     
@@ -31,6 +32,7 @@ struct KitchenView: View {
                                     label: {
                                         ProductDetail(product: kitchen.products[index])
                                     })
+                                    .environmentObject(kitchen);
                             }
                             .onDelete(perform: deleteProduct)
                         }
@@ -81,6 +83,6 @@ struct KitchenView: View {
 
 struct KitchenView_Previews: PreviewProvider {
     static var previews: some View {
-        KitchenView().environmentObject(Kitchen())
+        KitchenView(kitchen: Kitchen())
     }
 }
