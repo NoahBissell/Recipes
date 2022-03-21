@@ -16,13 +16,13 @@ struct KitchensView: View {
             VStack{
                 ForEach(kitchens.kitchens.indices, id: \.self){ index in
                     NavigationLink(
-                        destination: KitchenView(kitchen: kitchens.kitchens[index]).environmentObject(kitchens.kitchens[index]),
+                        destination: KitchenView(kitchen: kitchens.kitchens[index]).id(UUID()),
                         label: {
                             Text(kitchens.kitchens[index].name)
                         })
                 }
             }
-        }.navigationViewStyle(DefaultNavigationViewStyle())
+        }
     }
 }
 
