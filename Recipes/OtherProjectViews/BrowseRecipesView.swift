@@ -10,17 +10,62 @@ import struct Kingfisher.KFImage
 
 struct BrowseRecipesView: View {
     @EnvironmentObject var kitchen : Kitchen
+    @EnvironmentObject var userInfo : UserInfo
     @State var ingredientFilter = false;
     @State var query = ""
     @State var fetchedRecipeList = [RecipeResult]()
     @State private var searchMode : SearchMode = .topRecipes
-    
+    @State var isPresentingSettingsFilter = false
     private enum SearchMode : String, CaseIterable, Identifiable {
         case search
         case topRecipes
         case forYou
         var id : String { self.rawValue}
     }
+    
+    var productSearchSheet : some View {
+        VStack{
+            Spacer()
+            
+            // For some reason the keyboard dismisses after typing the first character, can't seem to figure out why
+            // Bug has gone away for me now, will keep this comment for reference
+            
+            Form{
+                Section{
+                    ScrollView{
+                    VStack{
+                        Text("Settings").font(.system(size:20))
+                        Text("Diet").font(.system(size:20))
+                        /*HStack{
+                            Toggle(isOn: $userInfo.searchSettings.vegan, label:{
+                                Text("Vegan").font(.system(size:20))
+                            })
+                            Toggle(isOn: $userInfo.searchSettings.vegetarian, label:{
+                                Text("Vegetarian").font(.system(size:20))
+                            })
+                        }*/
+                        Picker(selection: $userInfo.searchSettings.diet, label:
+                                Text("Category"), content: {
+                                    ForEach(Diet.allCases) { cat in
+                                                Text(cat.rawValue.capitalized)
+                                                    .tag(cat)
+                                            }
+                                   
+                                })
+                        Text("Intolerances").font(.system(size:20))
+                        HStack{
+                                
+                        }
+                    }
+                    }
+                    
+                }
+               
+                
+            }
+        }
+    }
+    
     
     var body: some View {
         VStack {
@@ -88,8 +133,22 @@ struct BrowseRecipesView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing){
                 Button("Filter") {
+                    if(searchMode==SearchMode.topRecipes){
+                        searchMode = SearchMode.search
+                        searchMode = SearchMode.topRecipes
+                        
+                    }else if(searchMode==SearchMode.search){
+                        searchMode = SearchMode.search
+                        searchMode = SearchMode.topRecipes
+                    }else{
+                        searchMode = SearchMode.topRecipes
+                        searchMode = SearchMode.forYou
+                    }
+                    self.isPresentingSettingsFilter = true
                 }
-                .padding()
+                .sheet(isPresented: $isPresentingSettingsFilter){
+                    productSearchSheet
+                }
             }
             //            ToolbarItem(placement: .navigationBarTrailing) {
             //                Toggle("Ingredient filter", isOn: $ingredientFilter)

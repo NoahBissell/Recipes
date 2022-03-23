@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
-
 class UserInfo : ObservableObject {
     var name : String
     var email : String
     var password : String
+    @Published var searchSettings : SearchSettings
     @Published var image : UIImage = UIImage(named: "user.png")!
     @Published var loggedIn : Bool
     
@@ -19,7 +19,7 @@ class UserInfo : ObservableObject {
         self.email = email
         self.password = password
         self.loggedIn = loggedIn
-        
+        searchSettings = SearchSettings(vegan : false, vegetarian : false, diet: Diet.none)
         FirebaseFunctions.getUserInfo(self)
     }
 }
