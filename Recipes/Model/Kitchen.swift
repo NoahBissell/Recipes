@@ -7,8 +7,18 @@
 
 import Foundation
 
-class Kitchen : ObservableObject {
-	
+class KitchenIndex : ObservableObject {
+    @Published var index : Int
+    
+    init(index : Int){
+        self.index = index
+    }
+    init(){
+        self.index = 0
+    }
+}
+
+class Kitchen : NSObject, ObservableObject, Identifiable, NSCopying {
     var ownerId : UUID
     var memberIds : [UUID]
     var name : String
@@ -26,6 +36,20 @@ class Kitchen : ObservableObject {
         self.memberIds = [ownerId]
         self.memberIds.append(contentsOf: memberIds)
 	}
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+            let copy = Kitchen(products: products, recipes: recipes, ingredients: ingredients, name: name, ownerId: ownerId, memberIds: memberIds)
+            return copy
+    }
+    
+    func copyElementsFrom(kitchen : Kitchen){
+        self.products = kitchen.products
+        self.ingredients = kitchen.ingredients
+        self.recipes = kitchen.recipes
+        self.ownerId = kitchen.ownerId
+        self.memberIds = kitchen.memberIds
+        self.name = kitchen.name
+    }
 	
 	// Use this function when initializing a new product in order to make sure storedQuantity is always 1
 	func createProduct(product : Product) -> Product {
@@ -64,7 +88,7 @@ class Kitchen : ObservableObject {
 	//    }
 }
 
-class Kitchens : ObservableObject {
+class Kitchens : Identifiable, ObservableObject {
     var kitchens : [Kitchen]
     init(kitchens : [Kitchen]){
         self.kitchens = kitchens

@@ -9,14 +9,11 @@ import SwiftUI
 
 struct MainView: View {
 
-    //@EnvironmentObject var kitchens : Kitchens
-
     var body : some View {
 
 
         TabView{
-
-            KitchensView()
+            KitchenView()
                 .tabItem(){
                     if #available(iOS 14.5, *) {
                         Label("Kitchen", systemImage: "house")
