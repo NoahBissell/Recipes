@@ -14,6 +14,14 @@ enum Diet : CaseIterable {
     case pescetarian
 };
 
+enum Tab : CaseIterable {
+    case kitchens
+    case cookbook
+    case settings
+};
+
 extension Diet : Identifiable {
     var id : Self{self}
 }
+
+

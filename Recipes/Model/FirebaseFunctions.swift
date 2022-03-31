@@ -11,6 +11,40 @@ import FirebaseAuth
 import FirebaseStorage
 
 struct FirebaseFunctions {
+    static func getKitchensData(_ kitchens: Kitchens) {
+        Auth.auth().addStateDidChangeListener { _, user in
+            guard let user = user else {return}
+            
+//            userInfo.email = user.email ?? ""
+//            userInfo.loggedIn = true
+            
+//            let uid = user.uid
+//
+//            Firestore.firestore().collection("users").document(uid).getDocument { document, _ in
+//                guard let document = document else {return}
+//
+//                // getting information from the user's document
+//                let imageURL = document.get("image") as? String ?? ""
+//                userInfo.name = document.get("username") as? String ?? ""
+//
+//                Storage.storage().reference(forURL: imageURL).getData(maxSize: 1 * 1024 * 1024) { data, _ in
+//                    if let imageData = data {
+//                        userInfo.image = UIImage(data: imageData) ?? UIImage(named: "user")!
+//                    }
+//                }
+//            }
+            
+        }
+    }
+    
+    static func addKitchen(kitchen: Kitchen, completion: @escaping (Bool) -> ()){
+        guard let uid = Auth.auth().currentUser?.uid else {
+            completion(false)
+            return
+        }
+        
+        //Firestore.firestore().collection("kitchens").document(uid).setData()
+    }
     
     static func getUserInfo(_ userInfo: UserInfo) {
         Auth.auth().addStateDidChangeListener { _, user in
