@@ -13,7 +13,8 @@ struct AddProductView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Binding var presentView : Bool
     
-    @EnvironmentObject var kitchens : Kitchens
+    @Binding var kitchen : Kitchen
+    //@EnvironmentObject var kitchens : Kitchens
     @EnvironmentObject var kitchenIndex : KitchenIndex
     
     @State var product : Product = Product()
@@ -35,7 +36,7 @@ struct AddProductView: View {
                     // convert EAN13 to UPC
                     self.scannedCode.removeFirst()
                     Api().getProductFromUPC(upc: scannedCode) { product in
-                        self.product = kitchens.kitchens[kitchenIndex.index].createProduct(product: product)
+                        self.product = kitchen.createProduct(product: product)
                         Api().classifyProduct(product: product) { classification in
                             self.product.classification = classification
                         }
@@ -70,7 +71,7 @@ struct AddProductView: View {
                     List(searchedProductList){ productResult in
                         Button (action: {
                             Api().getProductFromId(id: productResult.id) { product in
-                                self.product = kitchens.kitchens[kitchenIndex.index].createProduct(product: product)
+                                self.product = kitchen.createProduct(product: product)
                                 Api().classifyProduct(product: product) { classification in
                                     self.product.classification = classification
                                 }
@@ -142,7 +143,7 @@ struct AddProductView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 if(product.title != "None") {
                     Button (action: {
-                        kitchens.kitchens[kitchenIndex.index].addProduct(product: product)
+                        kitchen.addProduct(product: product)
                         presentView = false
                         self.presentationMode.wrappedValue.dismiss()
                     }, label: {
@@ -161,6 +162,6 @@ struct AddProductView: View {
 
 struct AddProductView_Previews: PreviewProvider {
     static var previews: some View {
-        AddProductView(presentView: .constant(true)).environmentObject(Kitchen())
+        AddProductView(presentView: .constant(true), kitchen: .constant(Kitchen())).environmentObject(Kitchen())
     }
 }

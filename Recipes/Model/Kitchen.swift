@@ -18,7 +18,7 @@ class KitchenIndex : ObservableObject {
     }
 }
 
-class Kitchen : NSObject, ObservableObject, Identifiable, NSCopying {
+class Kitchen : ObservableObject, Identifiable {
     var ownerId : UUID
     var memberIds : [UUID]
     var name : String
@@ -88,7 +88,7 @@ class Kitchen : NSObject, ObservableObject, Identifiable, NSCopying {
 	//    }
 }
 
-class Kitchens : Identifiable, ObservableObject {
+class Kitchens : ObservableObject, Identifiable {
     @Published var kitchens : [Kitchen]
     init(kitchens : [Kitchen]){
         self.kitchens = kitchens

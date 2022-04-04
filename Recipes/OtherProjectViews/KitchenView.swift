@@ -23,13 +23,12 @@ struct KitchenView: View {
     var body : some View {
         NavigationView {
             VStack{
-               
                 Form{
                     Section(header: Text("All products")){
 //                        List {
                         ForEach(kitchens.kitchens[kitchenIndex.index].products.indices, id: \.self){ index in
                                 NavigationLink(
-                                    destination: ProductView(product: $kitchens.kitchens[kitchenIndex.index].products[index]).id(UUID()),
+                                    destination: ProductView(product: $kitchens.kitchens[kitchenIndex.index].products[index]),
                                     
                                     label: {
                                         ProductDetail(product: kitchens.kitchens[kitchenIndex.index].products[index])
@@ -59,7 +58,7 @@ struct KitchenView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
                         Button("Add a product") {
-                            navigateTo = AnyView(AddProductView(presentView: $isAddViewActive))
+                            navigateTo = AnyView(AddProductView(presentView: $isAddViewActive, kitchen: $kitchens.kitchens[kitchenIndex.index]))
                             isAddViewActive = true
                         }
                         Button("Add an ingredient"){
@@ -88,8 +87,8 @@ struct KitchenView: View {
                             }
                         }
                         Button("Add a kitchen") {
-                            navigateTo = AnyView(AddProductView(presentView: $isAddViewActive))
-                            isAddViewActive = true
+//                            navigateTo = AnyView(AddProductView(presentView: $isAddViewActive))
+//                            isAddViewActive = true
                         }
                         
                     } label: {
