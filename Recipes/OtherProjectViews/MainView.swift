@@ -9,13 +9,10 @@ import SwiftUI
 
 struct MainView: View {
 
-    @EnvironmentObject var kitchen : Kitchen
-
     var body : some View {
 
 
         TabView{
-
             KitchenView()
                 .tabItem(){
                     if #available(iOS 14.5, *) {

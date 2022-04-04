@@ -13,7 +13,10 @@ struct AddProductView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Binding var presentView : Bool
     
-    @EnvironmentObject var kitchen : Kitchen
+    @Binding var kitchen : Kitchen
+    //@EnvironmentObject var kitchens : Kitchens
+    @EnvironmentObject var kitchenIndex : KitchenIndex
+    
     @State var product : Product = Product()
     
     @State var scannedCode = "0000"
@@ -127,7 +130,6 @@ struct AddProductView: View {
             .sheet(isPresented: $isPresentingScanner){
                 scannerSheet
             }
-            
             Button("Search for a product"){
                 self.isPresentingProductSearch = true
             }
@@ -160,6 +162,6 @@ struct AddProductView: View {
 
 struct AddProductView_Previews: PreviewProvider {
     static var previews: some View {
-        AddProductView(presentView: .constant(true)).environmentObject(Kitchen())
+        AddProductView(presentView: .constant(true), kitchen: .constant(Kitchen())).environmentObject(Kitchen())
     }
 }

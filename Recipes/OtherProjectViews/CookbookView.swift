@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CookbookView: View {
-    @EnvironmentObject var kitchen : Kitchen
+    @EnvironmentObject var cookbook : Cookbook
     
     var body: some View {
         NavigationView{
@@ -28,6 +28,6 @@ struct CookbookView: View {
 
 struct CookBookView_Previews: PreviewProvider {
     static var previews: some View {
-        CookbookView().environmentObject(Kitchen())
+        CookbookView().environmentObject(Cookbook())
     }
 }

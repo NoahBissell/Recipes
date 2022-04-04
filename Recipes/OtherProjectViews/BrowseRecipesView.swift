@@ -9,8 +9,9 @@ import SwiftUI
 import struct Kingfisher.KFImage
 
 struct BrowseRecipesView: View {
-    @EnvironmentObject var kitchen : Kitchen
-    @EnvironmentObject var userInfo : UserInfo
+    @EnvironmentObject var kitchens : Kitchens
+    @EnvironmentObject var kitchenIndex : KitchenIndex
+    
     @State var ingredientFilter = false;
     @State var query = ""
     @State var fetchedRecipeList = [RecipeResult]()
@@ -92,7 +93,7 @@ struct BrowseRecipesView: View {
                                 }
                             }
                             else {
-                                Api().getRecipesFromIngredients(userInfo: userInfo, ingredients: kitchen.ingredients) { recipeList in
+                                Api().getRecipesFromIngredients(ingredients: kitchens.kitchens[kitchenIndex.index].ingredients) { recipeList in
                                     self.fetchedRecipeList = recipeList
                                 }
                             }
@@ -102,17 +103,17 @@ struct BrowseRecipesView: View {
                 Section{
                     List(fetchedRecipeList){ recipeResult in
                         NavigationLink( destination:
-                                            AddRecipeView(recipeResult: recipeResult)
-                                        , label: {
-                                            HStack {
-                                                if(recipeResult.image != nil){
-                                                    KFImage(recipeResult.image)
-                                                        .resizable()
-                                                        .aspectRatio(contentMode: .fit)
-                                                }
-                                                Text(recipeResult.title ?? "Error loading recipe")
-                                            }
-                                        })
+                            AddRecipeView(recipeResult: recipeResult)
+                        , label: {
+                            HStack {
+                                if(recipeResult.image != nil){
+                                    KFImage(recipeResult.image)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                }
+                                Text(recipeResult.title ?? "Error loading recipe")
+                            }
+                        })
                     }
                 }
             }

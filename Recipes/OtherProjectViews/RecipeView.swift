@@ -12,7 +12,8 @@ import struct Kingfisher.KFImage
 struct RecipeView: View {
     @Environment(\.defaultMinListRowHeight) var minRowHeight
     var recipe : Recipe
-    @EnvironmentObject var kitchen : Kitchen
+    @EnvironmentObject var kitchens : Kitchens
+    @EnvironmentObject var kitchenIndex : KitchenIndex
     @State var isPresentingMakeRecipe = false
     @State var canMakeRecipe = true
     let columns = [
@@ -57,7 +58,7 @@ struct RecipeView: View {
                     
                     ForEach(recipe.extendedIngredients){ extendedIngredient in
                         Text("\(extendedIngredient.amount, specifier: "%.1f") \(extendedIngredient.unit) of \(extendedIngredient.getName())")
-                        if let kitchenIngredient = kitchen.ingredients.first { ingredient in
+                        if let kitchenIngredient = kitchens.kitchens[kitchenIndex.index].ingredients.first { ingredient in
                             ingredient.id == extendedIngredient.id
                         }{
                             Text("\(kitchenIngredient.amount, specifier: "%.1f") \(kitchenIngredient.unit) of \(kitchenIngredient.getName())")
@@ -94,21 +95,21 @@ struct RecipeView: View {
             .padding()
             .onAppear(perform: {
                 for extendedIngredient in recipe.extendedIngredients {
-                    if let index = kitchen.ingredients.firstIndex(where: { ingredient in
+                    if let index = kitchens.kitchens[kitchenIndex.index].ingredients.firstIndex(where: { ingredient in
                         ingredient.id == extendedIngredient.id
                     }){
-                        if(kitchen.ingredients[index].unit != extendedIngredient.unit){
-                            Api().convertUnits(ingredient: kitchen.ingredients[index].name, amount: kitchen.ingredients[index].amount, sourceUnit: kitchen.ingredients[index].unit, targetUnit: extendedIngredient.unit) { conversion in
+                        if(kitchens.kitchens[kitchenIndex.index].ingredients[index].unit != extendedIngredient.unit){
+                            Api().convertUnits(ingredient: kitchens.kitchens[kitchenIndex.index].ingredients[index].name, amount: kitchens.kitchens[kitchenIndex.index].ingredients[index].amount, sourceUnit: kitchens.kitchens[kitchenIndex.index].ingredients[index].unit, targetUnit: extendedIngredient.unit) { conversion in
                                 print(conversion.targetUnit)
-                                kitchen.ingredients[index].amount = conversion.targetAmount
-                                kitchen.ingredients[index].unit = conversion.targetUnit
-                                if(kitchen.ingredients[index].amount < extendedIngredient.amount) {
+                                kitchens.kitchens[kitchenIndex.index].ingredients[index].amount = conversion.targetAmount
+                                kitchens.kitchens[kitchenIndex.index].ingredients[index].unit = conversion.targetUnit
+                                if(kitchens.kitchens[kitchenIndex.index].ingredients[index].amount < extendedIngredient.amount) {
                                     canMakeRecipe = false
                                 }
                             }
                         }
                         else{
-                            if(kitchen.ingredients[index].amount < extendedIngredient.amount) {
+                            if(kitchens.kitchens[kitchenIndex.index].ingredients[index].amount < extendedIngredient.amount) {
                                 canMakeRecipe = false
                             }
                         }
@@ -152,18 +153,19 @@ struct RecipeView_Previews: PreviewProvider {
 
 struct MakeRecipeSheet : View {
     @Binding var canMakeRecipe : Bool
-    @EnvironmentObject var kitchen : Kitchen
+    @EnvironmentObject var kitchens : Kitchens
+    @EnvironmentObject var kitchenIndex : KitchenIndex
     var recipe : Recipe
     @State var isPresentingAlert : Bool = false
     func cancel () -> (){}
     func subtractIngredients() -> (){
         for extendedIngredient in recipe.extendedIngredients {
-            if let index = kitchen.ingredients.firstIndex(where: { ingredient in
+            if let index = kitchens.kitchens[kitchenIndex.index].ingredients.firstIndex(where: { ingredient in
                 ingredient.id == extendedIngredient.id
             }){
-                kitchen.ingredients[index].amount = kitchen.ingredients[index].amount - extendedIngredient.amount
-                if(kitchen.ingredients[index].amount < 0){
-                    kitchen.ingredients.remove(at: index)
+                kitchens.kitchens[kitchenIndex.index].ingredients[index].amount = kitchens.kitchens[kitchenIndex.index].ingredients[index].amount - extendedIngredient.amount
+                if(kitchens.kitchens[kitchenIndex.index].ingredients[index].amount < 0){
+                    kitchens.kitchens[kitchenIndex.index].ingredients.remove(at: index)
                 }
             }
         }

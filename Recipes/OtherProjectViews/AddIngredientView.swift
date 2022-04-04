@@ -12,7 +12,8 @@ struct AddIngredientView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Binding var presentView : Bool
     
-    @EnvironmentObject var kitchen : Kitchen
+    @EnvironmentObject var kitchens : Kitchens
+    @EnvironmentObject var kitchenIndex : KitchenIndex
     @State var ingredient = Ingredient()
     @State var searchedIngredientList = [IngredientResult]()
     @State var isPresentingIngredientSearch = false
@@ -90,7 +91,7 @@ struct AddIngredientView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 if(ingredient.name != "None"){
                     Button (action: {
-                        kitchen.addIngredient(ingredient: ingredient)
+                        kitchens.kitchens[kitchenIndex.index].addIngredient(ingredient: ingredient)
                         presentView = false;
                         self.presentationMode.wrappedValue.dismiss()
                     }, label: {

@@ -8,39 +8,41 @@
 import SwiftUI
 
 struct KitchenView: View {
-    @EnvironmentObject var kitchen : Kitchen
+    @EnvironmentObject var kitchens : Kitchens
+    @EnvironmentObject var kitchenIndex : KitchenIndex
     @State var isAddViewActive = false
     @State var navigateTo : AnyView?
     
     func deleteProduct(at offsets: IndexSet){
-        kitchen.removeProduct(at: offsets)
+        kitchens.kitchens[kitchenIndex.index].removeProduct(at: offsets)
     }
     func deleteIngredient(at offsets: IndexSet){
-        kitchen.removeIngredient(at: offsets)
+        kitchens.kitchens[kitchenIndex.index].removeIngredient(at: offsets)
     }
     
     var body : some View {
-        NavigationView{
+        NavigationView {
             VStack{
                 Form{
                     Section(header: Text("All products")){
-                        List {
-                            ForEach(kitchen.products.indices, id: \.self){ index in
+//                        List {
+                        ForEach(kitchens.kitchens[kitchenIndex.index].products.indices, id: \.self){ index in
                                 NavigationLink(
-                                    destination: ProductView(product: $kitchen.products[index]),
+                                    destination: ProductView(product: $kitchens.kitchens[kitchenIndex.index].products[index]),
                                     
                                     label: {
-                                        ProductDetail(product: kitchen.products[index])
+                                        ProductDetail(product: kitchens.kitchens[kitchenIndex.index].products[index])
                                     })
+                                    
                             }
                             .onDelete(perform: deleteProduct)
-                        }
+//                        }
                     }
                     Section(header: Text("Ingredients")){
                         List {
-                            ForEach(kitchen.ingredients.indices, id: \.self){ index in
-                                NavigationLink(destination: IngredientView(ingredient: $kitchen.ingredients[index])) {
-                                    Text(kitchen.ingredients[index].getName())
+                            ForEach(kitchens.kitchens[kitchenIndex.index].ingredients.indices, id: \.self){ index in
+                                NavigationLink(destination: IngredientView(ingredient: $kitchens.kitchens[kitchenIndex.index].ingredients[index])) {
+                                    Text(kitchens.kitchens[kitchenIndex.index].ingredients[index].getName())
                                 }
                                 
                             }
@@ -50,27 +52,50 @@ struct KitchenView: View {
                     
                 }
             }
-            .navigationTitle("My Kitchen")
+            
+            .navigationTitle(kitchens.kitchens[kitchenIndex.index].name)
             .toolbar {
-                Menu {
-                    Button("Add a product") {
-                        navigateTo = AnyView(AddProductView(presentView: $isAddViewActive))
-                        isAddViewActive = true
-                    }
-                    Button("Add an ingredient"){
-                        navigateTo = AnyView(AddIngredientView(presentView: $isAddViewActive))
-                        isAddViewActive = true
-                    }
-                    
-                } label: {
-                    Image(systemName: "plus")
-                }
-                .background(
-                    NavigationLink(destination: navigateTo, isActive: $isAddViewActive){
-                        EmptyView()
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Menu {
+                        Button("Add a product") {
+                            navigateTo = AnyView(AddProductView(presentView: $isAddViewActive, kitchen: $kitchens.kitchens[kitchenIndex.index]))
+                            isAddViewActive = true
+                        }
+                        Button("Add an ingredient"){
+                            navigateTo = AnyView(AddIngredientView(presentView: $isAddViewActive))
+                            isAddViewActive = true
+                        }
                         
+                    } label: {
+                        Image(systemName: "plus")
                     }
-                )
+                    .background(
+                        
+                        NavigationLink(destination: navigateTo, isActive: $isAddViewActive){
+                            EmptyView()
+                            
+                        }
+                        
+                    )
+                }
+                
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Menu {
+                        ForEach(kitchens.kitchens.indices){ index in
+                            Button(kitchens.kitchens[index].name){
+                                kitchenIndex.index = index
+                            }
+                        }
+                        Button("Add a kitchen") {
+//                            navigateTo = AnyView(AddProductView(presentView: $isAddViewActive))
+//                            isAddViewActive = true
+                        }
+                        
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+                
                 
                 
             }
@@ -82,6 +107,6 @@ struct KitchenView: View {
 
 struct KitchenView_Previews: PreviewProvider {
     static var previews: some View {
-        KitchenView().environmentObject(Kitchen())
+        KitchenView()
     }
 }

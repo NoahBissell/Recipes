@@ -10,7 +10,8 @@ import struct Kingfisher.KFImage
 
 
 struct AddRecipeView: View {
-    @EnvironmentObject var kitchen : Kitchen
+    @EnvironmentObject var kitchens : Kitchens
+    @EnvironmentObject var kitchenIndex : KitchenIndex
     var recipeResult : RecipeResult
     @State var isSaved = false
     @State var isRecipeLoaded = false
@@ -47,7 +48,7 @@ struct AddRecipeView: View {
                 Api().getRecipeFromId(id: recipeResult.id) { recipe in
                     self.recipe = recipe
                     
-                    isSaved = kitchen.recipes.contains(where: { recipe in
+                    isSaved = kitchens.kitchens[kitchenIndex.index].recipes.contains(where: { recipe in
                         return self.recipe.id == recipe.id
                     })
                     isRecipeLoaded = true
@@ -59,7 +60,7 @@ struct AddRecipeView: View {
                                     HStack{
                                         if(!isSaved){
                                             Button (action: {
-                                                kitchen.addRecipe(recipe: recipe)
+                                                kitchens.kitchens[kitchenIndex.index].addRecipe(recipe: recipe)
                                                 isSaved = true
                                             }, label: {
                                                 if #available(iOS 14.5, *) {

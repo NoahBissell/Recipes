@@ -21,6 +21,7 @@ struct SettingsView: View {
                     .resizable()
                     .frame(width:200, height: 200)
                     .aspectRatio(contentMode: .fill)
+                    .background(Color.white)
                     .clipShape(Circle())
                 HStack {
                     Image(systemName: "person")

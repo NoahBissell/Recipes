@@ -9,7 +9,8 @@ import SwiftUI
 import struct Kingfisher.KFImage
 
 struct SavedRecipesView: View {
-    @EnvironmentObject var kitchen : Kitchen
+    @EnvironmentObject var kitchens : Kitchens
+    @EnvironmentObject var kitchenIndex : KitchenIndex
     
     func limitDescription(input : String?) -> String {
         if var str = input {
@@ -24,7 +25,7 @@ struct SavedRecipesView: View {
     var body: some View {
         ScrollView {
             VStack {
-                ForEach(kitchen.recipes){ recipe in
+                ForEach(kitchens.kitchens[kitchenIndex.index].recipes){ recipe in
                     NavigationLink (destination:
                                         RecipeView(recipe: recipe)
                                         .id(UUID())
