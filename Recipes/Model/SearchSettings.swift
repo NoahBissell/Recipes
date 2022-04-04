@@ -23,7 +23,7 @@ class SearchSettings{
     var diet : Diet
 
 
-    init(vegan : Bool, vegetarian: Bool, diet: Diet = .none, gluten : Bool, dairy : Bool){
+    init(vegan : Bool = false, vegetarian: Bool = false, diet: Diet = .none, gluten : Bool = false, dairy : Bool = false){
         self.vegan = vegan
         self.vegetarian = vegetarian
         self.diet = diet

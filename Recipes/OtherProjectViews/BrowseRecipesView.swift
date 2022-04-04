@@ -11,7 +11,8 @@ import struct Kingfisher.KFImage
 struct BrowseRecipesView: View {
     @EnvironmentObject var kitchens : Kitchens
     @EnvironmentObject var kitchenIndex : KitchenIndex
-    
+    @EnvironmentObject var userInfo : UserInfo
+
     @State var ingredientFilter = false;
     @State var query = ""
     @State var fetchedRecipeList = [RecipeResult]()
@@ -93,7 +94,7 @@ struct BrowseRecipesView: View {
                                 }
                             }
                             else {
-                                Api().getRecipesFromIngredients(ingredients: kitchens.kitchens[kitchenIndex.index].ingredients) { recipeList in
+                                Api().getRecipesFromIngredients(userInfo: userInfo, ingredients: kitchens.kitchens[kitchenIndex.index].ingredients) { recipeList in
                                     self.fetchedRecipeList = recipeList
                                 }
                             }
