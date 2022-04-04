@@ -19,7 +19,7 @@ class UserInfo : ObservableObject {
         self.email = email
         self.password = password
         self.loggedIn = loggedIn
-        searchSettings = SearchSettings(vegan : false, vegetarian : false, diet: Diet.none)
+        searchSettings = SearchSettings(vegan : false, vegetarian : false, diet: Diet.none, gluten : false, dairy : false)
         FirebaseFunctions.getUserInfo(self)
     }
 }

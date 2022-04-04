@@ -18,12 +18,18 @@ enum Diet : String, CaseIterable, Identifiable {
 class SearchSettings{
     var vegan : Bool
     var vegetarian : Bool
+    var gluten : Bool
+    var dairy : Bool
     var diet : Diet
 
 
-    init(vegan : Bool, vegetarian: Bool, diet: Diet = .none){
+    init(vegan : Bool, vegetarian: Bool, diet: Diet = .none, gluten : Bool, dairy : Bool){
         self.vegan = vegan
         self.vegetarian = vegetarian
         self.diet = diet
+        self.gluten = gluten
+        self.dairy = dairy
+
+
     }
 }

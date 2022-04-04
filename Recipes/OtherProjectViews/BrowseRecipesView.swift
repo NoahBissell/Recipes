@@ -36,14 +36,6 @@ struct BrowseRecipesView: View {
                     VStack{
                         Text("Settings").font(.system(size:20))
                         Text("Diet").font(.system(size:20))
-                        /*HStack{
-                            Toggle(isOn: $userInfo.searchSettings.vegan, label:{
-                                Text("Vegan").font(.system(size:20))
-                            })
-                            Toggle(isOn: $userInfo.searchSettings.vegetarian, label:{
-                                Text("Vegetarian").font(.system(size:20))
-                            })
-                        }*/
                         Picker(selection: $userInfo.searchSettings.diet, label:
                                 Text("Category"), content: {
                                     ForEach(Diet.allCases) { cat in
@@ -52,9 +44,17 @@ struct BrowseRecipesView: View {
                                             }
                                    
                                 })
-                        Text("Intolerances").font(.system(size:20))
+                        Text("Intolerances").font(.system(size:24))
                         HStack{
-                                
+                            Toggle(isOn: $userInfo.searchSettings.gluten, label:{
+                                Text("Gluten").font(.system(size:20))
+                            })
+                            Toggle(isOn: $userInfo.searchSettings.dairy, label:{
+                                Text("Dairy").font(.system(size:20))
+                            })
+                        }
+                        Button("Save Changes"){
+                            self.isPresentingSettingsFilter = false
                         }
                     }
                     }
@@ -78,7 +78,7 @@ struct BrowseRecipesView: View {
                         
                         if(query.count > 0){
                             Button("Search"){
-                                Api().searchRecipes(query: query) { recipeList in
+                                Api().searchRecipes(userInfo: userInfo, query: query) { recipeList in
                                     self.fetchedRecipeList = recipeList
                                 }
                             }
@@ -87,12 +87,12 @@ struct BrowseRecipesView: View {
                     else{
                         Button("Generate Recipes"){
                             if(searchMode == .topRecipes) {
-                                Api().getRandomRecipes { recipeList in
+                                Api().getRandomRecipes(userInfo: userInfo) { recipeList in
                                     self.fetchedRecipeList = recipeList
                                 }
                             }
                             else {
-                                Api().getRecipesFromIngredients(ingredients: kitchen.ingredients) { recipeList in
+                                Api().getRecipesFromIngredients(userInfo: userInfo, ingredients: kitchen.ingredients) { recipeList in
                                     self.fetchedRecipeList = recipeList
                                 }
                             }
@@ -133,18 +133,18 @@ struct BrowseRecipesView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing){
                 Button("Filter") {
+                    self.isPresentingSettingsFilter = true
                     if(searchMode==SearchMode.topRecipes){
                         searchMode = SearchMode.search
                         searchMode = SearchMode.topRecipes
                         
                     }else if(searchMode==SearchMode.search){
-                        searchMode = SearchMode.search
                         searchMode = SearchMode.topRecipes
+                        searchMode = SearchMode.search
                     }else{
                         searchMode = SearchMode.topRecipes
                         searchMode = SearchMode.forYou
                     }
-                    self.isPresentingSettingsFilter = true
                 }
                 .sheet(isPresented: $isPresentingSettingsFilter){
                     productSearchSheet
