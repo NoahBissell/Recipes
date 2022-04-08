@@ -6,6 +6,7 @@
 //
 import Foundation
 import SwiftUI
+import FirebaseFirestoreSwift
 
 class Api : ObservableObject {
     
@@ -292,6 +293,7 @@ struct Nutrition: Codable{
 	}
 }
 struct Recipe: Codable, Identifiable{
+//    @DocumentID var uid : String?
 	var extendedIngredients : [ExtendedIngredient] = [ExtendedIngredient]()
 	var id: Int?
 	var title: String?
@@ -307,8 +309,10 @@ struct Recipe: Codable, Identifiable{
 	var nutrition: Nutrition?
 }
 
+
 // for loading ingredients in a recipe
 struct ExtendedIngredient : Codable, Identifiable {
+//    @DocumentID var uid : String?
     var id : Int = 0
     var name : String = "None"
     var image : String?
@@ -337,6 +341,7 @@ struct ProductResponse : Codable {
     var products : [ProductResult] = [ProductResult]()
 }
 struct Product : Codable, Identifiable {
+//    @DocumentID var uid : String?
     var id : Int = 0
     var title : String = "None"
     var breadcrumbs : [String]?
@@ -370,6 +375,7 @@ struct Product : Codable, Identifiable {
     }
 }
 struct Classification : Codable {
+//    @DocumentID var uid : String?
     var cleanTitle : String
     var category : String
     var breadcrumbs : [String]
@@ -386,6 +392,7 @@ struct IngredientResponse : Codable {
     var results : [IngredientResult] = [IngredientResult]()
 }
 struct Ingredient : Codable, Identifiable {
+//    @DocumentID var uid : String?
     var id : Int = 0
     var name : String = "None"
     var image : String?

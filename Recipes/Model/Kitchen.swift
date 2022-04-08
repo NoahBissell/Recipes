@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 class KitchenIndex : ObservableObject {
     @Published var index : Int
@@ -19,15 +20,30 @@ class KitchenIndex : ObservableObject {
 }
 
 class Kitchen : ObservableObject, Identifiable {
+    var kitchenId : UUID
     var ownerId : UUID
     var memberIds : [UUID]
     var name : String
-    
-	@Published var products : [Product]
+    @Published var products : [Product]
+//    {
+//        willSet {
+//            objectWillChange.send()
+//        }
+//    }
 	@Published var ingredients : [Ingredient]
+//    {
+//        willSet {
+//            objectWillChange.send()
+//        }
+//    }
 	@Published var recipes : [Recipe]
+//    {
+//        willSet {
+//            objectWillChange.send()
+//        }
+//    }
 	
-    init(products : [Product] = [Product](), recipes : [Recipe] = [Recipe](), ingredients : [Ingredient] = [Ingredient](), name : String = "Untitled", ownerId : UUID = UUID(), memberIds : [UUID] = [UUID]()){
+    init(products : [Product] = [Product](), recipes : [Recipe] = [Recipe](), ingredients : [Ingredient] = [Ingredient](), name : String = "Untitled", ownerId : UUID = UUID(), memberIds : [UUID] = [UUID](), kitchenId : UUID = UUID()){
 		self.products = products
 		self.recipes = recipes
 		self.ingredients = ingredients
@@ -35,6 +51,7 @@ class Kitchen : ObservableObject, Identifiable {
         self.name = name
         self.memberIds = [ownerId]
         self.memberIds.append(contentsOf: memberIds)
+        self.kitchenId = kitchenId
 	}
     
     func copy(with zone: NSZone? = nil) -> Any {
