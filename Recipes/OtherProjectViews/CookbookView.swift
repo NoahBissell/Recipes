@@ -18,6 +18,11 @@ struct CookbookView: View {
                         CardView(image: "BrowseRecipe Image", title: "Browse Recipes", description: "Broaden your horizons by giving some new foods or recipes a try.")
                     })
                     NavigationLink(destination: SavedRecipesView(), label: {
+                        Image(systemName: "star")
+                            
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                            
                         CardView(image: "SavedRecipes Image", title: "Saved Recipes", description: "Open up your old cookbook of favorite recipes.")
                     })
                 }

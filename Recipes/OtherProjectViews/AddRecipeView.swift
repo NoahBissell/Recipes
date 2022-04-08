@@ -4,11 +4,11 @@
 //
 //  Created by Noah Bissell on 1/27/22.
 //
-
+ 
 import SwiftUI
 import struct Kingfisher.KFImage
-
-
+ 
+ 
 struct AddRecipeView: View {
     @EnvironmentObject var kitchens : Kitchens
     @EnvironmentObject var kitchenIndex : KitchenIndex
@@ -64,16 +64,20 @@ struct AddRecipeView: View {
                                                 isSaved = true
                                             }, label: {
                                                 if #available(iOS 14.5, *) {
-                                                    Label("Save", systemImage: "text.book.closed")
+                                                    Label("Favorite", systemImage: "")
                                                         .labelStyle(TitleAndIconLabelStyle())
                                                 } else {
-                                                    Text("Save")
+                                                    Label("Favorite", systemImage: "")
                                                 }
                                             })
                                         }
+                                        
+                                        
+                                        
+                                        
                                         else{
                                             if #available(iOS 14.5, *) {
-                                                Label("Saved", systemImage: "checkmark")
+                                                Label("", systemImage: "star")
                                                     .labelStyle(TitleAndIconLabelStyle())
                                             } else {
                                                 Text("Saved")
@@ -86,9 +90,12 @@ struct AddRecipeView: View {
         .navigationBarTitleDisplayMode(NavigationBarItem.TitleDisplayMode.inline)
     }
 }
-
+ 
 struct AddRecipeView_Previews: PreviewProvider {
     static var previews: some View {
         AddRecipeView(recipeResult: RecipeResult()).environmentObject(Kitchen())
     }
 }
+
+
+

@@ -110,13 +110,13 @@ struct AddProductView: View {
             }
             Stepper("Amount: \(product.quantity)")
             {
-                if(product.quantity < 25){
+                
                     if(product.storedQuantity != nil){
                         product.storedQuantity! += 1
                     }
-                }
+                
             } onDecrement: {
-                if(product.quantity > 0){
+                if(product.quantity >= 2){
                     if(product.storedQuantity != nil){
                         product.storedQuantity! -= 1
                     }
