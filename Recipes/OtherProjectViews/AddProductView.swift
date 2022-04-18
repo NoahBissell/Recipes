@@ -13,9 +13,9 @@ struct AddProductView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Binding var presentView : Bool
     
-    @Binding var kitchen : Kitchen
+    @ObservedObject var kitchen : Kitchen
     //@EnvironmentObject var kitchens : Kitchens
-    @EnvironmentObject var kitchenIndex : KitchenIndex
+//    @EnvironmentObject var kitchenIndex : KitchenIndex
     
     @State var product : Product = Product()
     
@@ -162,6 +162,6 @@ struct AddProductView: View {
 
 struct AddProductView_Previews: PreviewProvider {
     static var previews: some View {
-        AddProductView(presentView: .constant(true), kitchen: .constant(Kitchen())).environmentObject(Kitchen())
+        AddProductView(presentView: .constant(true), kitchen: Kitchen())
     }
 }

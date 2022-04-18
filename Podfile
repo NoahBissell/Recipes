@@ -12,6 +12,7 @@ target 'Recipes' do
    pod 'Firebase/Database'
    pod 'Firebase/Storage'
    pod 'Firebase/Firestore'
+   pod 'FirebaseFirestoreSwift', '> 7.0-beta'
 	
 
 end

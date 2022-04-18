@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct MainView: View {
+    
+    @EnvironmentObject var kitchens : Kitchens
+    @EnvironmentObject var kitchenIndex : KitchenIndex
 
     var body : some View {
 
 
         TabView{
-            KitchenView()
+            KitchensViewContainer()
                 .tabItem(){
                     if #available(iOS 14.5, *) {
                         Label("Kitchen", systemImage: "house")

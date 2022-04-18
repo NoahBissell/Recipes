@@ -10,21 +10,19 @@ import Foundation
 import FirebaseAuth
 import FirebaseStorage
 
+
+
 struct FirebaseFunctions {
-    static func getKitchensData(_ kitchens: Kitchens) {
+    static func getKitchensData(_ kitchen: Kitchen) {
         Auth.auth().addStateDidChangeListener { _, user in
             guard let user = user else {return}
             
-//            userInfo.email = user.email ?? ""
-//            userInfo.loggedIn = true
-            
-//            let uid = user.uid
-//
-//            Firestore.firestore().collection("users").document(uid).getDocument { document, _ in
-//                guard let document = document else {return}
-//
-//                // getting information from the user's document
-//                let imageURL = document.get("image") as? String ?? ""
+            let uid = user.uid
+            Firestore.firestore().collection("kitchens").document(kitchen.name).getDocument { document, _ in
+                guard let document = document else {return}
+                
+                // getting information from the user's document
+                let imageURL = document.get("image") as? String ?? ""
 //                userInfo.name = document.get("username") as? String ?? ""
 //
 //                Storage.storage().reference(forURL: imageURL).getData(maxSize: 1 * 1024 * 1024) { data, _ in
@@ -32,7 +30,7 @@ struct FirebaseFunctions {
 //                        userInfo.image = UIImage(data: imageData) ?? UIImage(named: "user")!
 //                    }
 //                }
-//            }
+            }
             
         }
     }

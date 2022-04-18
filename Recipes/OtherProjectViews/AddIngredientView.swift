@@ -11,9 +11,10 @@ import struct Kingfisher.KFImage
 struct AddIngredientView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Binding var presentView : Bool
+    @ObservedObject var kitchen : Kitchen
     
-    @EnvironmentObject var kitchens : Kitchens
-    @EnvironmentObject var kitchenIndex : KitchenIndex
+//    @EnvironmentObject var kitchens : Kitchens
+//    @EnvironmentObject var kitchenIndex : KitchenIndex
     @State var ingredient = Ingredient()
     @State var searchedIngredientList = [IngredientResult]()
     @State var isPresentingIngredientSearch = false
@@ -91,7 +92,7 @@ struct AddIngredientView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 if(ingredient.name != "None"){
                     Button (action: {
-                        kitchens.kitchens[kitchenIndex.index].addIngredient(ingredient: ingredient)
+                        kitchen.addIngredient(ingredient: ingredient)
                         presentView = false;
                         self.presentationMode.wrappedValue.dismiss()
                     }, label: {
@@ -110,6 +111,6 @@ struct AddIngredientView: View {
 
 struct AddIngredientView_Previews: PreviewProvider {
     static var previews: some View {
-        AddIngredientView(presentView: .constant(true)).environmentObject(Kitchen())
+        AddIngredientView(presentView: .constant(true), kitchen: Kitchen())
     }
 }
