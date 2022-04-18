@@ -11,19 +11,63 @@ import struct Kingfisher.KFImage
 struct BrowseRecipesView: View {
     @EnvironmentObject var kitchens : Kitchens
     @EnvironmentObject var kitchenIndex : KitchenIndex
-    
+    @EnvironmentObject var userInfo : UserInfo
+
     @State var ingredientFilter = false;
     @State var query = ""
     @State var fetchedRecipeList = [RecipeResult]()
-    @State private var searchMode : SearchMode = .random
-    
+    @State private var searchMode : SearchMode = .topRecipes
+    @State var isPresentingSettingsFilter = false
     private enum SearchMode : String, CaseIterable, Identifiable {
         case search
-        case random
-        case filterIngredients
-        
+        case topRecipes
+        case forYou
         var id : String { self.rawValue}
     }
+    
+    var productSearchSheet : some View {
+        VStack{
+            Spacer()
+            
+            // For some reason the keyboard dismisses after typing the first character, can't seem to figure out why
+            // Bug has gone away for me now, will keep this comment for reference
+            
+            Form{
+                Section{
+                    ScrollView{
+                    VStack{
+                        Text("Settings").font(.system(size:20))
+                        Text("Diet").font(.system(size:20))
+                        Picker(selection: $userInfo.searchSettings.diet, label:
+                                Text("Category"), content: {
+                                    ForEach(Diet.allCases) { cat in
+                                                Text(cat.rawValue.capitalized)
+                                                    .tag(cat)
+                                            }
+                                   
+                                })
+                        Text("Intolerances").font(.system(size:24))
+                        HStack{
+                            Toggle(isOn: $userInfo.searchSettings.gluten, label:{
+                                Text("Gluten").font(.system(size:20))
+                            })
+                            Toggle(isOn: $userInfo.searchSettings.dairy, label:{
+                                Text("Dairy").font(.system(size:20))
+                            })
+                        }
+                        Button("Save Changes"){
+                            self.isPresentingSettingsFilter = false
+                        }
+                    }
+                    }
+                    
+                }
+               
+                
+            }
+        }
+    }
+    
     
     var body: some View {
         VStack {
@@ -36,7 +80,7 @@ struct BrowseRecipesView: View {
                         
                         if(query.count > 0){
                             Button("Search"){
-                                Api().searchRecipes(query: query) { recipeList in
+                                Api().searchRecipes(userInfo: userInfo, query: query) { recipeList in
                                     self.fetchedRecipeList = recipeList
                                 }
                             }
@@ -44,13 +88,13 @@ struct BrowseRecipesView: View {
                     }
                     else{
                         Button("Generate Recipes"){
-                            if(searchMode == .random) {
-                                Api().getRandomRecipes { recipeList in
+                            if(searchMode == .topRecipes) {
+                                Api().getRandomRecipes(userInfo: userInfo) { recipeList in
                                     self.fetchedRecipeList = recipeList
                                 }
                             }
                             else {
-                                Api().getRecipesFromIngredients(ingredients: kitchens.kitchens[kitchenIndex.index].ingredients) { recipeList in
+                                Api().getRecipesFromIngredients(userInfo: userInfo, ingredients: kitchens.kitchens[kitchenIndex.index].ingredients) { recipeList in
                                     self.fetchedRecipeList = recipeList
                                 }
                             }
@@ -81,13 +125,32 @@ struct BrowseRecipesView: View {
                 Picker(selection: $searchMode, label:
                         Text("Browsing mode")
                        , content: {
-                    ForEach(SearchMode.allCases){ mode in
-                        Text(mode.rawValue.titleCase())
-                            .tag(mode)
-                        
-                    }
-                })
+                        ForEach(SearchMode.allCases){ mode in
+                            Text(mode.rawValue.titleCase())
+                                .tag(mode)
+                            
+                        }
+                       })
                     .pickerStyle(SegmentedPickerStyle())
+            }
+            ToolbarItem(placement: .navigationBarTrailing){
+                Button("Filter") {
+                    self.isPresentingSettingsFilter = true
+                    if(searchMode==SearchMode.topRecipes){
+                        searchMode = SearchMode.search
+                        searchMode = SearchMode.topRecipes
+                        
+                    }else if(searchMode==SearchMode.search){
+                        searchMode = SearchMode.topRecipes
+                        searchMode = SearchMode.search
+                    }else{
+                        searchMode = SearchMode.topRecipes
+                        searchMode = SearchMode.forYou
+                    }
+                }
+                .sheet(isPresented: $isPresentingSettingsFilter){
+                    productSearchSheet
+                }
             }
             //            ToolbarItem(placement: .navigationBarTrailing) {
             //                Toggle("Ingredient filter", isOn: $ingredientFilter)

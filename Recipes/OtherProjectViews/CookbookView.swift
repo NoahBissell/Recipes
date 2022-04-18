@@ -18,6 +18,7 @@ struct CookbookView: View {
                         CardView(image: "BrowseRecipe Image", title: "Browse Recipes", description: "Broaden your horizons by giving some new foods or recipes a try.")
                     })
                     NavigationLink(destination: SavedRecipesView(), label: {
+                            
                         CardView(image: "SavedRecipes Image", title: "Saved Recipes", description: "Open up your old cookbook of favorite recipes.")
                     })
                 }
