@@ -64,10 +64,10 @@ struct AddRecipeView: View {
                                                 isSaved = true
                                             }, label: {
                                                 if #available(iOS 14.5, *) {
-                                                    Label("Favorite", systemImage: "")
+                                                    Label("Add To Favorites", systemImage: "")
                                                         .labelStyle(TitleAndIconLabelStyle())
                                                 } else {
-                                                    Label("Favorite", systemImage: "")
+                                                    Label("Add To Favorites", systemImage: "")
                                                 }
                                             })
                                         }
@@ -75,9 +75,10 @@ struct AddRecipeView: View {
                                         
                                         
                                         
+                                        
                                         else{
                                             if #available(iOS 14.5, *) {
-                                                Label("", systemImage: "star")
+                                                Label("Saved To Favorites", systemImage: "")
                                                     .labelStyle(TitleAndIconLabelStyle())
                                             } else {
                                                 Text("Saved")
