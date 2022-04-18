@@ -6,26 +6,26 @@
 //
 
 import SwiftUI
-
 class UserInfo : ObservableObject {
     var name : String
     var email : String
     var password : String
     var userId : UUID
     var kitchenIds : [UUID]
-    var diet : Diet
     @Published var image : UIImage = UIImage(named: "user.png")!
     @Published var loggedIn : Bool
+    @Published var searchSettings : SearchSettings
+
     
-    init(name : String = "", email : String = "", password : String = "", diet : Diet = .none, loggedIn : Bool = false) {
+    init(name : String = "", email : String = "", password : String = "", searchSettings : SearchSettings = SearchSettings(), loggedIn : Bool = false) {
         self.name = name
         self.email = email
         self.password = password
         self.userId = UUID()
         self.kitchenIds = [UUID]()
         self.loggedIn = loggedIn
-        self.diet = diet
-        
+        self.searchSettings = searchSettings
+
         FirebaseFunctions.getUserInfo(self)
     }
 }

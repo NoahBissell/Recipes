@@ -4,24 +4,11 @@
 
 import Foundation
 
-enum Diet : CaseIterable {
-    case none
-    case vegan
-    case vegetarian 
-    case glutenFree
-    case ketogenic
-    case paleo 
-    case pescetarian
-};
 
 enum Tab : CaseIterable {
     case kitchens
     case cookbook
     case settings
 };
-
-extension Diet : Identifiable {
-    var id : Self{self}
-}
 
 

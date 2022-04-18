@@ -16,14 +16,30 @@ class Api : ObservableObject {
     //b216ab7db3b144f6af3d732e19080f8a
     //6e1210515a994e818b19fb25a2319a23
     //4753c32caf9640faa169ec11b07ad4fd
-    let apiKey : String = "b216ab7db3b144f6af3d732e19080f8a"
+    let apiKey : String = "be19bc5826a04fed982556734c3056b7"
     
-    
-    func searchRecipes(query : String, completion: @escaping ([RecipeResult]) -> ()) {
+    func dietString (userInfo: UserInfo) -> String{
+        var x : String = ""
+        if (userInfo.searchSettings.diet != Diet.none){
+           x = "&diet=\(userInfo.searchSettings.diet)"
+        }
+        if ((!userInfo.searchSettings.gluten)&&(userInfo.searchSettings.dairy)){
+            return x
+        }
+        x = x+"&intolerances="
+        if (userInfo.searchSettings.gluten){
+            x = x+"gluten,"
+        }
+        if (userInfo.searchSettings.dairy){
+            x = x+"dairy,"
+        }
+        return x
+    }
+    func searchRecipes(userInfo: UserInfo, query : String, completion: @escaping ([RecipeResult]) -> ()) {
 //        let httpQuery = query.replacingOccurrences(of: "%", with: "%25").replacingOccurrences(of: " ", with: "%20")
         let httpQuery = query.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics) ?? query
 //        print("HERE: \(httpQuery)")
-        guard let url = URL(string: "https://api.spoonacular.com/recipes/complexSearch?apiKey=\(apiKey)&sort=popularity&query=\(httpQuery)") else {return}
+        guard let url = URL(string: "https://api.spoonacular.com/recipes/complexSearch?apiKey=\(apiKey)&sort=popularity&query=\(httpQuery)\(dietString(userInfo: userInfo))") else {return}
         
         URLSession.shared.dataTask(with: url) { (data, response, errors) in
             guard let data = data else {return}
@@ -37,17 +53,17 @@ class Api : ObservableObject {
         }.resume()
     }
     
-    func getRandomRecipes(completion: @escaping ([RecipeResult]) -> ()) {
-        guard let url = URL(string: "https://api.spoonacular.com/recipes/random?apiKey=\(apiKey)&number=10") else {return}
+    func getRandomRecipes(userInfo: UserInfo, completion: @escaping ([RecipeResult]) -> ()) {
+        guard let url = URL(string: "https://api.spoonacular.com/recipes/complexSearch?apiKey=\(apiKey)&sort=random\(dietString(userInfo: userInfo))") else {return}
         
         URLSession.shared.dataTask(with: url) { (data, response, errors) in
             guard let data = data else {return}
             
             let decoder = JSONDecoder()
             do{
-                let response = try decoder.decode(RandomRecipeResponse.self, from: data)
+                let response = try decoder.decode(RecipeResponse.self, from: data)
                 DispatchQueue.main.async {
-                    completion(response.recipes)
+                    completion(response.results)
                 }
             } catch let jsonError as NSError {
                 print("JSON decode failed: \(jsonError)")
@@ -55,7 +71,7 @@ class Api : ObservableObject {
         }.resume()
     }
     
-    func getRecipesFromIngredients(ingredients: [Ingredient], completion: @escaping ([RecipeResult]) -> ()) {
+    func getRecipesFromIngredients(userInfo: UserInfo, ingredients: [Ingredient], completion: @escaping ([RecipeResult]) -> ()) {
         var ingredientString = ""
         for ingredient in ingredients {
             ingredientString += "\(ingredient.name.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics) ?? ingredient.name),"
@@ -64,7 +80,7 @@ class Api : ObservableObject {
         
         ingredientString = ingredientString.addingPercentEncoding(withAllowedCharacters: []) ?? ingredientString
         print("HERE: \(ingredientString)")
-        guard let url = URL(string: "https://api.spoonacular.com/recipes/findByIngredients?apiKey=\(apiKey)&ingredients=\(ingredientString)&ranking=2") else {return}
+        guard let url = URL(string: "https://api.spoonacular.com/recipes/findByIngredients?apiKey=\(apiKey)&ingredients=\(ingredientString)&ranking=2\(dietString(userInfo: userInfo))") else {return}
         
         URLSession.shared.dataTask(with: url) { (data, response, errors) in
             guard let data = data else {return}
@@ -245,6 +261,7 @@ class Api : ObservableObject {
             }
         }.resume()
     }
+    
 }
 
 struct StringObject : Codable {
