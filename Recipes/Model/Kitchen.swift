@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import FirebaseFirestoreSwift
 
 class KitchenIndex : ObservableObject {
     @Published var index : Int
@@ -19,8 +20,10 @@ class KitchenIndex : ObservableObject {
     }
 }
 
-class Kitchen : ObservableObject, Identifiable {
-    var kitchenId : UUID
+class Kitchen : ObservableObject, Identifiable, Codable {
+    @DocumentID var kitchenId : String?
+    
+//    var kitchenId : UUID
     var ownerId : UUID
     var memberIds : [UUID]
     var name : String
@@ -43,7 +46,7 @@ class Kitchen : ObservableObject, Identifiable {
 //        }
 //    }
 	
-    init(products : [Product] = [Product](), recipes : [Recipe] = [Recipe](), ingredients : [Ingredient] = [Ingredient](), name : String = "Untitled", ownerId : UUID = UUID(), memberIds : [UUID] = [UUID](), kitchenId : UUID = UUID()){
+    init(products : [Product] = [Product](), recipes : [Recipe] = [Recipe](), ingredients : [Ingredient] = [Ingredient](), name : String = "Untitled", ownerId : UUID = UUID(), kitchenId : String = UUID().uuidString){
 		self.products = products
 		self.recipes = recipes
 		self.ingredients = ingredients
@@ -54,19 +57,52 @@ class Kitchen : ObservableObject, Identifiable {
         self.kitchenId = kitchenId
 	}
     
-    func copy(with zone: NSZone? = nil) -> Any {
-            let copy = Kitchen(products: products, recipes: recipes, ingredients: ingredients, name: name, ownerId: ownerId, memberIds: memberIds)
-            return copy
+    enum CodingKeys: CodingKey {
+        case products
+        case ingredients
+        case recipes
+        case kitchenId
+        case ownerId
+        case name
+        case memberIds
     }
     
-    func copyElementsFrom(kitchen : Kitchen){
-        self.products = kitchen.products
-        self.ingredients = kitchen.ingredients
-        self.recipes = kitchen.recipes
-        self.ownerId = kitchen.ownerId
-        self.memberIds = kitchen.memberIds
-        self.name = kitchen.name
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        products = try container.decode([Product].self, forKey: .products)
+        ingredients = try container.decode([Ingredient].self, forKey: .ingredients)
+        recipes = try container.decode([Recipe].self, forKey: .recipes)
+        kitchenId = try container.decode(String?.self, forKey: .kitchenId)
+        ownerId = try container.decode(UUID.self, forKey: .ownerId)
+        memberIds = try container.decode([UUID].self, forKey: .memberIds)
+        name = try container.decode(String.self, forKey: .name)
     }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(products, forKey: .products)
+        try container.encode(ingredients, forKey: .ingredients)
+        try container.encode(recipes, forKey: .recipes)
+        try container.encode(kitchenId, forKey: .kitchenId)
+        try container.encode(ownerId, forKey: .ownerId)
+        try container.encode(memberIds, forKey: .memberIds)
+        try container.encode(name, forKey: .name)
+        
+    }
+    
+//    func copy(with zone: NSZone? = nil) -> Any {
+//            let copy = Kitchen(products: products, recipes: recipes, ingredients: ingredients, name: name, ownerId: ownerId, memberIds: memberIds)
+//            return copy
+//    }
+//
+//    func copyElementsFrom(kitchen : Kitchen){
+//        self.products = kitchen.products
+//        self.ingredients = kitchen.ingredients
+//        self.recipes = kitchen.recipes
+//        self.ownerId = kitchen.ownerId
+//        self.memberIds = kitchen.memberIds
+//        self.name = kitchen.name
+//    }
 	
 	// Use this function when initializing a new product in order to make sure storedQuantity is always 1
 	func createProduct(product : Product) -> Product {
@@ -103,6 +139,8 @@ class Kitchen : ObservableObject, Identifiable {
 	//            products[product] = 0
 	//        }
 	//    }
+    
+
 }
 
 class Kitchens : ObservableObject, Identifiable {

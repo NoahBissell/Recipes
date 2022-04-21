@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct KitchenView: View {
+    @EnvironmentObject var userInfo : UserInfo
     @EnvironmentObject var kitchens : Kitchens
     @EnvironmentObject var kitchenIndex : KitchenIndex
     @ObservedObject var kitchen : Kitchen
@@ -27,10 +28,17 @@ struct KitchenView: View {
         NavigationView {
             VStack{
                 
-//                Button("Debug"){
-//                    kitchens.kitchens.append(Kitchen())
-//
-//                }
+                Button("Upload kitchen to firebase"){
+                    FirebaseFunctions.updateKitchen(userInfo: userInfo, kitchen: kitchen) { completed in
+                        if(completed) {
+                            print("worked?")
+                        }
+                        else {
+                            print("didn't work?")
+                        }
+                    }
+
+                }
                 
                 Form{
                     Section(header: Text("All products")){

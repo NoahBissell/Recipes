@@ -310,7 +310,7 @@ struct Nutrition: Codable{
 	}
 }
 struct Recipe: Codable, Identifiable{
-//    @DocumentID var uid : String?
+    @DocumentID var uid : String?
 	var extendedIngredients : [ExtendedIngredient] = [ExtendedIngredient]()
 	var id: Int?
 	var title: String?
@@ -325,11 +325,28 @@ struct Recipe: Codable, Identifiable{
 	var glutenFree: Bool?
 	var nutrition: Nutrition?
 }
+extension Recipe {
+    enum CodingKeys: CodingKey {
+        case extendedIngredients
+        case id
+        case title
+        case readyInMinutes
+        case servings
+        case image
+        case summary
+        case instructions
+        case sourceUrl
+        case vegetarian
+        case vegan
+        case glutenFree
+        case nutrition
+    }
+}
 
 
 // for loading ingredients in a recipe
 struct ExtendedIngredient : Codable, Identifiable {
-//    @DocumentID var uid : String?
+    @DocumentID var uid : String?
     var id : Int = 0
     var name : String = "None"
     var image : String?
@@ -347,6 +364,15 @@ struct ExtendedIngredient : Codable, Identifiable {
         return URL(string: url)
     }
 }
+extension ExtendedIngredient {
+    enum CodingKeys: CodingKey {
+        case id
+        case name
+        case image
+        case amount
+        case unit
+    }
+}
 
 // PRODUCT STUFF
 struct ProductResult : Codable, Identifiable {
@@ -358,7 +384,7 @@ struct ProductResponse : Codable {
     var products : [ProductResult] = [ProductResult]()
 }
 struct Product : Codable, Identifiable {
-//    @DocumentID var uid : String?
+    @DocumentID var uid : String?
     var id : Int = 0
     var title : String = "None"
     var breadcrumbs : [String]?
@@ -391,11 +417,29 @@ struct Product : Codable, Identifiable {
         }
     }
 }
+extension Product {
+    enum CodingKeys: CodingKey {
+        case id
+        case title
+        case breadcrumbs
+        case image
+        case aisle
+        case classification
+    }
+}
+
 struct Classification : Codable {
-//    @DocumentID var uid : String?
+    @DocumentID var uid : String?
     var cleanTitle : String
     var category : String
     var breadcrumbs : [String]
+}
+extension Classification {
+    enum CodingKeys: CodingKey {
+        case cleanTitle
+        case category
+       case breadcrumbs
+    }
 }
 
 
@@ -409,7 +453,7 @@ struct IngredientResponse : Codable {
     var results : [IngredientResult] = [IngredientResult]()
 }
 struct Ingredient : Codable, Identifiable {
-//    @DocumentID var uid : String?
+    @DocumentID var uid : String?
     var id : Int = 0
     var name : String = "None"
     var image : String?
@@ -429,6 +473,17 @@ struct Ingredient : Codable, Identifiable {
         return URL(string: url)
     }
 }
+extension Ingredient {
+    enum CodingKeys: CodingKey {
+        case id
+        case name
+        case image
+        case amount
+        case unit
+        case possibleUnits
+    }
+}
+
 struct IngredientConversion : Codable {
     var sourceAmount : Float?
     var sourceUnit : String

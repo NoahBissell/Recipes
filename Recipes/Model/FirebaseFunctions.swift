@@ -9,39 +9,76 @@ import FirebaseFirestore
 import Foundation
 import FirebaseAuth
 import FirebaseStorage
-
+import FirebaseFirestoreSwift
 
 
 struct FirebaseFunctions {
-    static func getKitchensData(_ kitchen: Kitchen) {
+    static func getKitchensData(_userInfo : UserInfo, _ kitchens: Kitchens) {
         Auth.auth().addStateDidChangeListener { _, user in
             guard let user = user else {return}
             
             let uid = user.uid
-            Firestore.firestore().collection("kitchens").document(kitchen.name).getDocument { document, _ in
-                guard let document = document else {return}
-                
-                // getting information from the user's document
-                let imageURL = document.get("image") as? String ?? ""
-//                userInfo.name = document.get("username") as? String ?? ""
-//
-//                Storage.storage().reference(forURL: imageURL).getData(maxSize: 1 * 1024 * 1024) { data, _ in
-//                    if let imageData = data {
-//                        userInfo.image = UIImage(data: imageData) ?? UIImage(named: "user")!
-//                    }
-//                }
-            }
             
+            Firestore.firestore().collection("kitchens").addSnapshotListener { (querySnapshot, error) in
+                guard let documents = querySnapshot?.documents else {
+                    print("No documents")
+                    return
+                }
+                
+                let kitchenList = documents.compactMap { queryDocumentSnapshot -> Kitchen? in
+                    return try? queryDocumentSnapshot.data(as: Kitchen.self)
+                }
+                kitchens.kitchens = kitchenList
+                
+                //                guard let document = document else {return}
+                //
+                //                // getting information from the user's document
+                //                let imageURL = document.get("image") as? String ?? ""
+                ////                userInfo.name = document.get("username") as? String ?? ""
+                ////
+                ////                Storage.storage().reference(forURL: imageURL).getData(maxSize: 1 * 1024 * 1024) { data, _ in
+                ////                    if let imageData = data {
+                ////                        userInfo.image = UIImage(data: imageData) ?? UIImage(named: "user")!
+                ////                    }
+                ////                }
+            }
         }
     }
     
-    static func addKitchen(kitchen: Kitchen, completion: @escaping (Bool) -> ()){
+    static func addKitchen(userInfo : UserInfo, kitchen: Kitchen, completion: @escaping (Bool) -> ()){
         guard let uid = Auth.auth().currentUser?.uid else {
             completion(false)
             return
         }
-        
+        do {
+            let _ = try Firestore.firestore().collection("kitchens").addDocument(from: kitchen)
+            if let id = kitchen.kitchenId {
+                userInfo.kitchenIds.append(id)
+            }
+            else {
+                print("Kitchen has no id")
+            }
+        }
+        catch {
+            print(error)
+        }
         //Firestore.firestore().collection("kitchens").document(uid).setData()
+    }
+    
+    static func updateKitchen(userInfo: UserInfo, kitchen: Kitchen, completion: @escaping (Bool) -> ()) {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            completion(false)
+            return
+        }
+        if let id = kitchen.kitchenId {
+            try? Firestore.firestore().collection("kitchens").document(id).setData(from: kitchen, merge: true)
+            if !userInfo.kitchenIds.contains(id) {
+                userInfo.kitchenIds.append(id)
+            }
+        }
+        else {
+            print("Kitchen has no id")
+        }
     }
     
     static func getUserInfo(_ userInfo: UserInfo) {
@@ -60,11 +97,11 @@ struct FirebaseFunctions {
                 let imageURL = document.get("image") as? String ?? ""
                 userInfo.name = document.get("username") as? String ?? ""
                 
-                Storage.storage().reference(forURL: imageURL).getData(maxSize: 1 * 1024 * 1024) { data, _ in
-                    if let imageData = data {
-                        userInfo.image = UIImage(data: imageData) ?? UIImage(named: "user")!
-                    }
-                }
+//                Storage.storage().reference(forURL: imageURL).getData(maxSize: 1 * 1024 * 1024) { data, _ in
+//                    if let imageData = data {
+//                        userInfo.image = UIImage(data: imageData) ?? UIImage(named: "user")!
+//                    }
+//                }
             }
             
         }
@@ -76,7 +113,7 @@ struct FirebaseFunctions {
         userInfo.password = ""
     }
     
-    static func logina(_ userInfo: UserInfo) {
+    static func login(_ userInfo: UserInfo) {
         userInfo.email = "s015915@students.lmsd.org"
         userInfo.password = "00000000"
     }

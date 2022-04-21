@@ -60,7 +60,7 @@ struct LoginView: View {
                 .cornerRadius(30)
                 .padding()
                 Button("Auto-Log") {
-                    FirebaseFunctions.logina(userInfo)
+                    FirebaseFunctions.login(userInfo)
                     FirebaseFunctions.login(email: userInfo.email, password: userInfo.password) { success in
                         if success {
                             userInfo.loggedIn = true
