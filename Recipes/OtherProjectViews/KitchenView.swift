@@ -104,7 +104,7 @@ struct KitchenView: View {
                         }
                     }
                     
-                    Divider()
+//                    Divider()
                     
                     if(kitchen.owner.userId == userInfo.userId) {
                         
@@ -118,7 +118,7 @@ struct KitchenView: View {
                 }
             }
             
-//            .navigationTitle(kitchen.name)
+            .navigationTitle(kitchen.name)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
@@ -154,13 +154,12 @@ struct KitchenView: View {
 //                                currentKitchen = kitchen
                             }
                         }
-                        HStack {
-                            Text("Test")
-                            Button("Add a kitchen") {
-                                navigateTo = AnyView(AddKitchenView(presentView: $isAddViewActive))
+                       
+                        Button("Add a kitchen") {
+                            navigateTo = AnyView(AddKitchenView(presentView: $isAddViewActive))
                                 isAddViewActive = true
-                            }
                         }
+                        
 
                     } label: {
                         Image(systemName: "plus")
