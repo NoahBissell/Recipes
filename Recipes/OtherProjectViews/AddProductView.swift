@@ -12,6 +12,7 @@ import struct Kingfisher.KFImage
 struct AddProductView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Binding var presentView : Bool
+    @EnvironmentObject var userInfo : UserInfo
     
     @ObservedObject var kitchen : Kitchen
     //@EnvironmentObject var kitchens : Kitchens
@@ -144,6 +145,9 @@ struct AddProductView: View {
                 if(product.title != "None") {
                     Button (action: {
                         kitchen.addProduct(product: product)
+                        FirebaseFunctions.updateKitchen(userInfo: userInfo, kitchen: kitchen) { completed in
+                            //
+                        }
                         presentView = false
                         self.presentationMode.wrappedValue.dismiss()
                     }, label: {

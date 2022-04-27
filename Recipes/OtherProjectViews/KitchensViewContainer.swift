@@ -17,11 +17,17 @@ struct KitchensViewContainer: View {
     
     @EnvironmentObject var kitchens : Kitchens
     @EnvironmentObject var kitchenIndex : KitchenIndex
+    @EnvironmentObject var userInfo : UserInfo
     
     @State var viewState: ViewState = .kitchens
     
     var body: some View {
-        KitchenView(kitchen: kitchens.kitchens[kitchenIndex.index], viewState: $viewState)
+        if(kitchens.kitchens.count != 0) {
+            KitchenView(kitchen: kitchens.kitchens[kitchenIndex.index], viewState: $viewState)
+        }
+        else {
+            NoKitchensView()
+        }
     }
 }
 

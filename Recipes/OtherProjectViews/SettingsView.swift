@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var userInfo : UserInfo
+    @EnvironmentObject var kitchens : Kitchens
+    @EnvironmentObject var kitchenIndex : KitchenIndex
     @State private var showSheet = false
     
     var body: some View {
@@ -44,6 +46,9 @@ struct SettingsView: View {
                 .foregroundColor(Color.buttonText)
                 .cornerRadius(30)
                 Button("sign out") {
+                    kitchenIndex.index = 0
+                    kitchens.kitchens.removeAll()
+                    
                     FirebaseFunctions.signOut(userInfo)
                 }
                 .frame(width: UIScreen.main.bounds.width - 100)
@@ -68,5 +73,7 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView().environmentObject(UserInfo())
+            .environmentObject(Kitchens())
+            .environmentObject(KitchenIndex())
     }
 }

@@ -13,22 +13,51 @@ import FirebaseFirestoreSwift
 
 
 struct FirebaseFunctions {
-    static func getKitchensData(_userInfo : UserInfo, _ kitchens: Kitchens) {
+    
+    static func getKitchensData(_ userInfo : UserInfo, _ kitchens: Kitchens) {
         Auth.auth().addStateDidChangeListener { _, user in
             guard let user = user else {return}
-            
+            print(userInfo.kitchenIds.count)
             let uid = user.uid
+            var kitchenList : [Kitchen] = []
+            kitchens.kitchens = [Kitchen]()
+            for kitchenId in userInfo.kitchenIds {
+                Firestore.firestore().collection("kitchens").document(kitchenId).getDocument { document, error in
+                    if let document = document {
+                        do {
+                            let k = try document.data(as: Kitchen.self)
+                            kitchenList.append(k)
+                            kitchens.kitchens.append(k)
+                            print("added kit")
+                        }
+                        catch {
+                            print("errrr")
+                            print(error)
+                        }
+                    }
+                    else {
+                        print("noptional")
+                    }
+                }
+            }
             
-            Firestore.firestore().collection("kitchens").addSnapshotListener { (querySnapshot, error) in
-                guard let documents = querySnapshot?.documents else {
-                    print("No documents")
-                    return
-                }
+            
+//            Firestore.firestore().collection("kitchens").addSnapshotListener { (querySnapshot, error) in
+//                guard let documents = querySnapshot?.documents else {
+//                    print("No documents")
+//                    return
+//                }
                 
-                let kitchenList = documents.compactMap { queryDocumentSnapshot -> Kitchen? in
-                    return try? queryDocumentSnapshot.data(as: Kitchen.self)
-                }
-                kitchens.kitchens = kitchenList
+//                let kitchenList1 = documents.compactMap { queryDocumentSnapshot -> Kitchen? in
+//                    return try? queryDocumentSnapshot.data(as: Kitchen.self)
+//                }
+//                for kitchen in kitchenList1 {
+//                    if !userInfo.kitchenIds.contains(kitchen.kitchenId!) {
+//
+//                    }
+//                }
+//                kitchens.kitchens = kitchenList
+            
                 
                 //                guard let document = document else {return}
                 //
@@ -41,7 +70,8 @@ struct FirebaseFunctions {
                 ////                        userInfo.image = UIImage(data: imageData) ?? UIImage(named: "user")!
                 ////                    }
                 ////                }
-            }
+            
+            
         }
     }
     
@@ -51,6 +81,7 @@ struct FirebaseFunctions {
             return
         }
         do {
+            kitchen.owner.userId = uid
             let _ = try Firestore.firestore().collection("kitchens").addDocument(from: kitchen)
             if let id = kitchen.kitchenId {
                 userInfo.kitchenIds.append(id)
@@ -81,28 +112,89 @@ struct FirebaseFunctions {
         }
     }
     
-    static func getUserInfo(_ userInfo: UserInfo) {
+    static func updateUser(userInfo: UserInfo) {
+        Auth.auth().addStateDidChangeListener{_, user in
+            guard let user = user else {return}
+            let uid = user.uid
+            
+            try? Firestore.firestore().collection("users").document(uid).setData(from: userInfo, merge: true)
+        }
+    }
+    
+    static func searchUsers(email: String, completion: @escaping ([UserInfo]) -> ()) {
+        Firestore.firestore().collection("users").whereField("email", isEqualTo: email) .addSnapshotListener { querySnapshot, error in
+            guard let documents = querySnapshot?.documents else
+            {
+                print("no documents")
+                return
+            }
+            let users = documents.compactMap { queryDocumentSnapshot -> UserInfo? in
+                return try? queryDocumentSnapshot.data(as: UserInfo.self)
+            }
+            print("searchUsers: \(users.count)")
+            completion(users)
+        }
+        
+        
+    }
+    
+    static func getUserInfo(_ userInfo: UserInfo, completion: @escaping (Bool) -> ()) {
         Auth.auth().addStateDidChangeListener { _, user in
             guard let user = user else {return}
             
             userInfo.email = user.email ?? ""
             userInfo.loggedIn = true
             
-            let uid = user.uid
             
-            Firestore.firestore().collection("users").document(uid).getDocument { document, _ in
-                guard let document = document else {return}
-                
-                // getting information from the user's document
-                let imageURL = document.get("image") as? String ?? ""
-                userInfo.name = document.get("username") as? String ?? ""
-                
-//                Storage.storage().reference(forURL: imageURL).getData(maxSize: 1 * 1024 * 1024) { data, _ in
-//                    if let imageData = data {
-//                        userInfo.image = UIImage(data: imageData) ?? UIImage(named: "user")!
-//                    }
-//                }
+            let uid = user.uid
+            print(uid)
+            Firestore.firestore().collection("users").document(uid).getDocument { document, error in
+                if let document = document {
+                    if let u = try? document.data(as: UserInfo.self) {
+                        print("hi \(u.kitchenIds.count)")
+                        userInfo.userId = uid
+                        userInfo.email = u.email
+                        userInfo.loggedIn = u.loggedIn
+                        userInfo.password = u.password
+                        userInfo.kitchenIds = u.kitchenIds
+                        userInfo.searchSettings = u.searchSettings
+                        print("hi \(userInfo.kitchenIds.count)")
+                        completion(true)
+                    }
+                    else {
+                        print("nope")
+                    }
+                        
+                }
             }
+            
+            
+//            Firestore.firestore().collection("users").document(uid).getDocument { document, _ in
+//                guard let document = document else {return}
+//
+//                // getting information from the user's document
+//                let imageURL = document.get("image") as? String ?? ""
+//                userInfo.name = document.get("username") as? String ?? ""
+//                do {
+//                    userInfo.kitchenIds = [String]()
+//                    let dict = try document.data(as: [Int : String].self)
+//                    for (_, id) in dict {
+//                        userInfo.kitchenIds.append(id)
+//                    }
+////                    userInfo.kitchenIds = dict
+//
+//
+//                }
+//                catch {
+//                    print(error)
+//                }
+//
+////                Storage.storage().reference(forURL: imageURL).getData(maxSize: 1 * 1024 * 1024) { data, _ in
+////                    if let imageData = data {
+////                        userInfo.image = UIImage(data: imageData) ?? UIImage(named: "user")!
+////                    }
+////                }
+//            }
             
         }
     }
@@ -116,6 +208,7 @@ struct FirebaseFunctions {
     static func login(_ userInfo: UserInfo) {
         userInfo.email = "s015915@students.lmsd.org"
         userInfo.password = "00000000"
+
     }
     
     static func addUsername(username: String, completion: @escaping (Bool) -> ()){
@@ -125,6 +218,61 @@ struct FirebaseFunctions {
         }
         
         Firestore.firestore().collection("users").document(uid).setData(["username": username], merge: true)
+    }
+    
+    static func addKitchenId(kitchenIds : [String], completion : @escaping (Bool) -> ()) {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            completion(false)
+            return
+        }
+//        Firestore.firestore().collection("users").document(uid).getDocument { document, error in
+//            do {
+//                var storedKitchenIds = try document?.data(as: [String].self)
+//                storedKitchenIds? += kitchenIds
+//
+//                try Firestore.firestore().collection("users").document(uid).setData(from: storedKitchenIds, merge: true)
+//            }
+//            catch {
+//                print(error)
+//            }
+//        } s
+        print("hidfslja;")
+        Firestore.firestore().collection("users").document(uid).setData(["kitchenIds" : FieldValue.arrayUnion(kitchenIds)], merge: true)
+        
+    }
+    static func addKitchenId(userInfo: UserInfo, kitchenIds : [String], completion : @escaping (Bool) -> ()) {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            completion(false)
+            return
+        }
+//        Firestore.firestore().collection("users").document(uid).getDocument { document, error in
+//            do {
+//                var storedKitchenIds = try document?.data(as: [String].self)
+//                storedKitchenIds? += kitchenIds
+//
+//                try Firestore.firestore().collection("users").document(uid).setData(from: storedKitchenIds, merge: true)
+//            }
+//            catch {
+//                print(error)
+//            }
+//        } s
+        print("hidfslja;")
+        
+        // TODO: fix
+        if let id = userInfo.userId {
+            Firestore.firestore().collection("users").document(id).setData(["kitchenIds" : FieldValue.arrayUnion(kitchenIds)], merge: true)
+        }
+        else {
+            print("FirebaseFunctions 261")
+        }
+        
+    }
+    
+
+    
+    static func getUserId(userInfo: UserInfo) {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        userInfo.userId = uid
     }
     
     static func uploadPicture(image: UIImage, completion: @escaping (Bool) -> ()){

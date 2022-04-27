@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct MainView: View {
-    
+
     @EnvironmentObject var kitchens : Kitchens
     @EnvironmentObject var kitchenIndex : KitchenIndex
+    @EnvironmentObject var userInfo : UserInfo
+    
+    
 
     var body : some View {
 
@@ -46,6 +49,15 @@ struct MainView: View {
                     }
                 }
         }
+        .onAppear(perform: {
+            if(userInfo.loggedIn) {
+//            userInfo.initialize { completed in
+            print("by\(userInfo.kitchenIds.count)")
+                kitchens.initialize(userInfo: userInfo)
+//            }
+            }
+//            FirebaseFunctions.addUser(userInfo: userInfo)
+        })
 
 
 

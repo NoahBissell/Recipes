@@ -11,6 +11,8 @@ import struct Kingfisher.KFImage
 struct ProductView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Binding var product: Product
+    @EnvironmentObject var userInfo : UserInfo
+    @ObservedObject var kitchen : Kitchen
     
     var body: some View {
         
@@ -44,6 +46,9 @@ struct ProductView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                     Button (action: {
+                        FirebaseFunctions.updateKitchen(userInfo: userInfo, kitchen: kitchen) { completed in
+                            //
+                        }
                         self.presentationMode.wrappedValue.dismiss()
                     }, label: {
                         Text("Done")
@@ -55,6 +60,6 @@ struct ProductView: View {
 
 struct ProductView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductView(product: .constant(Product()))
+        ProductView(product: .constant(Product()), kitchen: Kitchen())
     }
 }

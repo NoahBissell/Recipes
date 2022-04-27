@@ -40,7 +40,10 @@ struct LoginView: View {
                     FirebaseFunctions.authenticate(email: userInfo.email, password: userInfo.password) { success in
                         if success {
                             userInfo.loggedIn = true
+//                            FirebaseFunctions.addUser(userInfo: userInfo)
+                            print("one")
                         }
+                        
                     }
                 }
                 .frame(width: UIScreen.main.bounds.width - 100)
@@ -52,7 +55,11 @@ struct LoginView: View {
                     FirebaseFunctions.login(email: userInfo.email, password: userInfo.password) { success in
                         if success {
                             userInfo.loggedIn = true
+//                            FirebaseFunctions.addUser(userInfo: userInfo)
+                            print("two")
                         }
+                        
+                        
                     }
                 }
                 .frame(width: UIScreen.main.bounds.width - 100)
@@ -64,8 +71,11 @@ struct LoginView: View {
                     FirebaseFunctions.login(email: userInfo.email, password: userInfo.password) { success in
                         if success {
                             userInfo.loggedIn = true
+//                            FirebaseFunctions.addUser(userInfo: userInfo)
+                            print("three")
                         }
                     }
+                    
                 }
                 .frame(width: UIScreen.main.bounds.width - 100)
                 .padding()

@@ -21,10 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 @main
 struct RecipesApp: App {
-    @StateObject var kitchens = Kitchens(kitchens: [Kitchen(), Kitchen()])
     @StateObject var userInfo = UserInfo()
+    @StateObject var kitchens = Kitchens()
     @StateObject var cookbook = Cookbook()
     @StateObject var kitchenIndex : KitchenIndex = KitchenIndex(index: 0)
+//    @StateObject var currentKitchen = Kitchen()
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     var body: some Scene {
         WindowGroup {
@@ -33,6 +34,7 @@ struct RecipesApp: App {
                 .environmentObject(userInfo)
                 .environmentObject(cookbook)
                 .environmentObject(kitchenIndex)
+//                .environmentObject(currentKitchen)
         }
     }
 }

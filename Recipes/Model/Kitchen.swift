@@ -24,9 +24,11 @@ class Kitchen : ObservableObject, Identifiable, Codable {
     @DocumentID var kitchenId : String?
     
 //    var kitchenId : UUID
-    var ownerId : UUID
-    var memberIds : [UUID]
+    var owner : UserInfo
+    var members : [UserInfo]
     var name : String
+    var glutenFree : Bool = false
+    
     @Published var products : [Product]
 //    {
 //        willSet {
@@ -46,14 +48,14 @@ class Kitchen : ObservableObject, Identifiable, Codable {
 //        }
 //    }
 	
-    init(products : [Product] = [Product](), recipes : [Recipe] = [Recipe](), ingredients : [Ingredient] = [Ingredient](), name : String = "Untitled", ownerId : UUID = UUID(), kitchenId : String = UUID().uuidString){
+    init(products : [Product] = [Product](), recipes : [Recipe] = [Recipe](), ingredients : [Ingredient] = [Ingredient](), name : String = "Untitled", owner : UserInfo = UserInfo(), kitchenId : String = UUID().uuidString){
 		self.products = products
 		self.recipes = recipes
 		self.ingredients = ingredients
-        self.ownerId = ownerId
+        self.owner = owner
         self.name = name
-        self.memberIds = [ownerId]
-        self.memberIds.append(contentsOf: memberIds)
+        self.members = [owner]
+//        self.members.append(contentsOf: members)
         self.kitchenId = kitchenId
 	}
     
@@ -62,9 +64,10 @@ class Kitchen : ObservableObject, Identifiable, Codable {
         case ingredients
         case recipes
         case kitchenId
-        case ownerId
+        case owner
         case name
-        case memberIds
+        case members
+        case glutenFree
     }
     
     required init(from decoder: Decoder) throws {
@@ -73,9 +76,10 @@ class Kitchen : ObservableObject, Identifiable, Codable {
         ingredients = try container.decode([Ingredient].self, forKey: .ingredients)
         recipes = try container.decode([Recipe].self, forKey: .recipes)
         kitchenId = try container.decode(String?.self, forKey: .kitchenId)
-        ownerId = try container.decode(UUID.self, forKey: .ownerId)
-        memberIds = try container.decode([UUID].self, forKey: .memberIds)
+        owner = try container.decode(UserInfo.self, forKey: .owner)
+        members = try container.decode([UserInfo].self, forKey: .members)
         name = try container.decode(String.self, forKey: .name)
+        glutenFree = try container.decode(Bool.self, forKey: .glutenFree)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -84,10 +88,10 @@ class Kitchen : ObservableObject, Identifiable, Codable {
         try container.encode(ingredients, forKey: .ingredients)
         try container.encode(recipes, forKey: .recipes)
         try container.encode(kitchenId, forKey: .kitchenId)
-        try container.encode(ownerId, forKey: .ownerId)
-        try container.encode(memberIds, forKey: .memberIds)
+        try container.encode(owner, forKey: .owner)
+        try container.encode(members, forKey: .members)
         try container.encode(name, forKey: .name)
-        
+        try container.encode(glutenFree, forKey: .glutenFree)
     }
     
 //    func copy(with zone: NSZone? = nil) -> Any {
@@ -150,5 +154,13 @@ class Kitchens : ObservableObject, Identifiable {
     }
     init(){
         self.kitchens = [Kitchen]()
+    }
+    init(userInfo: UserInfo) {
+        self.kitchens = [Kitchen]()
+        FirebaseFunctions.getKitchensData(userInfo, self)
+    }
+    func initialize(userInfo: UserInfo) {
+        self.kitchens = [Kitchen]()
+        FirebaseFunctions.getKitchensData(userInfo, self)
     }
 }

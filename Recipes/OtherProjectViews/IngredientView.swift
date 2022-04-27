@@ -10,6 +10,8 @@ import struct Kingfisher.KFImage
 
 struct IngredientView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var userInfo : UserInfo
+    @ObservedObject var kitchen : Kitchen
 
     @Binding var ingredient : Ingredient
     var body: some View {
@@ -39,6 +41,9 @@ struct IngredientView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button (action: {
+                    FirebaseFunctions.updateKitchen(userInfo: userInfo, kitchen: kitchen) { completed in
+                        //
+                    }
                     self.presentationMode.wrappedValue.dismiss()
                 }, label: {
                     Text("Done")
@@ -50,6 +55,6 @@ struct IngredientView: View {
 
 struct IngredientView_Previews: PreviewProvider {
     static var previews: some View {
-        IngredientView(ingredient: .constant(Ingredient()))
+        IngredientView(kitchen: Kitchen(), ingredient: .constant(Ingredient()))
     }
 }

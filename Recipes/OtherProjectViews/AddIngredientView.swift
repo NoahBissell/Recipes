@@ -12,7 +12,7 @@ struct AddIngredientView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Binding var presentView : Bool
     @ObservedObject var kitchen : Kitchen
-    
+    @EnvironmentObject var userInfo : UserInfo
 //    @EnvironmentObject var kitchens : Kitchens
 //    @EnvironmentObject var kitchenIndex : KitchenIndex
     @State var ingredient = Ingredient()
@@ -93,6 +93,9 @@ struct AddIngredientView: View {
                 if(ingredient.name != "None"){
                     Button (action: {
                         kitchen.addIngredient(ingredient: ingredient)
+                        FirebaseFunctions.updateKitchen(userInfo: userInfo, kitchen: kitchen) { completed in
+                            //
+                        }
                         presentView = false;
                         self.presentationMode.wrappedValue.dismiss()
                     }, label: {
