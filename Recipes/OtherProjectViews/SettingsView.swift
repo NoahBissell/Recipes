@@ -13,6 +13,7 @@ struct SettingsView: View {
     @EnvironmentObject var kitchenIndex : KitchenIndex
     @State private var showSheet = false
     
+    
     var body: some View {
         ZStack {
             Rectangle()
@@ -32,8 +33,9 @@ struct SettingsView: View {
                         .keyboardType(.emailAddress)
                         .padding()
                         .disableAutocorrection(true)
-                        .onChange(of: userInfo.name, perform: { _ in
-                            FirebaseFunctions.addUsername(username: userInfo.name) { _ in}
+                        .onChange(of: userInfo.name, perform: { newValue in
+                            print("updating?")
+                            FirebaseFunctions.updateUser(userInfo: userInfo)
                         })
                 }
                 
@@ -46,9 +48,6 @@ struct SettingsView: View {
                 .foregroundColor(Color.buttonText)
                 .cornerRadius(30)
                 Button("sign out") {
-                    kitchenIndex.index = 0
-                    kitchens.kitchens.removeAll()
-                    
                     FirebaseFunctions.signOut(userInfo)
                 }
                 .frame(width: UIScreen.main.bounds.width - 100)
@@ -67,7 +66,9 @@ struct SettingsView: View {
         }, content: {
 //            ImagePicker(selectedImage: $userInfo.image)
         })
+        
     }
+    
 }
 
 struct SettingsView_Previews: PreviewProvider {

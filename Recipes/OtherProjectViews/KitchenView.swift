@@ -12,7 +12,7 @@ struct KitchenView: View {
     @EnvironmentObject var kitchens : Kitchens
     @EnvironmentObject var kitchenIndex : KitchenIndex
 //    @EnvironmentObject var currentKitchen : Kitchen
-    @ObservedObject var kitchen : Kitchen 
+    @ObservedObject var kitchen : Kitchen
     @State var isAddViewActive = false
     @State var navigateTo : AnyView?
     

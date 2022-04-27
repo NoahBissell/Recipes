@@ -40,7 +40,7 @@ struct LoginView: View {
                     FirebaseFunctions.authenticate(email: userInfo.email, password: userInfo.password) { success in
                         if success {
                             userInfo.loggedIn = true
-//                            FirebaseFunctions.addUser(userInfo: userInfo)
+                            FirebaseFunctions.updateUser(userInfo: userInfo)
                             print("one")
                         }
                         

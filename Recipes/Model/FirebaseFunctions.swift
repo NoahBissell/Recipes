@@ -153,6 +153,7 @@ struct FirebaseFunctions {
                     if let u = try? document.data(as: UserInfo.self) {
                         print("hi \(u.kitchenIds.count)")
                         userInfo.userId = uid
+                        userInfo.name = u.name
                         userInfo.email = u.email
                         userInfo.loggedIn = u.loggedIn
                         userInfo.password = u.password
@@ -217,7 +218,7 @@ struct FirebaseFunctions {
             return
         }
         
-        Firestore.firestore().collection("users").document(uid).setData(["username": username], merge: true)
+        Firestore.firestore().collection("users").document(uid).setData(["name" : username], merge: true)
     }
     
     static func addKitchenId(kitchenIds : [String], completion : @escaping (Bool) -> ()) {

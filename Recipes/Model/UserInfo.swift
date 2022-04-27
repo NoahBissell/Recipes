@@ -10,11 +10,11 @@ import FirebaseFirestoreSwift
 
 class UserInfo : ObservableObject, Codable, Identifiable {
     @DocumentID var userId : String?
-    var name : String
-    var email : String
-    var password : String
+    @Published var name : String
+    @Published var email : String
+    @Published var password : String
 //    var userId : UUID
-    var kitchenIds : [String]
+    @Published var kitchenIds : [String]
     @Published var image : UIImage = UIImage(named: "user.png")!
     @Published var loggedIn : Bool
     @Published var searchSettings : SearchSettings

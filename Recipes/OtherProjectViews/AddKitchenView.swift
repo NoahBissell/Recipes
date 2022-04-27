@@ -47,7 +47,8 @@ struct AddKitchenView: View {
                     kitchens.kitchens.append(kitchen)
                     userInfo.kitchenIds.append(kitchen.kitchenId!)
 //                    kitchen.ownerId = userInfo.userId
-                    FirebaseFunctions.addKitchen(userInfo: userInfo, kitchen: kitchen) { completed in
+                    kitchen.owner = userInfo
+                    FirebaseFunctions.updateKitchen(userInfo: userInfo, kitchen: kitchen) { completed in
                         //
                     }
                     FirebaseFunctions.updateUser(userInfo: userInfo)

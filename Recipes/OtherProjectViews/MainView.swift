@@ -52,7 +52,9 @@ struct MainView: View {
         .onAppear(perform: {
             if(userInfo.loggedIn) {
 //            userInfo.initialize { completed in
-            print("by\(userInfo.kitchenIds.count)")
+                kitchenIndex.index = 0
+                kitchens.kitchens.removeAll()
+                print("by\(userInfo.kitchenIds.count)")
                 kitchens.initialize(userInfo: userInfo)
 //            }
             }
