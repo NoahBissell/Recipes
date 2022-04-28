@@ -41,13 +41,13 @@ struct SettingsView: View {
                                 print("updating?")
                                 FirebaseFunctions.updateUser(userInfo: userInfo)
                             })
-                            .padding()
+//                            .padding()
                     }
                     .background(Color.foreground)
                     .frame(width: geo.size.width * 0.9)
                     .cornerRadius(20)
                     .padding()
-                    
+                    .shadow(radius:20)
                     Button(
                         action: {
                             showSheet = true
@@ -60,8 +60,8 @@ struct SettingsView: View {
                         .background(Color.buttonBackground)
                         .foregroundColor(Color.buttonText)
                         .cornerRadius(30)
-                    
                         .padding()
+                        .shadow(radius:20)
                     Button(
                         action: {
                             FirebaseFunctions.signOut(userInfo)
@@ -74,8 +74,8 @@ struct SettingsView: View {
                         .background(Color.buttonBackground)
                         .foregroundColor(Color.buttonText)
                         .cornerRadius(30)
-                    
                         .padding()
+                        .shadow(radius:20)
 //                }
                 
                 }
