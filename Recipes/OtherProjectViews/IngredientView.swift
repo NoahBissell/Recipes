@@ -55,6 +55,7 @@ struct IngredientView: View {
                                 }
                             }
                             .id(ingredient.possibleUnits)
+                            .pickerStyle(MenuPickerStyle())
                         }
                         .padding()
                     }

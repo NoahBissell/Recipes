@@ -100,6 +100,7 @@ struct AddIngredientView: View {
                                 }
                             }
                             .id(ingredient.possibleUnits)
+                            .pickerStyle(MenuPickerStyle())
                         }
                         .padding()
                         
