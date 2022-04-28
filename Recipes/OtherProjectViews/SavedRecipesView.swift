@@ -23,6 +23,11 @@ struct SavedRecipesView: View {
     }
     
     var body: some View {
+        ZStack {
+            Rectangle()
+                .foregroundColor(.background)
+                .edgesIgnoringSafeArea(.all)
+        
         ScrollView {
             VStack {
                 ForEach(kitchens.kitchens[kitchenIndex.index].recipes){ recipe in
@@ -38,6 +43,7 @@ struct SavedRecipesView: View {
             }
             .navigationTitle("My Cookbook")
         }
+    }
     }
     
 }

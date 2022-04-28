@@ -19,13 +19,14 @@ struct LoginView: View {
                 //                .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
                 //                .cornerRadius(50)
                 VStack {
+                    Text("Dysh")
+                    .fontWeight(.medium)
+                    .font(.largeTitle)
+                    .foregroundColor(Color.black)
                     ZStack {
                         Image("dysh icon")
                             .resizable()
-                        Text("Dysh")
-                        .fontWeight(.medium)
-                        .font(.title)
-                        .foregroundColor(Color.black)
+                        
                     }
                     //                    .foregroundColor(.white)
                     
@@ -55,9 +56,11 @@ struct LoginView: View {
                         }
                         .padding()
                     }
+                    
                     .background(Color.foreground)
                     .frame(width: geo.size.width * 0.9)
                     .cornerRadius(30)
+                    .shadow(radius: 20)
                     Button(action: {
                         FirebaseFunctions.forgotPassword(email: userInfo.email) { success in
                             
@@ -72,6 +75,7 @@ struct LoginView: View {
                     //                .background(Color.buttonBackground)
                         .foregroundColor(Color.blue)
                         .cornerRadius(30)
+                        
                     
                     
                     
@@ -98,6 +102,7 @@ struct LoginView: View {
                         .foregroundColor(Color.buttonText)
                         .cornerRadius(30)
                         .frame(width: UIScreen.main.bounds.width - 100)
+                        .shadow(radius:10)
                     
                     Button(action: {
                         FirebaseFunctions.login(email: userInfo.email, password: userInfo.password) { success in
@@ -119,6 +124,7 @@ struct LoginView: View {
                         .background(Color.buttonBackground)
                         .foregroundColor(Color.buttonText)
                         .cornerRadius(30)
+                        .shadow(radius: 10)
                         .frame(width: UIScreen.main.bounds.width - 100)
                     //
                     
