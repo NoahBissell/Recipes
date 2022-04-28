@@ -31,41 +31,67 @@ struct BrowseRecipesView: View {
             
             // For some reason the keyboard dismisses after typing the first character, can't seem to figure out why
             // Bug has gone away for me now, will keep this comment for reference
-            
+            Text("Filter Settings")
+            .fontWeight(.semibold)
+            .font(.title2)
+            .alignmentGuide(.leading) { d in d[.leading]}
             Form{
+                
                 Section{
-                    ScrollView{
+                    
+                        
                     VStack{
-                        Text("Settings").font(.system(size:20))
-                        Text("Diet").font(.system(size:20))
+                        
+                            
+//                            .font(.system(size:20))
+                        Text("Diet")
+                            .font(.title3)
+//                            .font(.system(size:20))
                         Picker(selection: $userInfo.searchSettings.diet, label:
-                                Text("Category"), content: {
+                                Text("Diet"), content: {
                                     ForEach(Diet.allCases) { cat in
                                                 Text(cat.rawValue.capitalized)
                                                     .tag(cat)
                                             }
                                    
                                 })
-                        Text("Intolerances").font(.system(size:24))
-                        HStack{
+                            .pickerStyle(WheelPickerStyle())
+                    }
+                    }
+                    Section {
+                        Text("Intolerances")
+                            .font(.title3)
+//                            .font(.system(size:24))
+                        VStack{
                             Toggle(isOn: $userInfo.searchSettings.gluten, label:{
-                                Text("Gluten").font(.system(size:20))
+                                Text("Gluten")
+                                    .fontWeight(.thin)
+//                                    .font(.system(size:20))
                             })
                             Toggle(isOn: $userInfo.searchSettings.dairy, label:{
-                                Text("Dairy").font(.system(size:20))
+                                Text("Dairy")
+                                    .fontWeight(.thin)
+//                                    .font(.system(size:20))
                             })
                         }
                         Button("Save Changes"){
                             self.isPresentingSettingsFilter = false
                         }
                     }
+                Section {
+                    Button("Save Changes"){
+                        self.isPresentingSettingsFilter = false
                     }
-                    
                 }
+                    
+                    }
+            }
+                    
+                
                
                 
-            }
-        }
+    
+        
     }
     
     

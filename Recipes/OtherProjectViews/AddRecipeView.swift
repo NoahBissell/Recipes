@@ -18,6 +18,10 @@ struct AddRecipeView: View {
     @State var recipe = Recipe()
     
     var body: some View {
+        ZStack {
+            Rectangle()
+                .foregroundColor(Color.background)
+                .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         ScrollView {
             VStack {
                 KFImage(recipe.image)
@@ -89,6 +93,7 @@ struct AddRecipeView: View {
         }
         .navigationTitle(recipeResult.title ?? "")
         .navigationBarTitleDisplayMode(NavigationBarItem.TitleDisplayMode.inline)
+    }
     }
 }
  

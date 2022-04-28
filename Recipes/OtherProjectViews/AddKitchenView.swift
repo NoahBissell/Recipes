@@ -10,7 +10,7 @@ import SwiftUI
 struct AddKitchenView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 //    @State var kitchenName : String
-    @State var kitchen : Kitchen = Kitchen()
+    @StateObject var kitchen : Kitchen = Kitchen()
     @EnvironmentObject var userInfo : UserInfo
     @EnvironmentObject var kitchens : Kitchens
     @State var isPresentingSheet : Bool = false
@@ -19,11 +19,15 @@ struct AddKitchenView: View {
     var body: some View {
         VStack {
             List {
-                Text(kitchen.name)
-                    .font(.title)
-                    .fontWeight(.bold)
-                    
-                TextField("Kitchen name", text: $kitchen.name)
+//                Text(kitchen.name)
+//                    .font(.title)
+//                    .fontWeight(.bold)
+                HStack {
+                    Text("Name:")
+                        .fontWeight(.thin)
+                    TextField("Kitchen name", text: $kitchen.name)
+                        .foregroundColor(.gray)
+                }
                 
                 Section(header: Text("Allergens")) {
                     Toggle("Gluten-free", isOn: $kitchen.glutenFree)
@@ -34,12 +38,13 @@ struct AddKitchenView: View {
                         isPresentingSheet = true
                     }
                     .sheet(isPresented: $isPresentingSheet, content: {
-                            AddMemberView(kitchen: $kitchen)}
+                            AddMemberView(kitchen: kitchen)}
                     )
                 }
             }
+            .background(Color.background)
         }
-//        .navigationTitle(kitchen.name)
+        .navigationTitle(kitchen.name)
         
         .toolbar(content: {
             ToolbarItem(placement: .navigationBarTrailing) {

@@ -10,6 +10,7 @@
 		129706EB278DFD2400CA579C /* Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129706EA278DFD2400CA579C /* Structures.swift */; };
 		129706F3278F63E800CA579C /* IndividualRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129706F2278F63E800CA579C /* IndividualRecipeView.swift */; };
 		129706F5278F63F400CA579C /* RecipeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129706F4278F63F400CA579C /* RecipeDetail.swift */; };
+		12B06C13281A46BB0074135B /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B06C12281A46BB0074135B /* ImagePicker.swift */; };
 		30123B51E903EF8B090A9C6F /* Pods_Recipes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D9D9C4D98FAA010B62B8B16 /* Pods_Recipes.framework */; };
 		61352C2B27D91ADA008737A1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61352C2A27D91AD9008737A1 /* GoogleService-Info.plist */; };
 		61352C2F27E4F6DE008737A1 /* SearchSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61352C2E27E4F6DE008737A1 /* SearchSettings.swift */; };
@@ -83,6 +84,7 @@
 		129706EA278DFD2400CA579C /* Structures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structures.swift; sourceTree = "<group>"; };
 		129706F2278F63E800CA579C /* IndividualRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndividualRecipeView.swift; sourceTree = "<group>"; };
 		129706F4278F63F400CA579C /* RecipeDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetail.swift; sourceTree = "<group>"; };
+		12B06C12281A46BB0074135B /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		3F72F6DF70911301D6FF3DD1 /* Pods-Recipes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipes.release.xcconfig"; path = "Target Support Files/Pods-Recipes/Pods-Recipes.release.xcconfig"; sourceTree = "<group>"; };
 		61352C2A27D91AD9008737A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		61352C2E27E4F6DE008737A1 /* SearchSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSettings.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 				61CFE80227FB547100D0FCBF /* ProductSearchSheetView.swift */,
 				6FCDE5612814840000166A6E /* AddKitchenView.swift */,
 				6FCDE56328148A4900166A6E /* AddMemberView.swift */,
+				12B06C12281A46BB0074135B /* ImagePicker.swift */,
 			);
 			path = OtherProjectViews;
 			sourceTree = "<group>";
@@ -512,6 +515,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F125EAC27CFFA2600F223B6 /* ScannerCoordinator.swift in Sources */,
+				12B06C13281A46BB0074135B /* ImagePicker.swift in Sources */,
 				6F58DAC027DA657600E3E773 /* Constants.swift in Sources */,
 				6F125EBB27CFFEB000F223B6 /* MainView.swift in Sources */,
 				6F125EB427CFFA3000F223B6 /* Webview.swift in Sources */,

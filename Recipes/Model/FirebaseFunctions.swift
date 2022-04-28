@@ -118,6 +118,8 @@ struct FirebaseFunctions {
             let uid = user.uid
             
             try? Firestore.firestore().collection("users").document(uid).setData(from: userInfo, merge: true)
+            
+            
         }
     }
     
@@ -141,7 +143,7 @@ struct FirebaseFunctions {
     static func getUserInfo(_ userInfo: UserInfo, completion: @escaping (Bool) -> ()) {
         Auth.auth().addStateDidChangeListener { _, user in
             guard let user = user else {return}
-            
+            print("hear hear!")
             userInfo.email = user.email ?? ""
             userInfo.loggedIn = true
             
@@ -160,14 +162,28 @@ struct FirebaseFunctions {
                         userInfo.kitchenIds = u.kitchenIds
                         userInfo.searchSettings = u.searchSettings
                         print("hi \(userInfo.kitchenIds.count)")
+                        
+                        
+                        
                         completion(true)
                     }
                     else {
                         print("nope")
                     }
+                    if let imageURL = document.get("image") as? String {
+                        Storage.storage().reference(forURL: imageURL).getData(maxSize: 1 * 1024 * 1024) { data, error in
+                            if let imageData = data {
+                                userInfo.image = UIImage(data: imageData) ?? UIImage(named: "user.png")!
+                            }
+                        }
+                    }
+                    else {
+                        print("No image found")
+                    }
                         
                 }
-            }
+                
+            
             
             
 //            Firestore.firestore().collection("users").document(uid).getDocument { document, _ in
@@ -190,12 +206,12 @@ struct FirebaseFunctions {
 //                    print(error)
 //                }
 //
-////                Storage.storage().reference(forURL: imageURL).getData(maxSize: 1 * 1024 * 1024) { data, _ in
-////                    if let imageData = data {
-////                        userInfo.image = UIImage(data: imageData) ?? UIImage(named: "user")!
-////                    }
-////                }
-//            }
+//                Storage.storage().reference(forURL: imageURL).getData(maxSize: 1 * 1024 * 1024) { data, _ in
+//                    if let imageData = data {
+//                        userInfo.image = UIImage(data: imageData) ?? UIImage(named: "user")!
+//                    }
+//                }
+            }
             
         }
     }

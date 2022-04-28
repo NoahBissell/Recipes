@@ -24,10 +24,10 @@ class Kitchen : ObservableObject, Identifiable, Codable {
     @DocumentID var kitchenId : String?
     
 //    var kitchenId : UUID
-    var owner : UserInfo
-    var members : [UserInfo]
-    var name : String
-    var glutenFree : Bool = false
+    @Published var owner : UserInfo
+    @Published var members : [UserInfo]
+    @Published var name : String
+    @Published var glutenFree : Bool = false
     
     @Published var products : [Product]
 //    {

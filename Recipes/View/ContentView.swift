@@ -13,6 +13,8 @@ var gluten = FetchData(diet : "gluten")
 var paleo = FetchData(diet : "paleo")
 var pescetarian = FetchData(diet : "pescetarian")
 
+
+
 // creates the ImageOverlay to display over ContentView
 struct ImageOverlay: View{
     var body: some View{
@@ -67,6 +69,20 @@ struct ContentView: View {
     /*------------------------------------------*/
     // Old project
     @EnvironmentObject var userInfo : UserInfo
+    
+    init(){
+        UITableView.appearance().backgroundColor = UIColor(Color.background)
+        
+//        UIScrollView.appearance().backgroundColor = UIColor.red
+//        UINavigationBar.appearance().backgroundColor = UIColor(Color.foreground)
+//        if #available(iOS 15.0, *) {
+//            UINavigationBar.appearance().compactScrollEdgeAppearance?.backgroundColor = .red
+//        } else {
+//            // Fallback on earlier versions
+//        }
+
+    }
+    
     var body: some View {
 //        VStack{
 //            HStack(){

@@ -15,29 +15,55 @@ struct IngredientView: View {
 
     @Binding var ingredient : Ingredient
     var body: some View {
-        VStack(spacing: 20){
-            Text("Ingredient: \(ingredient.getName())")
-            
-            if(ingredient.image != nil){
-                KFImage(ingredient.getImageURL())
-            }
-            
-            Stepper(value: $ingredient.amount, in: 0.1...100.0, step: 0.1) {
-                Text("Amount: \(ingredient.amount, specifier: "%.1f")")
-            }
-            
-            HStack{
-                Text("Units: ")
-                Picker("Units", selection: $ingredient.unit) {
-                    ForEach(ingredient.possibleUnits, id: \.self){ unit in
-                        Text(unit)
+        GeometryReader{ geo in
+            ZStack {
+                Rectangle()
+                    .foregroundColor(Color.background)
+                    .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                VStack {
+                    if(ingredient.image != nil){
+                        KFImage(ingredient.getImageURL())
+                            .padding()
                     }
+                    
+                    VStack(spacing: 20){
+                        if(ingredient.name == "None") {
+                            Text("New ingredient")
+                                .font(.title2)
+                                .fontWeight(.light)
+                                .padding()
+                        }
+                        else {
+                            Text("Ingredient: \(ingredient.name)")
+                                .font(.title2)
+                                .fontWeight(.light)
+                                .padding()
+                        }
+                        
+                        
+                        
+                        Stepper(value: $ingredient.amount, in: 0.1...100.0, step: 0.1) {
+                            Text("Amount: \(ingredient.amount, specifier: "%.1f")")
+                        }
+                        .padding()
+                        
+                        HStack{
+                            Text("Units: ")
+                            Picker("Units", selection: $ingredient.unit) {
+                                ForEach(ingredient.possibleUnits, id: \.self){ unit in
+                                    Text(unit)
+                                }
+                            }
+                            .id(ingredient.possibleUnits)
+                        }
+                        .padding()
+                    }
+                    .frame(width: geo.size.width * 0.9)
+                    .background(Color.foreground)
+                    .cornerRadius(20)
+                    .shadow(radius: 20)
                 }
-                .id(ingredient.possibleUnits)
             }
-            
-        }
-        .padding()
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button (action: {
@@ -50,6 +76,7 @@ struct IngredientView: View {
                 })
             }
         }
+    }
     }
 }
 

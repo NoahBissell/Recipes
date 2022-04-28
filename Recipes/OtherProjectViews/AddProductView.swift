@@ -16,7 +16,7 @@ struct AddProductView: View {
     
     @ObservedObject var kitchen : Kitchen
     //@EnvironmentObject var kitchens : Kitchens
-//    @EnvironmentObject var kitchenIndex : KitchenIndex
+    //    @EnvironmentObject var kitchenIndex : KitchenIndex
     
     @State var product : Product = Product()
     
@@ -89,7 +89,7 @@ struct AddProductView: View {
                                 Image(systemName: "arrow.right")
                             }
                         })
-                        .buttonStyle(PlainButtonStyle())
+                            .buttonStyle(PlainButtonStyle())
                     }
                 }
             }
@@ -99,73 +99,102 @@ struct AddProductView: View {
     
     
     var body: some View {
-        
-        VStack(spacing: 20){
-            Text("Product: \(product.title)")
-            if let unwrappedClassification = product.classification{
-                //                Text("Title: \(unwrappedClassification.cleanTitle)")
-                Text("Category: \(unwrappedClassification.category)")
-            }
-            if(product.image != nil){
-                KFImage(product.image)
-            }
-            Stepper("Amount: \(product.quantity)")
-            {
-                
-                    if(product.storedQuantity != nil){
-                        product.storedQuantity! += 1
+        GeometryReader { geo in
+            ZStack {
+                Rectangle()
+                    .foregroundColor(Color.background)
+                    .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                VStack {
+                    if(product.image != nil){
+                        KFImage(product.image)
+                            .padding()
                     }
-                
-            } onDecrement: {
-                if(product.quantity >= 2){
-                    if(product.storedQuantity != nil){
-                        product.storedQuantity! -= 1
-                    }
-                }
-            }
-            
-            
-            Button("Scan from barcode"){
-                self.isPresentingScanner = true
-            }
-            .sheet(isPresented: $isPresentingScanner){
-                scannerSheet
-            }
-            Button("Search for a product"){
-                self.isPresentingProductSearch = true
-            }
-            .sheet(isPresented: $isPresentingProductSearch){
-                productSearchSheet
-            }
-            
-        }
-        .padding()
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                if(product.title != "None") {
-                    Button (action: {
-                        kitchen.addProduct(product: product)
-                        FirebaseFunctions.updateKitchen(userInfo: userInfo, kitchen: kitchen) { completed in
-                            //
+                    VStack(spacing: 20){
+                        if(product.title == "None") {
+                            Text("New product")
+                                .font(.title2)
+                                .fontWeight(.light)
+                                .padding()
                         }
-                        presentView = false
-                        self.presentationMode.wrappedValue.dismiss()
-                    }, label: {
-                        Text("Add product")
-                    })
+                        else {
+                            Text("Product: \(product.title)")
+                                .font(.title2)
+                                .fontWeight(.light)
+                                .padding()
+                        }
+                        if let unwrappedClassification = product.classification{
+                            //                Text("Title: \(unwrappedClassification.cleanTitle)")
+                            Text("\(unwrappedClassification.category.capitalized)")
+                        }
+                        
+                        
+                        Stepper("Amount: \(product.quantity)")
+                        {
+                            if(product.storedQuantity != nil){
+                                product.storedQuantity! += 1
+                            }
+                        } onDecrement: {
+                            if(product.quantity >= 2){
+                                if(product.storedQuantity != nil){
+                                    product.storedQuantity! -= 1
+                                }
+                            }
+                        }
+                        .padding()
+                        
+                        
+                        Button("Scan from barcode"){
+                            self.isPresentingScanner = true
+                        }
+                        .sheet(isPresented: $isPresentingScanner){
+                            scannerSheet
+                        }
+                        .padding()
+                        Button("Search for a product"){
+                            self.isPresentingProductSearch = true
+                        }
+                        .sheet(isPresented: $isPresentingProductSearch){
+                            productSearchSheet
+                        }
+                        .padding()
+                        
+                    }
+                    .frame(width: geo.size.width * 0.9)
+                    .background(Color.foreground)
+                    .cornerRadius(20)
+                    .shadow(radius:20)
+                    .padding()
                 }
-                else{
-                    Text("Add product")
-                        .foregroundColor(.gray)
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if(product.title != "None") {
+                        Button (action: {
+                            kitchen.addProduct(product: product)
+                            FirebaseFunctions.updateKitchen(userInfo: userInfo, kitchen: kitchen) { completed in
+                                //
+                            }
+                            presentView = false
+                            self.presentationMode.wrappedValue.dismiss()
+                        }, label: {
+                            Text("Add product")
+                        })
+                    }
+                    else{
+                        Text("Add product")
+                            .foregroundColor(.gray)
+                    }
                 }
             }
         }
     }
+    
 }
 
 
 struct AddProductView_Previews: PreviewProvider {
     static var previews: some View {
         AddProductView(presentView: .constant(true), kitchen: Kitchen())
+            .environmentObject(UserInfo())
     }
 }

@@ -13,8 +13,8 @@ struct AddIngredientView: View {
     @Binding var presentView : Bool
     @ObservedObject var kitchen : Kitchen
     @EnvironmentObject var userInfo : UserInfo
-//    @EnvironmentObject var kitchens : Kitchens
-//    @EnvironmentObject var kitchenIndex : KitchenIndex
+    //    @EnvironmentObject var kitchens : Kitchens
+    //    @EnvironmentObject var kitchenIndex : KitchenIndex
     @State var ingredient = Ingredient()
     @State var searchedIngredientList = [IngredientResult]()
     @State var isPresentingIngredientSearch = false
@@ -22,6 +22,7 @@ struct AddIngredientView: View {
     @State var selectedUnits = ""
     
     var ingredientSearchSheet : some View {
+        
         VStack{
             Spacer()
             
@@ -59,52 +60,82 @@ struct AddIngredientView: View {
     }
     
     var body: some View {
-        VStack(spacing: 20){
-            Text("Ingredient: \(ingredient.getName())")
-            
-            if(ingredient.image != nil){
-                KFImage(ingredient.getImageURL())
-            }
-            
-            Stepper(value: $ingredient.amount, in: 0.1...100.0, step: 0.1) {
-                Text("Amount: \(ingredient.amount, specifier: "%.1f")")
-            }
-
-            HStack{
-                Text("Units: ")
-                Picker("Units", selection: $ingredient.unit) {
-                    ForEach(ingredient.possibleUnits, id: \.self){ unit in
-                        Text(unit)
+        GeometryReader{ geo in
+            ZStack {
+                Rectangle()
+                    .foregroundColor(Color.background)
+                    .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                VStack {
+                    if(ingredient.image != nil){
+                        KFImage(ingredient.getImageURL())
+                            .padding()
                     }
-                }
-                .id(ingredient.possibleUnits)
-            }
-            
-            Button("Search for an ingredient"){
-                self.isPresentingIngredientSearch = true
-            }
-            .sheet(isPresented: $isPresentingIngredientSearch){
-                ingredientSearchSheet
-            }
-        }
-        .padding()
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                if(ingredient.name != "None"){
-                    Button (action: {
-                        kitchen.addIngredient(ingredient: ingredient)
-                        FirebaseFunctions.updateKitchen(userInfo: userInfo, kitchen: kitchen) { completed in
-                            //
+                    
+                    VStack(spacing: 20){
+                        if(ingredient.name == "None") {
+                            Text("New ingredient")
+                                .font(.title2)
+                                .fontWeight(.light)
+                                .padding()
                         }
-                        presentView = false;
-                        self.presentationMode.wrappedValue.dismiss()
-                    }, label: {
-                        Text("Add ingredient")
-                    })
+                        else {
+                            Text("Ingredient: \(ingredient.name)")
+                                .font(.title2)
+                                .fontWeight(.light)
+                                .padding()
+                        }
+                        
+                        
+                        
+                        Stepper(value: $ingredient.amount, in: 0.1...100.0, step: 0.1) {
+                            Text("Amount: \(ingredient.amount, specifier: "%.1f")")
+                        }
+                        .padding()
+                        
+                        HStack{
+                            Text("Units: ")
+                            Picker("Units", selection: $ingredient.unit) {
+                                ForEach(ingredient.possibleUnits, id: \.self){ unit in
+                                    Text(unit)
+                                }
+                            }
+                            .id(ingredient.possibleUnits)
+                        }
+                        .padding()
+                        
+                        Button("Search for an ingredient"){
+                            self.isPresentingIngredientSearch = true
+                        }
+                        .sheet(isPresented: $isPresentingIngredientSearch){
+                            ingredientSearchSheet
+                        }
+                        .padding()
+                    }
+                    .frame(width: geo.size.width * 0.9)
+                    .background(Color.foreground)
+                    .cornerRadius(20)
+                    .shadow(radius: 20)
                 }
-                else{
-                    Text("Add ingredient")
-                        .foregroundColor(.gray)
+            }
+//            .padding()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if(ingredient.name != "None"){
+                        Button (action: {
+                            kitchen.addIngredient(ingredient: ingredient)
+                            FirebaseFunctions.updateKitchen(userInfo: userInfo, kitchen: kitchen) { completed in
+                                //
+                            }
+                            presentView = false;
+                            self.presentationMode.wrappedValue.dismiss()
+                        }, label: {
+                            Text("Add ingredient")
+                        })
+                    }
+                    else{
+                        Text("Add ingredient")
+                            .foregroundColor(.gray)
+                    }
                 }
             }
         }
@@ -115,5 +146,6 @@ struct AddIngredientView: View {
 struct AddIngredientView_Previews: PreviewProvider {
     static var previews: some View {
         AddIngredientView(presentView: .constant(true), kitchen: Kitchen())
+            .environmentObject(UserInfo())
     }
 }

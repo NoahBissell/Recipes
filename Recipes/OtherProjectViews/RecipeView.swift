@@ -25,120 +25,131 @@ struct RecipeView: View {
     
     
     var body: some View {
+        ZStack {
+            Rectangle()
+                .foregroundColor(Color.background)
+                .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         ScrollView {
-            VStack {
-                Text(recipe.title ?? "Loading...")
-                    .font(.title)
-                    .fontWeight(.semibold)
-                KFImage(recipe.image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                RichText(html: recipe.instructions ?? "")
-                    .lineHeight(170)
-                    .imageRadius(12)
+            
+                VStack {
+                    Text(recipe.title ?? "Loading...")
+                        .font(.title)
+                        .fontWeight(.semibold)
+                    KFImage(recipe.image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                    RichText(html: recipe.instructions ?? "")
+                        .lineHeight(170)
+                        .imageRadius(12)
                     //.fontType(Font.system)
                     //.colorScheme(ColorScheme.automatic)
-                    .colorImportant(true)
+                        .colorImportant(true)
                     //.linkOpenType(.SFSafariView)
                     //.linkColor(ColorSet(light: "#007AFF", dark: "#0A84FF"))
-                    .placeholder {
-                        Text("Loading...")
-                    }
-                Divider()
-                Text("Ingredients")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                LazyVGrid(columns: columns, spacing: 20) {
-                    Text("Required in recipe")
-                        .font(.caption2)
-                    Text("What's in my kitchen")
-                        .font(.caption2)
-                    Text("Enough?")
-                        .font(.caption2)
-                    
-                    ForEach(recipe.extendedIngredients){ extendedIngredient in
-                        Text("\(extendedIngredient.amount, specifier: "%.1f") \(extendedIngredient.unit) of \(extendedIngredient.getName())")
-                        if let kitchenIngredient = kitchens.kitchens[kitchenIndex.index].ingredients.first { ingredient in
-                            ingredient.id == extendedIngredient.id
-                        }{
-                            Text("\(kitchenIngredient.amount, specifier: "%.1f") \(kitchenIngredient.unit) of \(kitchenIngredient.getName())")
-                            if(kitchenIngredient.amount >= extendedIngredient.amount){
-                                Image(systemName: "checkmark")
-                                    .foregroundColor(.green)
+                        .placeholder {
+                            Text("Loading...")
+                        }
+                    Divider()
+                    Text("Ingredients")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                    LazyVGrid(columns: columns, spacing: 20) {
+                        Text("Required in recipe")
+                            .font(.caption2)
+                        Text("What's in my kitchen")
+                            .font(.caption2)
+                        Text("Enough?")
+                            .font(.caption2)
+                        
+                        ForEach(recipe.extendedIngredients){ extendedIngredient in
+                            Text("\(extendedIngredient.amount, specifier: "%.1f") \(extendedIngredient.unit) of \(extendedIngredient.getName())")
+                            if let kitchenIngredient = kitchens.kitchens[kitchenIndex.index].ingredients.first { ingredient in
+                                ingredient.id == extendedIngredient.id
+                            }{
+                                Text("\(kitchenIngredient.amount, specifier: "%.1f") \(kitchenIngredient.unit) of \(kitchenIngredient.getName())")
+                                if(kitchenIngredient.amount >= extendedIngredient.amount){
+                                    Image(systemName: "checkmark")
+                                        .foregroundColor(.green)
+                                }
+                                else{
+                                    Image(systemName: "multiply")
+                                        .foregroundColor(.red)
+                                }
                             }
                             else{
+                                Text("0.0 \(extendedIngredient.unit) of \(extendedIngredient.getName())")
                                 Image(systemName: "multiply")
                                     .foregroundColor(.red)
                             }
                         }
-                        else{
-                            Text("0.0 \(extendedIngredient.unit) of \(extendedIngredient.getName())")
-                            Image(systemName: "multiply")
-                                .foregroundColor(.red)
-                        }
+                    }
+                    .padding()
+                    Divider()
+                    //                List(recipe.extendedIngredients){ ingredient in
+                    //                    Text(ingredient.name)
+                    //                }
+                    //                .frame(minHeight: minRowHeight * CGFloat(recipe.extendedIngredients.count + 2))
+                    
+                    Text("Ready in: ")
+                    HStack {
+                        Image(systemName: "clock")
+                        Text("\(recipe.readyInMinutes ?? 30) minutes")
+                            .font(.title)
                     }
                 }
-                .padding()
-                Divider()
-                //                List(recipe.extendedIngredients){ ingredient in
-                //                    Text(ingredient.name)
-                //                }
-                //                .frame(minHeight: minRowHeight * CGFloat(recipe.extendedIngredients.count + 2))
+            
                 
-                Text("Ready in: ")
-                HStack {
-                    Image(systemName: "clock")
-                    Text("\(recipe.readyInMinutes ?? 30) minutes")
-                        .font(.title)
-                }
-            }
-            .padding()
-            .onAppear(perform: {
-                for extendedIngredient in recipe.extendedIngredients {
-                    if let index = kitchens.kitchens[kitchenIndex.index].ingredients.firstIndex(where: { ingredient in
-                        ingredient.id == extendedIngredient.id
-                    }){
-                        if(kitchens.kitchens[kitchenIndex.index].ingredients[index].unit != extendedIngredient.unit){
-                            Api().convertUnits(ingredient: kitchens.kitchens[kitchenIndex.index].ingredients[index].name, amount: kitchens.kitchens[kitchenIndex.index].ingredients[index].amount, sourceUnit: kitchens.kitchens[kitchenIndex.index].ingredients[index].unit, targetUnit: extendedIngredient.unit) { conversion in
-                                print(conversion.targetUnit)
-                                kitchens.kitchens[kitchenIndex.index].ingredients[index].amount = conversion.targetAmount
-                                kitchens.kitchens[kitchenIndex.index].ingredients[index].unit = conversion.targetUnit
+                .padding()
+                .onAppear(perform: {
+                    for extendedIngredient in recipe.extendedIngredients {
+                        if let index = kitchens.kitchens[kitchenIndex.index].ingredients.firstIndex(where: { ingredient in
+                            ingredient.id == extendedIngredient.id
+                        }){
+                            if(kitchens.kitchens[kitchenIndex.index].ingredients[index].unit != extendedIngredient.unit){
+                                Api().convertUnits(ingredient: kitchens.kitchens[kitchenIndex.index].ingredients[index].name, amount: kitchens.kitchens[kitchenIndex.index].ingredients[index].amount, sourceUnit: kitchens.kitchens[kitchenIndex.index].ingredients[index].unit, targetUnit: extendedIngredient.unit) { conversion in
+                                    print(conversion.targetUnit)
+                                    kitchens.kitchens[kitchenIndex.index].ingredients[index].amount = conversion.targetAmount
+                                    kitchens.kitchens[kitchenIndex.index].ingredients[index].unit = conversion.targetUnit
+                                    if(kitchens.kitchens[kitchenIndex.index].ingredients[index].amount < extendedIngredient.amount) {
+                                        canMakeRecipe = false
+                                    }
+                                }
+                            }
+                            else{
                                 if(kitchens.kitchens[kitchenIndex.index].ingredients[index].amount < extendedIngredient.amount) {
                                     canMakeRecipe = false
                                 }
                             }
                         }
                         else{
-                            if(kitchens.kitchens[kitchenIndex.index].ingredients[index].amount < extendedIngredient.amount) {
-                                canMakeRecipe = false
-                            }
+                            canMakeRecipe = false
+                            print("HERE")
                         }
                     }
-                    else{
-                        canMakeRecipe = false
-                        print("HERE")
-                    }
-                }
-            })
+                    
+                    
+                })
+            }
+            
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-//                    NavigationLink(destination:
-//                        CookRecipeView()
-//                    , label: {
-//                        Button("Make this recipe"){
-//                            isPresentingMakeRecipe = true
-//                        }
-//                        .sheet(isPresented: $isPresentingMakeRecipe){
-//                            makeRecipeSheet
-//                        }
-//                    })
+                    //                    NavigationLink(destination:
+                    //                        CookRecipeView()
+                    //                    , label: {
+                    //                        Button("Make this recipe"){
+                    //                            isPresentingMakeRecipe = true
+                    //                        }
+                    //                        .sheet(isPresented: $isPresentingMakeRecipe){
+                    //                            makeRecipeSheet
+                    //                        }
+                    //                    })
                     Button("Make this recipe"){
                         isPresentingMakeRecipe = true
                     }
                     .sheet(isPresented: $isPresentingMakeRecipe){
                         MakeRecipeSheet(canMakeRecipe: $canMakeRecipe, recipe: recipe)
                     }
-
+                    
                 }
             }
         }
@@ -147,7 +158,8 @@ struct RecipeView: View {
 
 struct RecipeView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeView(recipe: Recipe()).environmentObject(Kitchen())
+        RecipeView(recipe: Recipe()).environmentObject(Kitchens())
+            .environmentObject(KitchenIndex())
     }
 }
 
@@ -194,7 +206,7 @@ struct MakeRecipeSheet : View {
                         Text("Yes"),
                         action: subtractIngredients),
                       secondaryButton: Alert.Button.destructive(
-                      Text("Cancel"),
+                        Text("Cancel"),
                         action: cancel))
             }
         }
