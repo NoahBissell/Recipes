@@ -27,24 +27,24 @@ struct AddProductView: View {
     @State var query = ""
     @State var searchedIngredientList = [IngredientResult]()
     
-    var scannerSheet : some View {
-        CodeScannerView(
-            codeTypes: [AVMetadataObject.ObjectType.ean13],
-            completion: { result in
-                if case let .success(code) = result {
-                    self.scannedCode = code.string
-                    
-                    // convert EAN13 to UPC
-                    self.scannedCode.removeFirst()
-                    Api().getProductFromUPC(upc: scannedCode) { product in
-                        self.product = kitchen.createProduct(product: product)
-                        Api().classifyProduct(product: product) { classification in
-                            self.product.classification = classification
-                        }
-                    }
-                }
-            })
-    }
+//    var scannerSheet : some View {
+//        CodeScannerView(
+//            codeTypes: [AVMetadataObject.ObjectType.ean13],
+//            completion: { result in
+//                if case let .success(code) = result {
+//                    self.scannedCode = code.string
+//
+//                    // convert EAN13 to UPC
+//                    self.scannedCode.removeFirst()
+//                    Api().getProductFromUPC(upc: scannedCode) { product in
+//                        self.product = kitchen.createProduct(product: product)
+//                        Api().classifyProduct(product: product) { classification in
+//                            self.product.classification = classification
+//                        }
+//                    }
+//                }
+//            })
+//    }
     
     var productSearchSheet : some View {
         
@@ -147,7 +147,8 @@ struct AddProductView: View {
                             self.isPresentingScanner = true
                         }
                         .sheet(isPresented: $isPresentingScanner){
-                            scannerSheet
+//                            scannerSheet
+                            productSearchSheet
                         }
                         .padding()
                         Button("Search for a product"){
