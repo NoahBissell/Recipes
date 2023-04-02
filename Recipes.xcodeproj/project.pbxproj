@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,7 @@
 		129706F3278F63E800CA579C /* IndividualRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129706F2278F63E800CA579C /* IndividualRecipeView.swift */; };
 		129706F5278F63F400CA579C /* RecipeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129706F4278F63F400CA579C /* RecipeDetail.swift */; };
 		12B06C13281A46BB0074135B /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B06C12281A46BB0074135B /* ImagePicker.swift */; };
+		12E662972984D2870067048F /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 12E662962984D2870067048F /* CodeScanner */; };
 		30123B51E903EF8B090A9C6F /* Pods_Recipes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D9D9C4D98FAA010B62B8B16 /* Pods_Recipes.framework */; };
 		61352C2B27D91ADA008737A1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61352C2A27D91AD9008737A1 /* GoogleService-Info.plist */; };
 		61352C2F27E4F6DE008737A1 /* SearchSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61352C2E27E4F6DE008737A1 /* SearchSettings.swift */; };
@@ -142,6 +143,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12E662972984D2870067048F /* CodeScanner in Frameworks */,
 				30123B51E903EF8B090A9C6F /* Pods_Recipes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,16 +271,8 @@
 			isa = PBXGroup;
 			children = (
 				6F125EA727CFFA0C00F223B6 /* RichText */,
-				6F125EA627CFFA0000F223B6 /* CodeScanner */,
 			);
 			path = Packages;
-			sourceTree = "<group>";
-		};
-		6F125EA627CFFA0000F223B6 /* CodeScanner */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CodeScanner;
 			sourceTree = "<group>";
 		};
 		6F125EA727CFFA0C00F223B6 /* RichText */ = {
@@ -349,6 +343,9 @@
 			dependencies = (
 			);
 			name = Recipes;
+			packageProductDependencies = (
+				12E662962984D2870067048F /* CodeScanner */,
+			);
 			productName = Recipes;
 			productReference = 6F0152912784B71D0027C857 /* Recipes.app */;
 			productType = "com.apple.product-type.application";
@@ -420,6 +417,9 @@
 				Base,
 			);
 			mainGroup = 6F0152882784B71D0027C857;
+			packageReferences = (
+				12E662952984D2870067048F /* XCRemoteSwiftPackageReference "CodeScanner" */,
+			);
 			productRefGroup = 6F0152922784B71D0027C857 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -708,6 +708,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Recipes/Preview Content\"";
+				DEVELOPMENT_TEAM = 63BV67GGNW;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Recipes/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -730,6 +731,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Recipes/Preview Content\"";
+				DEVELOPMENT_TEAM = 63BV67GGNW;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Recipes/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -864,6 +866,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		12E662952984D2870067048F /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		12E662962984D2870067048F /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 12E662952984D2870067048F /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6F0152892784B71D0027C857 /* Project object */;
 }

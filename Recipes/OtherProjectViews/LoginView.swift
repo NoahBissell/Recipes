@@ -143,6 +143,21 @@ struct LoginView: View {
                     //                .padding()
                     //                .cornerRadius(30)
                     //                .padding()
+                    
+                    Button(action: {
+                        userInfo.loggedIn = true
+                    }, label: {
+                        Text("Debug login")
+                            .fontWeight(.thin)
+                        //                        .font(.)
+                    })
+                        .frame(width: UIScreen.main.bounds.width - 100)
+                        .padding()
+                        .background(Color.buttonBackground)
+                        .foregroundColor(Color.buttonText)
+                        .cornerRadius(30)
+                        .shadow(radius: 10)
+                        .frame(width: UIScreen.main.bounds.width - 100)
                 }
             }
         }

@@ -59,6 +59,8 @@ class Kitchen : ObservableObject, Identifiable, Codable {
         self.kitchenId = kitchenId
 	}
     
+    
+    
     enum CodingKeys: CodingKey {
         case products
         case ingredients
