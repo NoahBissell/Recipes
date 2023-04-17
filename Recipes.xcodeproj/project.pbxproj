@@ -3,15 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12679A2129ECD1F1004EE128 /* CodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12679A2029ECD1F1004EE128 /* CodeScanner.swift */; };
+		12679A2329ECD23A004EE128 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12679A2229ECD23A004EE128 /* ScannerViewController.swift */; };
 		129706EB278DFD2400CA579C /* Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129706EA278DFD2400CA579C /* Structures.swift */; };
 		129706F3278F63E800CA579C /* IndividualRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129706F2278F63E800CA579C /* IndividualRecipeView.swift */; };
 		129706F5278F63F400CA579C /* RecipeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129706F4278F63F400CA579C /* RecipeDetail.swift */; };
 		12B06C13281A46BB0074135B /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B06C12281A46BB0074135B /* ImagePicker.swift */; };
-		12E662972984D2870067048F /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 12E662962984D2870067048F /* CodeScanner */; };
 		30123B51E903EF8B090A9C6F /* Pods_Recipes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D9D9C4D98FAA010B62B8B16 /* Pods_Recipes.framework */; };
 		61352C2B27D91ADA008737A1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61352C2A27D91AD9008737A1 /* GoogleService-Info.plist */; };
 		61352C2F27E4F6DE008737A1 /* SearchSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61352C2E27E4F6DE008737A1 /* SearchSettings.swift */; };
@@ -79,6 +80,8 @@
 
 /* Begin PBXFileReference section */
 		0D9D9C4D98FAA010B62B8B16 /* Pods_Recipes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Recipes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		12679A2029ECD1F1004EE128 /* CodeScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeScanner.swift; sourceTree = "<group>"; };
+		12679A2229ECD23A004EE128 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		129706EA278DFD2400CA579C /* Structures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structures.swift; sourceTree = "<group>"; };
 		129706F2278F63E800CA579C /* IndividualRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndividualRecipeView.swift; sourceTree = "<group>"; };
 		129706F4278F63F400CA579C /* RecipeDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetail.swift; sourceTree = "<group>"; };
@@ -143,7 +146,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12E662972984D2870067048F /* CodeScanner in Frameworks */,
 				30123B51E903EF8B090A9C6F /* Pods_Recipes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -165,6 +167,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		12679A1F29ECD1D4004EE128 /* CodeScanner */ = {
+			isa = PBXGroup;
+			children = (
+				12679A2029ECD1F1004EE128 /* CodeScanner.swift */,
+				12679A2229ECD23A004EE128 /* ScannerViewController.swift */,
+			);
+			path = CodeScanner;
+			sourceTree = "<group>";
+		};
 		163D9E93981DAC1994828424 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -270,6 +281,7 @@
 		6F125EA527CFF9F200F223B6 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				12679A1F29ECD1D4004EE128 /* CodeScanner */,
 				6F125EA727CFFA0C00F223B6 /* RichText */,
 			);
 			path = Packages;
@@ -344,7 +356,6 @@
 			);
 			name = Recipes;
 			packageProductDependencies = (
-				12E662962984D2870067048F /* CodeScanner */,
 			);
 			productName = Recipes;
 			productReference = 6F0152912784B71D0027C857 /* Recipes.app */;
@@ -418,7 +429,6 @@
 			);
 			mainGroup = 6F0152882784B71D0027C857;
 			packageReferences = (
-				12E662952984D2870067048F /* XCRemoteSwiftPackageReference "CodeScanner" */,
 			);
 			productRefGroup = 6F0152922784B71D0027C857 /* Products */;
 			projectDirPath = "";
@@ -535,6 +545,7 @@
 				61CFE80327FB547100D0FCBF /* ProductSearchSheetView.swift in Sources */,
 				C3B6C2F227C6B29E00E5481E /* RecipeSummaryView.swift in Sources */,
 				6F125E9B27CFF9A900F223B6 /* RecipeView.swift in Sources */,
+				12679A2129ECD1F1004EE128 /* CodeScanner.swift in Sources */,
 				129706EB278DFD2400CA579C /* Structures.swift in Sources */,
 				6F125EC127D2D90200F223B6 /* FirebaseFunctions.swift in Sources */,
 				6F37A239278CA124008E3F95 /* RecipeListView.swift in Sources */,
@@ -543,6 +554,7 @@
 				6F125E9927CFF9A900F223B6 /* CookRecipeView.swift in Sources */,
 				61352C2F27E4F6DE008737A1 /* SearchSettings.swift in Sources */,
 				6F125E9827CFF9A900F223B6 /* KitchenView.swift in Sources */,
+				12679A2329ECD23A004EE128 /* ScannerViewController.swift in Sources */,
 				6F125E9D27CFF9A900F223B6 /* ProductDetail.swift in Sources */,
 				6F0152972784B71D0027C857 /* ContentView.swift in Sources */,
 				6F0152952784B71D0027C857 /* RecipesApp.swift in Sources */,
@@ -866,25 +878,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		12E662952984D2870067048F /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/twostraws/CodeScanner.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		12E662962984D2870067048F /* CodeScanner */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 12E662952984D2870067048F /* XCRemoteSwiftPackageReference "CodeScanner" */;
-			productName = CodeScanner;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6F0152892784B71D0027C857 /* Project object */;
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 import AVFoundation
 import struct Kingfisher.KFImage
-import CodeScanner
+//import CodeScanner
 
 struct AddProductView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -28,6 +28,7 @@ struct AddProductView: View {
     @State var query = ""
     @State var searchedIngredientList = [IngredientResult]()
     
+    
     var scannerSheet : some View {
         CodeScannerView(
             codeTypes: [AVMetadataObject.ObjectType.ean13],
@@ -37,7 +38,7 @@ struct AddProductView: View {
 
                     // convert EAN13 to UPC
                     self.scannedCode.removeFirst()
-                    Api().getProductFromUPC(upc: scannedCode) { product in
+                    Api().getProductFromUPC(upc: self.scannedCode) { product in
                         self.product = kitchen.createProduct(product: product)
                         Api().classifyProduct(product: product) { classification in
                             self.product.classification = classification
