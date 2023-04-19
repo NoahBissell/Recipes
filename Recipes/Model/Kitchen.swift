@@ -47,8 +47,10 @@ class Kitchen : ObservableObject, Identifiable, Codable {
 //            objectWillChange.send()
 //        }
 //    }
+    
+    @Published var mealCalendar: MealCalendar
 	
-    init(products : [Product] = [Product](), recipes : [Recipe] = [Recipe](), ingredients : [Ingredient] = [Ingredient](), name : String = "Untitled", owner : UserInfo = UserInfo(), kitchenId : String = UUID().uuidString){
+    init(products : [Product] = [Product](), recipes : [Recipe] = [Recipe](), ingredients : [Ingredient] = [Ingredient](), name : String = "Untitled", owner : UserInfo = UserInfo(), kitchenId : String = UUID().uuidString, mealCalendar: MealCalendar = MealCalendar()){
 		self.products = products
 		self.recipes = recipes
 		self.ingredients = ingredients
@@ -57,6 +59,7 @@ class Kitchen : ObservableObject, Identifiable, Codable {
         self.members = [owner]
 //        self.members.append(contentsOf: members)
         self.kitchenId = kitchenId
+        self.mealCalendar = mealCalendar
 	}
     
     
@@ -70,6 +73,7 @@ class Kitchen : ObservableObject, Identifiable, Codable {
         case name
         case members
         case glutenFree
+        case mealCalendar
     }
     
     required init(from decoder: Decoder) throws {
@@ -82,6 +86,7 @@ class Kitchen : ObservableObject, Identifiable, Codable {
         members = try container.decode([UserInfo].self, forKey: .members)
         name = try container.decode(String.self, forKey: .name)
         glutenFree = try container.decode(Bool.self, forKey: .glutenFree)
+        mealCalendar = try container.decode(MealCalendar.self, forKey: .mealCalendar)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -94,6 +99,7 @@ class Kitchen : ObservableObject, Identifiable, Codable {
         try container.encode(members, forKey: .members)
         try container.encode(name, forKey: .name)
         try container.encode(glutenFree, forKey: .glutenFree)
+        try container.encode(mealCalendar, forKey: .mealCalendar)
     }
     
 //    func copy(with zone: NSZone? = nil) -> Any {

@@ -150,6 +150,10 @@ struct RecipeView: View {
                         MakeRecipeSheet(canMakeRecipe: $canMakeRecipe, recipe: recipe)
                     }
                     
+                    Button("Schedule this recipe"){
+                        
+                    }
+                    
                 }
             }
         }
@@ -212,3 +216,7 @@ struct MakeRecipeSheet : View {
         }
     }
 }
+
+
+
+

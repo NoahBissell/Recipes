@@ -37,7 +37,15 @@ struct MainView: View {
                     } else {
                         Text("Cookbook")
                     }
-
+                }
+            MealCalendarView()
+                .tabItem() {
+                    if #available(iOS 14.5, *) {
+                        Label("Meal Calendar", systemImage: "calendar")
+                            .labelStyle(TitleAndIconLabelStyle())
+                    } else {
+                        Text("Calendar")
+                    }
                 }
             SettingsView()
                 .tabItem(){
