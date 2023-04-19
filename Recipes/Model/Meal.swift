@@ -32,7 +32,7 @@ class Meal: Codable, Identifiable {
     var recipe: Recipe
     var date: Date
     var note: String
-    var id: Int?
+    var id: String?
     
     var dateComponents: DateComponents {
             var dateComponents = Calendar.current.dateComponents(
@@ -59,6 +59,7 @@ class Meal: Codable, Identifiable {
         case date
         case note
         case recipe
+        case id
     }
     
     required init(from decoder: Decoder) throws {
@@ -66,6 +67,7 @@ class Meal: Codable, Identifiable {
         mealType = try container.decode(MealType.self, forKey: .mealType)
         date = try container.decode(Date.self, forKey: .date)
         note = try container.decode(String.self, forKey: .note)
+        id = try container.decode(String.self, forKey: .id)
         recipe = try container.decode(Recipe.self, forKey: .recipe)
     }
     
@@ -74,6 +76,7 @@ class Meal: Codable, Identifiable {
         try container.encode(mealType, forKey: .mealType)
         try container.encode(date, forKey: .date)
         try container.encode(note, forKey: .note)
+        try container.encode(id, forKey: .id)
         try container.encode(recipe, forKey: .recipe)
     }
 

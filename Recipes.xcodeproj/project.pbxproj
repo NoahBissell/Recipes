@@ -58,6 +58,9 @@
 		6F58DAC827E4F4F300E3E773 /* KitchensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F58DAC727E4F4F300E3E773 /* KitchensView.swift */; };
 		6F7E356B27ECDE57006B9E93 /* Cookbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7E356A27ECDE57006B9E93 /* Cookbook.swift */; };
 		6F83C70427FE0EBF007BC2FB /* KitchensViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F83C70327FE0EBF007BC2FB /* KitchensViewContainer.swift */; };
+		6FB0B4C829F01BE8005C49D6 /* EventFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB0B4C729F01BE8005C49D6 /* EventFormView.swift */; };
+		6FB0B4CA29F01C11005C49D6 /* EventFormType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB0B4C929F01C11005C49D6 /* EventFormType.swift */; };
+		6FB0B4CC29F01C80005C49D6 /* EventFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB0B4CB29F01C80005C49D6 /* EventFormViewModel.swift */; };
 		6FCDE5622814840000166A6E /* AddKitchenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCDE5612814840000166A6E /* AddKitchenView.swift */; };
 		6FCDE56428148A4900166A6E /* AddMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCDE56328148A4900166A6E /* AddMemberView.swift */; };
 		6FCDE5662814955900166A6E /* NoKitchensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCDE5652814955900166A6E /* NoKitchensView.swift */; };
@@ -142,6 +145,9 @@
 		6F58DAC727E4F4F300E3E773 /* KitchensView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KitchensView.swift; sourceTree = "<group>"; };
 		6F7E356A27ECDE57006B9E93 /* Cookbook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cookbook.swift; sourceTree = "<group>"; };
 		6F83C70327FE0EBF007BC2FB /* KitchensViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KitchensViewContainer.swift; sourceTree = "<group>"; };
+		6FB0B4C729F01BE8005C49D6 /* EventFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventFormView.swift; sourceTree = "<group>"; };
+		6FB0B4C929F01C11005C49D6 /* EventFormType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventFormType.swift; sourceTree = "<group>"; };
+		6FB0B4CB29F01C80005C49D6 /* EventFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventFormViewModel.swift; sourceTree = "<group>"; };
 		6FCDE5612814840000166A6E /* AddKitchenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddKitchenView.swift; sourceTree = "<group>"; };
 		6FCDE56328148A4900166A6E /* AddMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemberView.swift; sourceTree = "<group>"; };
 		6FCDE5652814955900166A6E /* NoKitchensView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoKitchensView.swift; sourceTree = "<group>"; };
@@ -287,6 +293,7 @@
 				12B06C12281A46BB0074135B /* ImagePicker.swift */,
 				12679A2A29EDEB32004EE128 /* MealCalendarView.swift */,
 				12679A2C29EDF3C1004EE128 /* ScheduleMealView.swift */,
+				6FB0B4C729F01BE8005C49D6 /* EventFormView.swift */,
 			);
 			path = OtherProjectViews;
 			sourceTree = "<group>";
@@ -348,6 +355,8 @@
 				61352C2E27E4F6DE008737A1 /* SearchSettings.swift */,
 				12679A2629EDE326004EE128 /* Meal.swift */,
 				12679A2829EDE5CE004EE128 /* MealCalendar.swift */,
+				6FB0B4C929F01C11005C49D6 /* EventFormType.swift */,
+				6FB0B4CB29F01C80005C49D6 /* EventFormViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -547,10 +556,13 @@
 				6F125EB627CFFA3000F223B6 /* RichTextExtension.swift in Sources */,
 				C3B6C2F627CE9D7D00E5481E /* Kitchen.swift in Sources */,
 				6F125EA127CFF9A900F223B6 /* BrowseRecipesView.swift in Sources */,
+				6FB0B4CC29F01C80005C49D6 /* EventFormViewModel.swift in Sources */,
 				6F125EB527CFFA3000F223B6 /* RichTextEnums.swift in Sources */,
 				6F125EBF27D2D8BC00F223B6 /* LoginView.swift in Sources */,
+				6FB0B4C829F01BE8005C49D6 /* EventFormView.swift in Sources */,
 				61AAE6CD278CA3BB006792C1 /* JSONDecoder.swift in Sources */,
 				6F7E356B27ECDE57006B9E93 /* Cookbook.swift in Sources */,
+				6FB0B4CA29F01C11005C49D6 /* EventFormType.swift in Sources */,
 				6F125E9A27CFF9A900F223B6 /* CookbookView.swift in Sources */,
 				6F125E9727CFF9A900F223B6 /* AddIngredientView.swift in Sources */,
 				6F125EB327CFFA3000F223B6 /* ColorSet.swift in Sources */,
